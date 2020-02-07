@@ -51,7 +51,7 @@
                 </a>
             </li>
             <li class="br-menu-item">
-                <a href="{{ url('dustbin-list') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
+                <a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-trash-outline tx-24"></i>
                     <span class="menu-item-label">Arnido Data Demo</span>
                 </a>

@@ -1,0 +1,10 @@
+.button-bottom{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #333;
+    padding: 10px 0px;
+}
+.media-list-link:hover, .media-list-link:focus{
+    background: #e9ecef00;
+}

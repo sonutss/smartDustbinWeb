@@ -53,5 +53,7 @@ Route::any('view-details/{groupName}','PickupController@pickup_details')->name('
 
 
 
+
+
 //Route::post('vehiclelist', 'ApiController@getAllVehiclelist');
 

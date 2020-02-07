@@ -62,6 +62,43 @@
             </div>
             <div class="tab-pane fade active show" id="posts">
                 <div class="row">
+                    <div class="clearfix w-100 mg-t-20"></div>
+                    <div class="col-md-12">
+                        <div class="card shadow-base bd-0 pd-25 ">
+                         <div class=" mg-t-25">
+                             <div class="bd rounded table-responsive">
+                            <table class="table table-bordered mg-b-0" id="pickup">
+                                <thead class="thead-colored thead-light">
+                                    <tr>
+                                        <th>GSM Number</th>
+                                        <th>Dustbin Name</th>
+                                        <th>Address</th>
+                                        <th>Distance</th>
+                                        <th>Duration</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($decode['dustbinData'][0]['data'] as $key => $value)
+                                        
+                                    <tr>
+                                        <td>{{ $value['gsm_moblie_number'] }}</td>
+                                        <td><span class="text-success">{{ $value['name'] }}</span></td>
+                                        <td>{{ $value['address'] }}</td>
+                                        <td>{{ $value['distance'] }}</td>
+                                        <td>{{ $value['duration'] }}</td>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+             
+                    </div>
+            <div class="tab-pane fade active show" id="posts">
+                <div class="row">
                 <div class="clearfix w-100 mg-t-20"></div> 
                     <div class="col-lg-12">            
                         <div class="card shadow-base bd-0 pd-25 ">                        

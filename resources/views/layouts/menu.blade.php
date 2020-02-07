@@ -50,12 +50,12 @@
                     <span class="menu-item-label">Dustbin List</span>
                 </a>
             </li>
-            <li class="br-menu-item">
+            <!-- <li class="br-menu-item">
                 <a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-trash-outline tx-24"></i>
                     <span class="menu-item-label">Arnido Data Demo</span>
                 </a>
-            </li>
+            </li> -->
             <!-- <li class="br-menu-item">
                 <a href="#" class="br-menu-link with-sub">
                     <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>

@@ -76,7 +76,7 @@
 
           for(var xx=0;xx<dataSet[x].data.length;xx++){
 
-           console.log(dataSet[x].data[xx].gsm_moblie_number);
+           // console.log(dataSet[x].data[xx].gsm_moblie_number);
             //console.log(dataSet[x].data[xx].name)
             // console.log(dataSet[x].data[xx].data_percentage)
             // $("#datalist").html('');

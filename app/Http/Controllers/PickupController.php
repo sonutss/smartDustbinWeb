@@ -225,6 +225,9 @@ class PickupController extends Controller
 		    else{
 		    	return false;
 		    }	
+    }
 
+    public function getDataDustbin(){
+    	return view ('dustbin-data');
     }
 }

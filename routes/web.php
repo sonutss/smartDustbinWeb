@@ -50,7 +50,7 @@ Route::any('vehicle-not-assign','MappingController@vehicle_not_assign')->name('v
 Route::any('pickup','PickupController@pickup')->name('pickup')->middleware('CheckUserSession');
 Route::any('pickup-create','PickupController@pickup_create')->name('pickup-create')->middleware('CheckUserSession');
 Route::any('view-details/{groupName}','PickupController@pickup_details')->name('view-details')->middleware('CheckUserSession');
-
+Route::any('getDataDustbin','PickupController@getDataDustbin')->name('getDataDustbin')->middleware('CheckUserSession');
 
 
 

@@ -193,7 +193,7 @@ class DriverController extends Controller
 		    $err 	  = curl_error($curl);
 		    curl_close($curl);
 		    $decode   = json_decode($response,true);
-		   //echo "<pre>";print_r($decode['result']);die;
+		   //echo "<pre>";print_r($decode);die;
 		    if($decode['success']=='1'){
 		    	return view('driver-details',compact('decode')); 
 		    }

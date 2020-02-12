@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content=".">
     <meta name="author" content="">
-    <meta http-equiv="refresh" content="30">
+    <!-- <meta http-equiv="refresh" content="30"> -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dustbin</title>
      @include('layouts.css')
@@ -45,52 +45,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   <!--  <tr>
-                                        <td scope="row">1</td>
-                                        <td>584854851</td>
-                                        <td>DN-4545</td>
-                                        <td>5798555697864</td>
-                                        <td>7879898797667</td>                                       
-                                        <td><span class="text-danger">60%</span></td>
-                                        <td>
-                                            <button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button>                                            
-                                            <button  class="btn btn-danger btn-icon mg-b-10 btn-sm"><div><i class="fa fa-trash"></i></div></button>                                            
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="row">30</th>
-                                        <td>584854851</td>
-                                        <td>DN-4545</td>
-                                        <td>5798555697864</td>
-                                        <td>7879898797667</td>                                       
-                                        <td><span class="text-success">60%</span></td>
-                                        <td>
-                                            <button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button>                                            
-                                            <button  class="btn btn-danger btn-icon mg-b-10 btn-sm"><div><i class="fa fa-trash"></i></div></button>                                            
-                                        </td>
-                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                         <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
                             <ul class="pagination pagination-circle mg-b-0">
-                               <!--  <li class="page-item hidden-xs-down">
-                                    <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                <li class="page-item"><a class="page-link" href="#">10</a></li>
-                             
-                                <li class="page-item hidden-xs-down">
-                                    <a class="page-link" href="#" aria-label="Last"><i class="fa fa-angle-double-right"></i></a>
-                                </li> -->
                             </ul>
                         </div>
+                        <div class="col-lg-12">
+                                <div class="form-group mg-b-10-force">
+                                    <div id="map_canvas" style="width :100%;position: relative;height: 500px;">
+                                   </div>
+                                </div>
+                            </div>
                     </div>
                 </div>              
             </div>
         </div>
+        <input type="hidden" name="tocken" value="{{ Session::get('auth_key') }}" id="tocken">
          @include('layouts.footer')
     </div>
     <script src="{{ url('public/frontend/lib/jquery/jquery.min.js') }}"></script>
@@ -158,8 +130,59 @@
                 cache : false ,
             }) ;
         }
-    </script> 
+    </script>
+       <script type="text/javascript">
+       var map;   
+    function initMap() {
+        var myLatlng = new google.maps.LatLng(28.7041, 77.1025);
+        var myOptions = {
+            zoom: 8,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+         getmarkerList();
+    }
+    google.maps.event.addDomListener(window, "load", initMap());
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntPB-qN_-K60eVMgJkJEy8Dn2ZxvxC6Y&callback=initMap">
+    </script> 
+    <script type="text/javascript">
+        function getmarkerList(){
+             var markerlist = "{{ env('API_URL').'dustbinMarker' }}";
+            $.ajax({
+                url : markerlist,
+                type : 'GET',
+                async:false, 
+                headers:{ 
+                            'Access-Control-Allow-Origin': '*',       
+                            'Authorization' : $("#tocken").val()
+                        },
+                success : function(data){
+                    var data = data.dresult;
+                    var markers =[];
+                    for (var i=0; i<data.length; i++) {
+                      markers.push(
+                       marker = new google.maps.Marker({
+                          position: new google.maps.LatLng(data[i].latiude, data[i].longitude),
+                          map: map,
+                          draggable: false,
+                          icon: {
+                              url: "{{url('public/frontend/img/dustbin.png')}}"
+                            },
+                           title: data[i].name
+                        })
+
+                      );
+                }
+                    
+                },
+                cache : false ,
+            }) ;
+        }
+    </script>
     
 </body>
 

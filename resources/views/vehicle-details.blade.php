@@ -129,102 +129,46 @@
                                             <th>Driver</th>
                                             <th>No. of dustbin</th>
                                             <th>Status</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if(count($decode['dustbinData'])>0)
+                                        @foreach($decode['dustbinData'] as $key => $val)
                                         <tr>
-                                            <td><span class="text-success">or2</span></td>
-                                            <td>20 jan, 2020</td>
+                                            <td><span class="text-success">{{$val['groupName']}}</span></td>
+                                            <td> <?php $date =  date_create($val['dataassignDate']);
+                                               $date1 = date_format($date,"Y-m-d");
+                                               $yrdata= strtotime($date1);
+                                                echo date('d M,Y', $yrdata); 
+                                         ?></td>
                                             <td>
                                                 <a href="#" class="media-list-link">
                                                     <div class="media pd-y-0-force pd-x-0-force">
-                                                        <img src="{{url('public/frontend/img/img4.jpg') }}" alt="">
+                                                        <img src="{{env('STORAGE_PATH') }}/drivers/{{$val['driverphoto']}}" alt="">
                                                         <div class="media-body">
                                                         <div>
-                                                            <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
+                                                            <p class="mg-b-0 tx-medium tx-gray-800 tx-13">{{$val['driverName']}}</p>
                                                         </div>
-                                                        <p class="tx-12 tx-gray-600 mg-b-0">Abu Al qasim</p>
+                                                        <p class="tx-12 tx-gray-600 mg-b-0">{{$val['drivermobile']}}</p>
                                                         </div>
                                                     </div>
                                                 </a>
                                             </td>                                   
-                                            <td><span class="text-success">20</span></td>
-                                            <td><span class="text-success">Active</span></td>
-                                            <td>
-                                                <button onclick="location.href='order-details.php'" class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button>                                            
-                                            </td>
+                                            <td><span class="text-success">{{$val['dustbincount']}}</span></td>
+                                            <td>@if($val['assignstatus']==1)
+                                                <span class="text-success">Active</span>
+                                                @else
+                                                <span class="text-danger">Completed</span>
+                                            @endif</td>
                                         </tr>
-                                        <tr>
-                                            <td><span class="text-success">or2</span></td>
-                                            <td>20 jan, 2020</td>
-                                            <td>
-                                                <a href="#" class="media-list-link">
-                                                    <div class="media pd-y-0-force pd-x-0-force">
-                                                        <img src="{{url('public/frontend/img/img4.jpg') }}" alt="">
-                                                        <div class="media-body">
-                                                        <div>
-                                                            <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
-                                                        </div>
-                                                        <p class="tx-12 tx-gray-600 mg-b-0">Abu Al qasim</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </td>                                   
-                                            <td><span class="text-success">20</span></td>
-                                            <td><span class="text-success">Active</span></td>
-                                            <td>
-                                                <button onclick="location.href='order-details.php'" class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button>                                            
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-success">or2</span></td>
-                                            <td>20 jan, 2020</td>
-                                            <td>
-                                                <a href="#" class="media-list-link">
-                                                    <div class="media pd-y-0-force pd-x-0-force">
-                                                        <img src="{{url('public/frontend/img/img4.jpg') }}" alt="">
-                                                        <div class="media-body">
-                                                        <div>
-                                                            <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
-                                                        </div>
-                                                        <p class="tx-12 tx-gray-600 mg-b-0">Abu Al qasim</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </td>                                   
-                                            <td><span class="text-success">20</span></td>
-                                            <td><span class="text-success">Active</span></td>
-                                            <td>
-                                                <button onclick="location.href='order-details.php'" class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button>                                            
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="text-success">or2</span></td>
-                                            <td>20 jan, 2020</td>
-                                            <td>
-                                                <a href="#" class="media-list-link">
-                                                    <div class="media pd-y-0-force pd-x-0-force">
-                                                        <img src="{{url('public/frontend/img/img4.jpg') }}" alt="">
-                                                        <div class="media-body">
-                                                        <div>
-                                                            <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
-                                                        </div>
-                                                        <p class="tx-12 tx-gray-600 mg-b-0">Abu Al qasim</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </td>                                   
-                                            <td><span class="text-success">20</span></td>
-                                            <td><span class="text-success">Active</span></td>
-                                            <td>
-                                                <button onclick="location.href='order-details.php'" class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button>                                            
-                                            </td>
-                                        </tr>
+                                        @endforeach
+                                        @else
+                                        <tr><td><strong style="color: red;">No data found !!</strong></td></tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
+                            <!-- <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
                                 <ul class="pagination pagination-circle mg-b-0">
                                     <li class="page-item hidden-xs-down">
                                         <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
@@ -237,7 +181,7 @@
                                         <a class="page-link" href="#" aria-label="Last"><i class="fa fa-angle-double-right"></i></a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -252,8 +196,8 @@
                                     <thead class="thead-colored thead-light">
                                         <tr>
                                             <th>Assigned Driver</th>
-                                            <th>No. of order</th>
-                                            <th>Assigned time</th>
+                                            <!-- <th></th>
+                                            <th>Assigned time</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -272,8 +216,8 @@
                                                     </div>
                                                 </a>
                                             </td>                                   
-                                            <td><span class="text-success">50</span></td>
-                                            <td>Current</td>
+                                            <!-- <td><span class="text-success">50</span></td>
+                                            <td>Current</td> -->
                                            
                                         </tr>
                                         @endforeach

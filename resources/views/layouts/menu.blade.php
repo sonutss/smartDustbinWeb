@@ -50,6 +50,12 @@
                     <span class="menu-item-label">Dustbin List</span>
                 </a>
             </li>
+             <li class="br-menu-item">
+                <a href="{{ url('pickup-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-dustbin') ? 'active' : '' }} {{ (\Request::route()->getName() == 'edit-dustbin') ? 'active' : '' }}">
+                    <i class="menu-item-icon icon ion-ios-list-outline tx-24"></i>
+                    <span class="menu-item-label">Pickup History</span>
+                </a>
+            </li>
             <li class="br-menu-item">
                 <a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-trash-outline tx-24"></i>

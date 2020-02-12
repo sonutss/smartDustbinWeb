@@ -218,7 +218,7 @@ class PickupController extends Controller
 		    $err 	  = curl_error($curl);
 		    curl_close($curl);
 		    $decode   = json_decode($response,true);
-		  //echo "<pre>";print_r($decode['dustbinData']);die;
+		  	//dd($decode);
 		    if($decode['success']=='1'){
 		    	return view('pickup-details',compact('decode')); 
 		    }
@@ -229,5 +229,8 @@ class PickupController extends Controller
 
     public function getDataDustbin(){
     	return view ('dustbin-data');
+    }
+    public function pickup_history(){
+    	return view ('pickup-history');
     }
 }

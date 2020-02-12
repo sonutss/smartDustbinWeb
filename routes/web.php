@@ -51,9 +51,6 @@ Route::any('pickup','PickupController@pickup')->name('pickup')->middleware('Chec
 Route::any('pickup-create','PickupController@pickup_create')->name('pickup-create')->middleware('CheckUserSession');
 Route::any('view-details/{groupName}','PickupController@pickup_details')->name('view-details')->middleware('CheckUserSession');
 Route::any('getDataDustbin','PickupController@getDataDustbin')->name('getDataDustbin')->middleware('CheckUserSession');
+Route::any('pickup-history','PickupController@pickup_history')->name('pickup-history')->middleware('CheckUserSession');
 
-
-
-
-//Route::post('vehiclelist', 'ApiController@getAllVehiclelist');
 

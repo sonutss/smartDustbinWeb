@@ -21,6 +21,17 @@
                     <div class="card  shadow-base widget-7 mg-b-f-0">
                         <div class="w-100">
                             <div class="row row-sm w-100">
+                                 <div class="col-sm-6 col-lg-6 mg-t-20">
+                                    <h5 class="">Pickup Status</h5>
+                                </div>
+                                <div class="col-sm-6 col-lg-6 mg-t-20">
+                                    <p class="">
+                                        @if($decode['dustbinData'][0]['Groupstatus']==1) <strong class="text-danger">Completed</strong> 
+                                        @else 
+                                        <strong class="text-success">Active</strong>
+                                        @endif
+                                    </p>
+                                </div>
                                 <div class="col-sm-6 col-lg-6 mg-t-20">
                                     <h5 class="">Daily Pickup ID</h5>
                                     <p class="mg-b-20">{{$decode['dustbinData'][0]['groupName']}}</p>
@@ -103,7 +114,8 @@
                     <div class="col-lg-12">            
                         <div class="card shadow-base bd-0 pd-25 ">                        
                             <div class=" mg-t-25">
-                                <div style="width: 100%;position: relative;"><iframe width="100%" height="440" src="https://maps.google.com/maps?width=700&amp;height=440&amp;hl=en&amp;q=dubai+(Dubai)&amp;ie=UTF8&amp;t=&amp;z=10&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><div style="position: absolute;width: 80%;bottom: 10px;left: 0;right: 0;margin-left: auto;margin-right: auto;color: #000;text-align: center;"><small style="line-height: 1.8;font-size: 2px;background: #fff;">Powered by <a href="http://www.googlemapsgenerator.com/es/">Googlemapsgenerator.com/es/</a> & <a href="https://dnatestafkomstvergelijken.nl/">dna test afkomst gratis</a></small></div><style>#gmap_canvas img{max-width:none!important;background:none!important}</style></div><br />
+                                 <div id="map_canvas" style="width :100%;position: relative;height: 500px;">
+                                   </div>
                             </div>
                         </div>
                     </div>
@@ -149,5 +161,33 @@
                 });
             });
     </script>
+    
+    <script type="text/javascript">
+    var map;
+    function initMap() {
+        var data = "{{json_encode($decode['dustbinData'][0]['data'])}}";
+        var jsondata = JSON.parse(data.replace(/&quot;/g,'"'));
+         map = new google.maps.Map(document.getElementById('map_canvas'),
+            {
+                center:  new google.maps.LatLng(28.7041, 77.1025), 
+                zoom: 5
+            });
+            for (var i=0; i<jsondata.length; i++) {
+               var marker = new google.maps.Marker({
+                    position:new google.maps.LatLng(jsondata[i].latiude, jsondata[i].longitude),
+                  icon: {
+                          url: "{{url('public/frontend/img/dus40.png')}}"
+                        },
+                    map: map,
+                    title:jsondata[i].name
+                  });
+            }
+    }
+   
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntPB-qN_-K60eVMgJkJEy8Dn2ZxvxC6Y&callback=initMap">
+    </script> 
+   
 </body>
 </html>

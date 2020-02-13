@@ -21,7 +21,7 @@
                     <div class="clearfix w-100 mg-t-20"></div>
                     <div class="col-md-12">
                         <div class="card shadow-base bd-0 pd-25 ">
-                            <h3>Demo Data Real Time From Arnido Device</h3>
+                            <h3 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Dustbin Analytics</h3>
                          <div class=" mg-t-25">
                              <div class="bd rounded table-responsive">
                             <table class="table table-bordered mg-b-0" id="pickup">
@@ -68,7 +68,9 @@
        // console.log(JSON.stringify(data))
     });
    // socket.emit('welcomeMessage',"Welcome To Server");
-    socket.on('dustbinpickup1', (dataSet)=>{
+
+
+    socket.on('dustbinpickup', (dataSet)=>{
      $("#pickup tbody").html('');
       if(dataSet.length!=0){
        
@@ -84,10 +86,10 @@
 
             $("#pickup tbody").append('<tr>'+
                                         +'<td>'+(xx+1)+'</td>'
-                                        +'<td>'+dataSet[x].data[xx].gsm_moblie_number+'</td>'
+                                        +'<td class="text-success" style="font-weight:600">'+dataSet[x].data[xx].gsm_moblie_number+'</td>'
                                         +'<td>'+dataSet[x].data[xx].name+'</td>'
                                         +'<td>'+dataSet[x].data[xx].address+'</td>'
-                                        +'<td>'+dataSet[x].data[xx].data_percentage+'</td>'
+                                        +'<td class="text-success" style="font-weight:600">'+dataSet[x].data[xx].data_percentage+'</td>'
                                        
                                    +'</tr>');
           }

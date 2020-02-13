@@ -155,13 +155,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><span class="text-success"></span></td>
-                                        <td><span class="text-success"></span></td>
-                                        <td>
-                                                                                        
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>                        
@@ -181,7 +174,7 @@
         @include('layouts.script')
 </body>
 <script type="text/javascript">
-        getdasboard();
+        //getdasboard();
         function getdasboard(){
              var markerlist = "{{ env('API_URL').'dashboard' }}";
             $.ajax({
@@ -205,6 +198,33 @@
                         $('#no_warehouse').text(data1.warehouseTotal);
                         $('#no_dustbin').text(data1.dustbinTotal);
 
+                        $("#pickup_list tbody").html('');
+                         //console.log(data.data);
+                        if(data.data==0){
+                            console.log("blank");
+                            $("#pickup_list tbody").append('<tr><td colspan="3" style="color:red;font-weight:600">No data Found</td></tr>');
+                        }
+                        else{
+                             //console.log("data");
+                          for(var i=0;i<data.data.length;i++){
+                            var status;
+                            if(data.data[i].groupStatus==1){
+                                status ='<span class="text-danger">Completed</span>';
+                                 }
+                                 else{
+                                    status ='<span class="text-success">Active</span>';
+                                 }
+                                $("#pickup_list tbody").append('<tr>'+
+                                            +'<td>'+(i+1)+'</td>'
+                                            +'<td>'+data.data[i].groupName+'</td>'
+                                            +'<td>'+data.data[i].dustbincount+'</td>'
+                                            +'<td>'+status+'</td>'  
+                                            +'<td><a href="view-details/'+data.data[i].groupName+'"><div><i class="fa fa-eye"></i></div></a></td>'  
+                                +'</tr>');
+                           
+                            }  
+                        }
+                        
                         var markers =[];
                         var markers1 =[];
                         for (var i=0; i<data1.googleDustbinMapMarker.length; i++) {
@@ -236,35 +256,9 @@
 
                           );
                         }
-                         $("#pickup_list tbody").html('');
-                        if(data.data==0){
-                            $("#pickup_list tbody").append('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                        }
-                        else{
-                          for(var i=0;i<data.data.length;i++){
-                            var status;
-                            if(data.data[i].groupStatus==1){
-                                status ='<span class="text-danger">Completed</span>';
-                                 }
-                                 else{
-                                    status ='<span class="text-success">Active</span>';
-                                 }
-                                $("#pickup_list tbody").append('<tr>'+
-                                            +'<td>'+(i+1)+'</td>'
-                                            +'<td>'+data.data[i].groupName+'</td>'
-                                            +'<td>'+data.data[i].dustbincount+'</td>'
-                                            +'<td>'+status+'</td>'  
-                                            +'<td><a href="view-details/'+data.data[i].groupName+'"><div><i class="fa fa-eye"></i></div></a></td>'  
-                                       +'</tr>');
-                           
-                            }  
-                        }
-                        
-
+                         
                     }
-                }
-                    
-                    
+                }          
             }) ;
         }
     </script>

@@ -21,13 +21,13 @@
                 <div class="col-lg-12">            
                     <div class="card shadow-base bd-0 pd-25 ">                        
                         <h6 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Dustbin List 
-                            <button onclick="location.href='order.php'" class="btn btn-primary pd-x-15 pd-y-10 tx-bold tx-spacing-4 tx-12 btn-sm float-right mg-y-0-force"><div>back</div></button>
-                            <div class="form-group float-right mg-r-20" style="width:250px;">
+                            <button onclick="location.href='{{url('pickup')}}'" class="btn btn-primary pd-x-15 pd-y-10 tx-bold tx-spacing-4 tx-12 btn-sm float-right mg-y-0-force"><div>BACK</div></button>
+                           <!--  <div class="form-group float-right mg-r-20" style="width:250px;">
                                 <select class="form-control select2" data-placeholder="Choose one ">
                                     <option label="Choose one">No. od records</option>
                                     <option value="Firefox"></option>
                                 </select>
-                            </div>                            
+                            </div>  -->                           
                         </h6>
                          <div>
                         
@@ -127,22 +127,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
     <script src="{{ asset('public/frontend/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('public/frontend/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
     <script>
          $(".select2").select2();
     </script>
     <script type="text/javascript">
         getData();
-        //alert();
-        // $('.pagination').twbsPagination({
-        //     totalPages: 1,
-        //     startPage: 1,
-        //     visiblePages: 5,
-        //     href: false,
-        //     loop: false,
-        //     onPageClick: function (event, page) {
-        //         getData(page);
-        //     },
-        // });  
+        $('.pagination').twbsPagination({
+            totalPages: 1,
+            startPage: 1,
+            visiblePages: 5,
+            href: false,
+            loop: false,
+            onPageClick: function (event, page) {
+                getData(page);
+            },
+        });  
         function getData(){
             //alert();
             var pickup={
@@ -241,6 +241,80 @@
                 processData: false 
             });
       }
+
+ // const socket = io('http://3.6.124.196:3002/');
+ //   socket.on('connect',function(data) {
+ //        console.log("Server is connected");
+ //    });
+ //    socket.on('groupdustbinpickup', (dataSet)=>{
+ //        $("#pickup").html('');
+ //        if(dataSet.length!=0){
+ //       var html = "";
+ //        for(var x=0;x<dataSet.length;x++){
+ //             html += '<div class="row mg-t-20">'
+ //                            +'<div class="col-md-8">'
+ //                                +'<h6 class="tx-inverse"> Warehouse </h6>'
+ //                                +'<p class="lh-7">'+dataSet[x].warehousename+'<br>'+dataSet[x].warehouseaddress+'</p>'
+ //                            +'</div>'
+ //                            +'<div class="col-md-4">'
+ //                                +'<p class="d-flex justify-content-between mg-b-5">'
+ //                                    +'<span>Dustbin Today Count</span>'
+ //                                    +'<span>'+dataSet[x].NoofDustbin+'</span>'
+ //                                +'</p>'
+ //                                // +'<p class="d-flex justify-content-between mg-b-5">'
+ //                                //     +'<span>Vehicle Used</span>'
+ //                                //     +'<span>'+dataSet[x].novehicle+'</span>'
+ //                                // +'</p>'
+ //                            +'</div>'
+ //                        +'</div>'
+ //                 +'<div class="bd rounded table-responsive"><table class="table table-bordered mg-b-0">'
+ //                                +'<thead class="thead-colored thead-light">'
+ //                                    +'<tr>'
+ //                                        +'<th>'
+ //                                            +'<label class="ckbox mg-b-0">'
+ //                                                +'<input type="checkbox">'
+ //                                                +'<span></span>'
+ //                                            +'</label>' 
+ //                                        +'</th>'
+ //                                        +'<th>Dustbin Name</th>'
+ //                                        +'<th>GSM Number</th>'
+ //                                        +'<th>Distance</th>'
+ //                                        +'<th>Duration</th>'
+ //                                        +'<th>Data Percentage</th>'  
+ //                                    +'</tr>'
+ //                                +'</thead>'
+ //                                +'<tbody>';
+ //          for(var xx=0;xx<dataSet[x].data.length;xx++){
+ //               html += '<tr>'
+ //                                 +'<td>'
+ //                                    +'<label class="ckbox">'
+ //                                        +'<input type="checkbox" value="'+dataSet[x].data[xx].id+'" id="check" name="check[]">'
+ //                                        +'<span></span>'
+ //                                    +'</label>'                                           
+ //                                +'</td>'
+ //                                +'<td>'+dataSet[x].data[xx].name+'</td>'
+ //                                +'<td>'+dataSet[x].data[xx].gsm_moblie_number+'</td>'
+ //                                +'<td>'+dataSet[x].data[xx].distance+'</td>'                                       
+ //                                +'<td>'+dataSet[x].data[xx].duration+'</td>'                                       
+ //                                +'<td><span class="text-danger">'+dataSet[x].data[xx].data_percentage+' %</span></td>'
+                                      
+ //                         +'</tr>';
+ //          }
+ //          html += '</tbody>'
+ //                           +'</table>'
+                              
+ //                            +'</div>'
+ //                            +'<div class="form-layout-footer mg-t-30 tx-center">'
+ //                            +'<button class="btn btn-primary" onclick="getCheckData('+dataSet[x].WareHouseId+');">Create</button>'
+ //                        +'</div>';
+ //        $("#pickup").append(html);
+ //      }
+ //      }
+ //    });
+
+
+
+
     </script> 
 
     

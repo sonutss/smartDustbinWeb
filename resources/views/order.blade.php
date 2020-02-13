@@ -21,19 +21,7 @@
                 <div class="col-lg-12">            
                     <div class="card shadow-base bd-0 pd-25 ">                        
                         <h6 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Pickup List 
-                              <button onclick="location.href='{{ url('pickup-create') }}'" class="btn btn-primary pd-x-15 pd-y-10 tx-bold tx-spacing-4 tx-12 btn-sm float-right mg-y-0-force"><div>Schedule Pickup</div></button>
-                            <div class="form-group float-right  mg-r-20" style="width:250px;">
-                                <select class="form-control select2" data-placeholder="Choose one ">
-                                    <option label="Choose one">Availability</option>
-                                    <option value="Firefox"></option>
-                                </select>
-                            </div>
-                            <div class="form-group float-right mg-r-20" style="width:250px;">
-                                <select class="form-control select2" data-placeholder="Choose one ">
-                                    <option label="Choose one">No. od records</option>
-                                    <option value="Firefox"></option>
-                                </select>
-                            </div>    
+                              <button onclick="location.href='{{ url('pickup-create') }}'" class="btn btn-primary pd-x-15 pd-y-10 tx-bold tx-spacing-4 tx-12 btn-sm float-right mg-y-0-force"><div>Schedule Pickup</div></button>   
                         </h6>
                        <div class="bd rounded table-responsive">
                             <table class="table table-bordered mg-b-0" id="pickup">

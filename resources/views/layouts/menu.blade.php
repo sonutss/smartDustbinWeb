@@ -41,7 +41,7 @@
             <li class="br-menu-item">
                 <a href="{{ url('warehouse-vehicle-mapping') }}" class="br-menu-link {{ (\Request::route()->getName() == 'warehouse-vehicle-mapping') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-settings tx-24"></i>
-                    <span class="menu-item-label">Warehouse Vehicle Mapping</span>
+                    <span class="menu-item-label">Warehouse Vehicle Map.</span>
                 </a>
             </li>
             <li class="br-menu-item">
@@ -59,7 +59,7 @@
             <li class="br-menu-item">
                 <a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-trash-outline tx-24"></i>
-                    <span class="menu-item-label">Arnido Data Demo</span>
+                    <span class="menu-item-label">Dustbin Analytics</span>
                 </a>
             </li>
             <!-- <li class="br-menu-item">

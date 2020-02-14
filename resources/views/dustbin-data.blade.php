@@ -75,7 +75,7 @@
 
 var DustbinNumber=[];
 var DustbinData=[];
-    socket.on('dustbinpickup', (dataSet)=>{
+    socket.on('dustbinpickup1', (dataSet)=>{
      $("#pickup tbody").html('');
      DustbinData=[];
      DustbinNumber=[];

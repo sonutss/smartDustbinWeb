@@ -61,7 +61,7 @@ img{width:32.2%;}
     <div class="br-mainpanel">         
          <div class="tab-pane fade active show" id="posts">
             
-                <div class="container">
+                <div class="container-fluid">
                     <img src="">
                     <div class="row">
                  <div class="clearfix w-100 mg-t-20"></div>

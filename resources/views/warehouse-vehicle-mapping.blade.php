@@ -105,12 +105,12 @@
                 <div class="tab-pane pos-absolute a-0 mg-t-60 contact-scrollbar active" id="contacts" role="tabpanel">
                     <label class="sidebar-label pd-x-25 mg-t-25 mg-b-20">Driver List</label>
                     <div class="contact-list pd-x-10">
-                        <div class="input-group mg-b-20 mg-l-15 mg-r-15">
+                        <!-- <div class="input-group mg-b-20 mg-l-15 mg-r-15">
                             <input type="text" class="form-control" placeholder="Search for...">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
                             </div>
-                        </div>
+                        </div> -->
                         <a href="#" class="contact-list-link new" id="driver-list">
                             <!-- <div class="d-flex">
                                 <div class="pos-relative">

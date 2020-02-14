@@ -135,10 +135,10 @@ class PickupController extends Controller
                                     <span>Dustbin Today Count</span>
                                     <span>'.$value['NoofDustbin'].'</span>
                                 </p>
-                                <p class="d-flex justify-content-between mg-b-5">
-                                    <span>Vehicle Used</span>
-                                    <span>'.$value['novehicle'].'</span>
-                                </p>
+                                // <p class="d-flex justify-content-between mg-b-5">
+                                //     <span>Vehicle Used</span>
+                                //     <span>'.$value['novehicle'].'</span>
+                                // </p>
                             </div>
                         </div>
 		    	 <div class="bd rounded table-responsive"><table class="table table-bordered mg-b-0">

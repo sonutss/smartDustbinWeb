@@ -196,8 +196,9 @@
                             </div>
                         </a> -->
                         <div class="button-bottom">
-                          <div class="w-100 mg-l-100">
-                            <button class="btn btn-primary mg-l-90" onclick="SubmitData()" id="assign">Assign</button>
+                            <button class="btn btn-primary mg-l-100" onclick="SubmitData()" id="assign">Assign</button>
+                        
+                            <button class="btn btn-primary mg-l-10" onclick="cancel()" id="cancel">Cancel</button>
                           </div>
                         </div>
                     </div>
@@ -291,7 +292,7 @@
                     //console.log(data);return false; 
                     $("#driver-list").html('');
                     if(data.count == 0){
-                        $('#assign').css("display", "none");
+                         $('#assign').css("display", "none");
                         $("#driver-list").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
                     } else {
                         $("#driver-list").html(data.html);
@@ -317,7 +318,12 @@
            $('body').addClass('show-right');
            $('body').removeClass('show-left');
         }
-           
+        function cancel(thiss){
+           var this_id = $(thiss).data('val');
+            obj.whareId=this_id;
+           $('body').removeClass('show-right');
+           $('body').addClass('show-left'); 
+        }   
         function SubmitData(){
              var vehicleList = []; 
            $.each($("input[name='check_veh[]']:checked"), function(i,val){
@@ -341,7 +347,13 @@
               // console.log(data);
                
             if(obj.whareId==undefined || obj.whareId==""){
-                console.log("Please Select Driver");
+               swal({   
+                            title: "Warnings",   
+                            text: "Please select driver !!",   
+                            type: "warning",   
+                            showCancelButton: true,   
+                            confirmButtonColor: "#DD6B55",   
+                        });
             }else{
                 $.ajax({
                 url : "{{ env('API_URL').'mappedwherehousewithvehicle' }}",

@@ -194,7 +194,8 @@
                         </a> -->
                         <div class="button-bottom">
                           <div class="w-100 mg-l-100">
-                            <button class="btn btn-primary mg-l-90" onclick="SubmitData()" id="assign">Assign</button>
+                            <button class="btn btn-primary mg-l-100" onclick="SubmitData()" id="assign">Assign</button>
+                            <button class="btn btn-primary mg-l-10" onclick="cancel()" id="cancel">Cancel</button>
                           </div>
                         </div>
                     </div>
@@ -314,6 +315,12 @@
            $('body').addClass('show-right');
            $('body').removeClass('show-left');
         }
+        function cancel(thiss){
+           var this_id = $(thiss).data('val');
+            obj.whareId=this_id;
+           $('body').removeClass('show-right');
+           $('body').addClass('show-left'); 
+        } 
         function SubmitData(){
            
             if(obj.DriverId==undefined || obj.DriverId==""){

@@ -10,48 +10,92 @@
         <link href="{{ url('public/frontend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ url('public/frontend/css/bracket.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
+        <style type="text/css">
+            canvas {
+  border: 1px dotted red;
+}
+
+.chart-container {
+  position: relative;
+  height: 30vh;
+  width: 100%;
+}
+*{margin:0;}
+img{width:32.2%;}
+
+#overlay{
+  position:fixed;
+  z-index:99999;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background:rgba(0,0,0,0.9);
+  transition: 1s 0.4s;
+}
+#progress{
+  height:1px;
+  background:#fff;
+  position:absolute;
+  width:0;
+  top:50%;
+}
+#progstat{
+  font-size:0.7em;
+  letter-spacing: 3px;
+  position:absolute;
+  top:50%;
+  margin-top:-40px;
+  width:100%;
+  text-align:center;
+  color:#fff;
+}
+</style>
     </head>
 <body>
+    <div id="overlay">
+        <div id="progstat"></div>
+        <div id="progress"></div>
+      </div>
 @include('layouts.menu') 
-    <div class="br-mainpanel"> 
-        
-            <div class="tab-pane fade active show" id="posts">
-
-                <div class="row">
-                    <div class="clearfix w-100 mg-t-20"></div>
-                    <div class="col-md-12">
-                        <div class="card shadow-base bd-0 pd-25 ">
-                            <h3 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Dustbin Analytics</h3>
-
-                            <div class="chart-container  mg-t-25">
-                              <canvas id="chart"></canvas>
-                          </div>
+    <div class="br-mainpanel">         
+         <div class="tab-pane fade active show" id="posts">
+            
+                <div class="container">
+                    <img src="">
+                    <div class="row">
+                 <div class="clearfix w-100 mg-t-20"></div>
+                <div class="col-md-12">
+                    <div class="card shadow-base bd-0 pd-25 ">
+                        <h3 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Dustbin Analytics</h3>
+                        <div class="chart-container">
+                               <canvas id="chart"></canvas>
+                        </div>
                          <div class=" mg-t-25">
-                             <div class="bd rounded table-responsive">
-                            <table class="table table-bordered mg-b-0" id="pickup">
-                                <thead class="thead-colored thead-light">
-                                    <tr>
-                                        <th>GSM Number</th>
-                                        <th>Dustbin Name</th>
-                                        <th>Address</th>
-                                        <th>Percantage</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                   
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                         </div>
+                            <div class="bd rounded table-responsive">
+                                <table class="table table-bordered mg-b-0" id="pickup">
+                                    <thead class="thead-colored thead-light">
+                                        <tr>
+                                                <th>GSM Number</th>
+                                                <th>Dustbin Name</th>
+                                                <th>Address</th>
+                                                <th>Percantage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                           
+                                            
+                                    </tbody>
+                                </table>
+                             </div>
                         </div>
                     </div>
-                </div>
-             
-                    </div>
-           
+                </div>             
+            </div>           
         </div>
+     </div>
         @include('layouts.footer')
+     </div>
     </div>
     <script src="{{ url('public/frontend/lib/jquery/jquery.min.js') }}"></script>
     <script src="{{ url('public/frontend/lib/jquery-ui/ui/widgets/datepicker.js') }}"></script>
@@ -145,6 +189,40 @@ Chart.Bar('chart', {
   data: data
 });
 }
+</script>
+<script type="text/javascript">
+(function(){
+  function id(v){return document.getElementById(v); }
+  function loadbar() {
+    var ovrl = id("overlay"),
+        prog = id("progress"),
+        stat = id("progstat"),
+        img = document.images,
+        c = 0;
+        tot = img.length;
+
+    function imgLoaded(){
+      c += 1;
+      var perc = ((100/tot*c) << 0) +"%";
+      prog.style.width = perc;
+      stat.innerHTML = "Loading "+ perc;
+      if(c===tot) return doneLoading();
+    }
+    function doneLoading(){
+      ovrl.style.opacity = 0;
+      setTimeout(function(){ 
+        ovrl.style.display = "none";
+      }, 3000000);
+    }
+    for(var i=0; i<tot; i++) {
+      var tImg     = new Image();
+      tImg.onload  = imgLoaded;
+      tImg.onerror = imgLoaded;
+      tImg.src     = img[i].src;
+    }    
+  }
+  document.addEventListener('DOMContentLoaded', loadbar, false);
+}());
 </script>
 
 </body>

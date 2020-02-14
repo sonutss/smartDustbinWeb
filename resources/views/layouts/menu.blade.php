@@ -9,7 +9,7 @@
                 </a>
             </li>
             <li class="br-menu-item">
-                <a href="{{ url('pickup') }}" class="br-menu-link {{ (\Request::route()->getName() == 'pickup') ? 'active' : '' }} {{ (\Request::route()->getName() == 'pickup-create') ? 'active' : '' }}">
+                <a href="{{ url('pickup') }}" class="br-menu-link {{ (\Request::route()->getName() == 'pickup') ? 'active' : '' }} {{ (\Request::route()->getName() == 'pickup-create') ? 'active' : '' }} {{ (\Request::route()->getName() == 'view-details') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-list-outline tx-24"></i>
                     <span class="menu-item-label">Daily Pickup</span>
                 </a>

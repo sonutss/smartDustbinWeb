@@ -32,16 +32,16 @@
                     <span class="menu-item-label">Driver List</span>
                 </a>
             </li>
+             <li class="br-menu-item">
+                <a href="{{ url('warehouse-vehicle-mapping') }}" class="br-menu-link {{ (\Request::route()->getName() == 'warehouse-vehicle-mapping') ? 'active' : '' }}">
+                    <i class="menu-item-icon icon ion-ios-settings tx-24"></i>
+                    <span class="menu-item-label">Warehouse Vehicle Map.</span>
+                </a>
+            </li>
             <li class="br-menu-item">
                 <a href="{{ url('driver-vehicle-mapping') }}" class="br-menu-link {{ (\Request::route()->getName() == 'driver-vehicle-mapping') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-settings tx-24"></i>
                     <span class="menu-item-label">Vehicle Driver Mapping</span>
-                </a>
-            </li>
-            <li class="br-menu-item">
-                <a href="{{ url('warehouse-vehicle-mapping') }}" class="br-menu-link {{ (\Request::route()->getName() == 'warehouse-vehicle-mapping') ? 'active' : '' }}">
-                    <i class="menu-item-icon icon ion-ios-settings tx-24"></i>
-                    <span class="menu-item-label">Warehouse Vehicle Map.</span>
                 </a>
             </li>
             <li class="br-menu-item">

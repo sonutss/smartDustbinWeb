@@ -130,8 +130,65 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
     <script>
          $(".select2").select2();
+        //  $(document).ready(function(){
+        //     $('button').attr('disabled',true);
+        // });
+        var status=false, status1=false;
+         function checkAll(thiss,name){
+          
+                 if($(thiss).prop('checked')==true){
+                  $('input:checkbox[name="'+name+'[]"]').prop('checked', thiss.checked); 
+                  $("#button"+name+"").attr('disabled',false);
+                 }else{
+                  $('input:checkbox[name="'+name+'[]"]').prop('checked', '');
+                  $("#button"+name+"").attr('disabled',true);
+                }
+           
+          
+    }
+
+
+      function checkSingle(thiss,name){
+
+         if($(thiss).prop('checked')==true){
+            $(thiss).prop('checked', thiss.checked); 
+          $("#button"+name).attr('disabled',false);
+
+        if($('input:checkbox[name="'+name+'[]"]:checked').length == $('input:checkbox[name="'+name+'[]"]').length ){ 
+                $("#button"+name).attr('disabled',false);
+                $("#ppp"+name)[0].checked = true; 
+
+             }
+             else if($('input:checkbox[name="'+name+'[]"]:checked').length>0){
+               
+                 $("#button"+name).attr('disabled',false);
+             }
+             else{
+                
+                 $("#button"+name).attr('disabled',false);
+                 $("#ppp"+name)[0].checked = false; 
+             }
+
+         
+         }
+          else if($('input:checkbox[name="'+name+'[]"]:checked').length>0){
+                  $("#ppp"+name)[0].checked = false;
+                 $("#button"+name).attr('disabled',false);
+            }
+
+         else{
+          
+            $(thiss).prop('checked', ''); 
+          $("#ppp"+name)[0].checked = false;
+          $("#button"+name).attr('disabled',true);
+
+        }
+  
+    }
+
     </script>
     <script type="text/javascript">
+
         getData();
         $('.pagination').twbsPagination({
             totalPages: 1,
@@ -182,10 +239,19 @@
             }) ;
         }
       function getCheckData(wid){
+        //console.log(name);
         var postdata = "{{ env('API_URL') }}";
         var pickup = "{{ url('pickup') }}";
         checkList = [];
-        $.each($("input[name='check[]']:checked"), function(i,val){
+        $("#button"+name+"").attr('disabled',true);
+        // $.each($("input[name='check[]']:checked"), function(i,val){
+        //       checkList.push(val.value);
+              
+        //     });
+
+
+
+        $.each($("input[name='"+wid+"[]']:checked"), function(i,val){
               checkList.push(val.value);
               
             });

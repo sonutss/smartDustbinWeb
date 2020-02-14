@@ -146,7 +146,7 @@ class PickupController extends Controller
                                     <tr>
                                         <th>
                                             <label class="ckbox mg-b-0">
-                                                <input type="checkbox">
+                                                <input type="checkbox" id="ppp'.$value['WareHouseId'].'"  onClick="checkAll(this,'.$value['WareHouseId'].')">
                                                 <span></span>
                                             </label> 
                                         </th>
@@ -166,7 +166,7 @@ class PickupController extends Controller
 		    	$html .= '<tr>
 								 <td>
 	                                <label class="ckbox">
-	                                    <input type="checkbox" value="'.$val['id'].'" id="check" name="check[]">
+	                           <input type="checkbox" value="'.$val['id'].'"  name="'.$value['WareHouseId'].'[]" onClick="checkSingle(this,'.$value['WareHouseId'].')">
 	                                    <span></span>
 	                                </label>                                           
 	                            </td>
@@ -183,7 +183,7 @@ class PickupController extends Controller
                               
                             </div>
                             <div class="form-layout-footer mg-t-30 tx-center">
-                            <button class="btn btn-primary" onclick="getCheckData('.$value['WareHouseId'].');">Create</button>
+                            <button disabled="true" class="btn btn-primary" id="button'.$value['WareHouseId'].'" onclick="getCheckData('.$value['WareHouseId'].');">Create</button>
                         </div>';
 
 

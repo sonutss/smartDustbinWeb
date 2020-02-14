@@ -209,10 +209,10 @@
                           for(var i=0;i<data.data.length;i++){
                             var status;
                             if(data.data[i].groupStatus==1){
-                                status ='<span class="text-danger">Completed</span>';
-                                 }
-                                 else{
                                     status ='<span class="text-success">Active</span>';
+                                 }
+                                 else{ 
+                                    status ='<span class="text-danger">Completed</span>';
                                  }
                                 $("#pickup_list tbody").append('<tr>'+
                                             +'<td>'+(i+1)+'</td>'

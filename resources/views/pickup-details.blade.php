@@ -26,9 +26,10 @@
                                 </div>
                                 <div class="col-sm-6 col-lg-6 mg-t-20">
                                     <p class="">
-                                        @if($decode['dustbinData'][0]['Groupstatus']==1) <strong class="text-danger">Completed</strong> 
+                                        @if($decode['dustbinData'][0]['Groupstatus']==1) 
+                                            <strong class="text-success">Active</strong>
                                         @else 
-                                        <strong class="text-success">Active</strong>
+                                            <strong class="text-danger">Completed</strong> 
                                         @endif
                                     </p>
                                 </div>

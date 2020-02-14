@@ -22,6 +22,10 @@
                     <div class="col-md-12">
                         <div class="card shadow-base bd-0 pd-25 ">
                             <h3 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Dustbin Analytics</h3>
+
+                            <div class="chart-container  mg-t-25">
+                              <canvas id="chart"></canvas>
+                          </div>
                          <div class=" mg-t-25">
                              <div class="bd rounded table-responsive">
                             <table class="table table-bordered mg-b-0" id="pickup">
@@ -58,7 +62,7 @@
     <script src="{{ url('public/frontend/js/bracket.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
  
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script>
   const socket = io('http://3.6.124.196:3002/');
@@ -69,15 +73,19 @@
     });
    // socket.emit('welcomeMessage',"Welcome To Server");
 
-
+var DustbinNumber=[];
+var DustbinData=[];
     socket.on('dustbinpickup', (dataSet)=>{
      $("#pickup tbody").html('');
+     DustbinData=[];
+     DustbinNumber=[];
       if(dataSet.length!=0){
        
         for(var x=0;x<dataSet.length;x++){
 
           for(var xx=0;xx<dataSet[x].data.length;xx++){
-
+            DustbinNumber.push(dataSet[x].data[xx].gsm_moblie_number);
+             DustbinData.push(dataSet[x].data[xx].data_percentage)
            // console.log(dataSet[x].data[xx].gsm_moblie_number);
             //console.log(dataSet[x].data[xx].name)
             // console.log(dataSet[x].data[xx].data_percentage)
@@ -94,11 +102,49 @@
                                    +'</tr>');
           }
         }
+        GetAll(DustbinNumber,DustbinData);
         
       }
       
     });
+    function GetAll(Name,Data) 
+    {
+      var data = {
+  labels: Name,
+  datasets: [{
+    label: "DUSTBIN ANALYTICS",
+    backgroundColor: "rgba(255,99,132,0.2)",
+    borderColor: "rgba(255,99,132,1)",
+    borderWidth: 2,
+    hoverBackgroundColor: "rgba(255,99,132,0.4)",
+    hoverBorderColor: "rgba(255,99,132,1)",
+    data: Data,
+  }]
+};
+ 
+var options = {
+  maintainAspectRatio: false,
+  scales: {
+    yAxes: [{
+      stacked: true,
+      gridLines: {
+        display: true,
+        color: "rgba(255,99,132,0.2)"
+      }
+    }],
+    xAxes: [{
+      gridLines: {
+        display: false
+      }
+    }]
+  }
+};
 
+Chart.Bar('chart', {
+  options: options,
+  data: data
+});
+}
 </script>
 
 </body>

@@ -193,10 +193,8 @@
                             </div>
                         </a> -->
                         <div class="button-bottom">
-                          <div class="w-100 mg-l-100">
                             <button class="btn btn-primary mg-l-100" onclick="SubmitData()" id="assign">Assign</button>
                             <button class="btn btn-primary mg-l-10" onclick="cancel()" id="cancel">Cancel</button>
-                          </div>
                         </div>
                     </div>
                 </div>

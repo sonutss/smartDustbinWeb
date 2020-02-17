@@ -112,7 +112,7 @@ class ApiController extends Controller
                 } else {
                    	$status = '<span class="text-danger">Inactive</span>' ;
                 }
-                if( $value['available_status'] == 1 ){
+                if( $value['available_status'] == 0 ){
                     $avaiable = '<span class="text-success">Available</span>' ;
                 } else {
                     $avaiable = '<span class="text-danger">Unavailable</span>' ;

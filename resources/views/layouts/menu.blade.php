@@ -51,7 +51,7 @@
                 </a>
             </li>
              <li class="br-menu-item">
-                <a href="{{ url('pickup-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-dustbin') ? 'active' : '' }} {{ (\Request::route()->getName() == 'edit-dustbin') ? 'active' : '' }}">
+                <a href="{{ url('pickup-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-list-outline tx-24"></i>
                     <span class="menu-item-label">Pickup History</span>
                 </a>

@@ -15,11 +15,12 @@
                 </a>
             </li>
             <li class="br-menu-item">
-                <a href="{{ url('warehouse-list') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'warehouse-list') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-warehouse') ? 'active' : '' }} {{ (\Request::route()->getName() == 'edit-warehouse') ? 'active' : '' }}" class="br-menu-link">
+                <a href="{{ url('pickup-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-list-outline tx-24"></i>
-                    <span class="menu-item-label">Warehouse List</span>
+                    <span class="menu-item-label">Pickup History</span>
                 </a>
             </li>
+           
             <li class="br-menu-item">
                 <a href="{{ url('vehicle-list') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'vehicle-list') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-vehicle') ? 'active' : '' }} {{ (\Request::route()->getName() == 'view-vehicle') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-car tx-24"></i>
@@ -30,6 +31,18 @@
                 <a href="{{ url('driver-list') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'driver-list') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-driver') ? 'active' : '' }} {{ (\Request::route()->getName() == 'edit-driver') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-contact-outline tx-24"></i>
                     <span class="menu-item-label">Driver List</span>
+                </a>
+            </li>
+             <li class="br-menu-item">
+                <a href="{{ url('warehouse-list') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'warehouse-list') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-warehouse') ? 'active' : '' }} {{ (\Request::route()->getName() == 'edit-warehouse') ? 'active' : '' }}" class="br-menu-link">
+                    <i class="menu-item-icon icon ion-ios-list-outline tx-24"></i>
+                    <span class="menu-item-label">Warehouse List</span>
+                </a>
+            </li>
+             <li class="br-menu-item">
+                <a href="{{ url('dustbin-list') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'dustbin-list') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-dustbin') ? 'active' : '' }} {{ (\Request::route()->getName() == 'edit-dustbin') ? 'active' : '' }}">
+                    <i class="menu-item-icon icon ion-ios-trash-outline tx-24"></i>
+                    <span class="menu-item-label">Dustbin List</span>
                 </a>
             </li>
              <li class="br-menu-item">
@@ -44,18 +57,8 @@
                     <span class="menu-item-label">Vehicle Driver Mapping</span>
                 </a>
             </li>
-            <li class="br-menu-item">
-                <a href="{{ url('dustbin-list') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'dustbin-list') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-dustbin') ? 'active' : '' }} {{ (\Request::route()->getName() == 'edit-dustbin') ? 'active' : '' }}">
-                    <i class="menu-item-icon icon ion-ios-trash-outline tx-24"></i>
-                    <span class="menu-item-label">Dustbin List</span>
-                </a>
-            </li>
-             <li class="br-menu-item">
-                <a href="{{ url('pickup-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }}">
-                    <i class="menu-item-icon icon ion-ios-list-outline tx-24"></i>
-                    <span class="menu-item-label">Pickup History</span>
-                </a>
-            </li>
+           
+             
             <li class="br-menu-item">
                 <a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-trash-outline tx-24"></i>

@@ -151,7 +151,7 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label">Insurance Number <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="insuranceno" value="" placeholder="Enter Vehicle Number" id="insuranceno">
+                                    <input class="form-control" type="text" name="insuranceno" value="" placeholder="Enter Insurance Number" id="insuranceno">
                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
                                         <strong id="msg_insuranceno"></strong>
                                     </small>

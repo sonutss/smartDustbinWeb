@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Lat <span class="tx-danger">*</span></label>
+                                   <!--  <label class="form-control-label">Lat <span class="tx-danger">*</span></label> -->
                                     <input class="form-control" type="hidden" name="latitude" value="{{ $decode['result']['latiude'] }}" placeholder="Enter Lat" id="latitude">
                                      <small class="form-element-hint cus_error" style="display:none;color:red;">
                                                 <strong id="msg_latitude"></strong>
@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Long <span class="tx-danger">*</span></label>
+                                   <!--  <label class="form-control-label">Long <span class="tx-danger">*</span></label> -->
                                     <input class="form-control" type="hidden" name="longitude" value="{{ $decode['result']['longitude'] }}" placeholder="Enter Long" id="longitude">
                                      <small class="form-element-hint cus_error" style="display:none;color:red;">
                                                 <strong id="msg_longitude"></strong>

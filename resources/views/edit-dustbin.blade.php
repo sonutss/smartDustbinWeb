@@ -58,24 +58,6 @@
                                             </small>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Lat <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="latitude" value="{{ $decode['result']['latiude'] }}" placeholder="Enter Lat" id="latitude">
-                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
-                                                <strong id="msg_latitude"></strong>
-                                            </small>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Long <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="longitude" value="{{ $decode['result']['longitude'] }}" placeholder="Enter Long" id="longitude">
-                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
-                                                <strong id="msg_longitude"></strong>
-                                            </small>
-                                </div>
-                            </div>
                              <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
                                     <label class="form-control-label">Adress<span class="tx-danger">*</span></label>
@@ -85,6 +67,25 @@
                                             </small>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Lat <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="hidden" name="latitude" value="{{ $decode['result']['latiude'] }}" placeholder="Enter Lat" id="latitude">
+                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
+                                                <strong id="msg_latitude"></strong>
+                                            </small>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Long <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="hidden" name="longitude" value="{{ $decode['result']['longitude'] }}" placeholder="Enter Long" id="longitude">
+                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
+                                                <strong id="msg_longitude"></strong>
+                                            </small>
+                                </div>
+                            </div>
+                            
                             <div class="col-lg-12">
                                 <div class="form-group mg-b-10-force">
                                     <div id="map_canvas" style="width :100%;position: relative;height: 500px;">

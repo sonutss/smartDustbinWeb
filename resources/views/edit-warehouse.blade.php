@@ -57,25 +57,7 @@
                                             </small>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="form-group">
-                                    <label class="form-control-label">Warehouse Latitude <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="latt" value="{{ $decode['result']['latitude'] }}" placeholder="Enter Latitude" id="latitude">
-                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
-                                                <strong id="msg_latitude"></strong>
-                                            </small>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-group mg-b-10-force">
-                                    <label class="form-control-label">Warehouse Longitude <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="longt" value="{{ $decode['result']['longitude'] }}" placeholder="Enter longitude" id="longitude">
-                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
-                                                <strong id="msg_longitude"></strong>
-                                            </small>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
+                             <div class="col-lg-4">
                                 <div class="form-group mg-b-10-force">
                                     <label class="form-control-label">Adress<span class="tx-danger">*</span></label>
                                     <input class="form-control" type="text" name="fulladdress" value="{{ $decode['result']['address'] }}" placeholder="Enter longitude" id="address">
@@ -84,6 +66,25 @@
                                             </small>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Warehouse Latitude <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="hidden" name="latt" value="{{ $decode['result']['latitude'] }}" placeholder="Enter Latitude" id="latitude">
+                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
+                                                <strong id="msg_latitude"></strong>
+                                            </small>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group mg-b-10-force">
+                                    <label class="form-control-label">Warehouse Longitude <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="hidden" name="longt" value="{{ $decode['result']['longitude'] }}" placeholder="Enter longitude" id="longitude">
+                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
+                                                <strong id="msg_longitude"></strong>
+                                            </small>
+                                </div>
+                            </div>
+                           
                         </div>
                     </div>
                 </div>              

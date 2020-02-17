@@ -70,7 +70,13 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label">Truck Type <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="trucktype" value="" placeholder="Enter Truck Type" id="trucktype">
+                                    <!-- <input class="form-control" type="text" name="trucktype" value="" placeholder="Enter Truck Type" id="trucktype"> -->
+                                     <select class="form-control select2" data-placeholder="Choose one" name="trucktype" id="trucktype">
+                                        <option label="Choose one">Select Vehicle</option>
+                                        <option value="small">Small Vehicle</option>
+                                        <option value="medium">Medium Vehicle</option>
+                                        <option value="large">Large Vehicle</option>
+                                    </select>
                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
                                         <strong id="msg_trucktype"></strong>
                                     </small>
@@ -126,7 +132,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label">Issuing Country  <span class="tx-danger">*</span></label>
                                     <select class="form-control select2" data-placeholder="Choose one" name="issuecountry" id="issuecountry">
-                                        <option label="Choose one"></option>
+                                        <option label="Choose one">Select Country</option>
                                         <option value="India">India</option>
                                         <option value="UAE">UAE</option>
                                         <option value="Nepal">Nepal</option>

@@ -163,7 +163,7 @@ class PickupController extends Controller
 		    	$html .= '<tr>
 								 <td>
 	                                <label class="ckbox">
-	                           <input type="checkbox" value="'.$val['id'].'"  name="'.$value['WareHouseId'].'[]" onClick="checkSingle(this,'.$value['WareHouseId'].')">
+	                           <input type="checkbox" value="'.$val['id'].'"  name="'.$value['WareHouseId'].'[]" onClick="checkSingle(this,'.$value['WareHouseId'].')" data-id="'.$val['data_percentage'].'">
 	                                    <span></span>
 	                                </label>                                           
 	                            </td>
@@ -317,4 +317,73 @@ class PickupController extends Controller
 	 	} 	 
     	return view('pickup-history');
     }
+
+    public function dustbin_history(Request $req){
+
+    	$val  = Session::get('auth_key');
+	 	$data = $req->all();
+	 	if(isset($data['list'])){	
+	 		$arr 	= array('page'=>$data['page'],'perpage' =>$data['perpage'],'wid'=>$data['wid'],'selectdate'=>$data['selectdate'],'dataperfrom'=>$data['dataperfrom']);
+			$encode = json_encode($arr);
+			//echo "<pre>";print_r($encode);die();
+			$curl 	= curl_init();
+		    curl_setopt_array($curl, array(
+			    CURLOPT_URL 			=> env('API_URL').'dustbinhistory',
+			    CURLOPT_RETURNTRANSFER  => 1,
+			    CURLOPT_ENCODING 		=> "",
+			    CURLOPT_MAXREDIRS 		=> 10,
+			    CURLOPT_TIMEOUT 		=> 30000,
+			    CURLOPT_HTTP_VERSION 	=> CURL_HTTP_VERSION_1_1,
+			    CURLOPT_CUSTOMREQUEST 	=> "POST",
+			    CURLOPT_POSTFIELDS 		=> $encode,
+			    CURLOPT_HTTPHEADER 		=> array(
+			    // Set here requred headers
+			       //"accept: */*",
+			        "accept-language: en-US,en;q=0.8",
+			        "content-type: application/json",
+			        "Access-Control-Allow-Origin: http://192.168.0.150:3002",
+			        "Authorization: $val",
+
+			    ),
+	    	) );
+	    	$response 	= curl_exec($curl);
+		    $err 		= curl_error($curl);
+		    curl_close($curl);
+		    $decode 	= json_decode($response,true);
+		    //echo "<pre>";print_r($decode);die;
+		    $html 		= '';
+		    if($decode['data'] !=0){
+		    foreach ($decode['data'] as $key => $value) {
+		    		$date =  date_create($value['assigndate']);
+                                               $date1 = date_format($date,"Y-m-d");
+                                               $yrdata= strtotime($date1);
+                                    $strdate =  date('d M,Y', $yrdata);
+                   if($value['status'] == 1){
+                   		$status = '<span class="text-success">Pickup Processing</span>';
+                   } 
+                   else{
+                   		$status = '<span class="text-danger">Complete</span>';
+                   }                 
+		    	$html .= '<tr>
+                                        <td><span class="text-success">'.$value['groupid'].'</span></td>
+                                        <td>'.$strdate.'</td>
+                                        <td>'.$value['gsm_moblie_number'].'</td>
+                                        <td>'.$value['wname'].'</td>
+                                        <td>'.$value['name'].'</td>
+                                        <td>'.$value['address'].'</td>                                      
+                                        <td><span class="text-success">'.$value['dustbindatapercentage'].'</span></td>
+                                        <td>'.$status.'</td>
+                                    </tr>';
+		    }	
+		   }
+		    
+		    //echo "<pre>";print_r($decode);die;
+		    $count = $decode['totalpage'];
+	     	$return = array('count'=> $count, 'html'=> $html);
+        	echo json_encode($return); exit ;
+	 	} 	 
+    	return view('dustbin-history');
+    }
+   
+
 }

@@ -20,6 +20,12 @@
                     <span class="menu-item-label">Pickup History</span>
                 </a>
             </li>
+             <li class="br-menu-item">
+                <a href="{{ url('dustbin-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'dustbin-history') ? 'active' : '' }}">
+                    <i class="menu-item-icon icon ion-ios-list-outline tx-24"></i>
+                    <span class="menu-item-label">Dustbin History</span>
+                </a>
+            </li>
            
             <li class="br-menu-item">
                 <a href="{{ url('vehicle-list') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'vehicle-list') ? 'active' : '' }} {{ (\Request::route()->getName() == 'add-vehicle') ? 'active' : '' }} {{ (\Request::route()->getName() == 'view-vehicle') ? 'active' : '' }}">

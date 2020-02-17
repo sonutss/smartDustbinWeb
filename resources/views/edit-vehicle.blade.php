@@ -72,7 +72,13 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label">Truck Type <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="trucktype" value="{{ $decode['result']['trucktype'] }}" placeholder="Enter Truck Type" id="trucktype">
+                                    <!-- <input class="form-control" type="text" name="trucktype" value="{{ $decode['result']['trucktype'] }}" placeholder="Enter Truck Type" id="trucktype"> -->
+                                    <select class="form-control select2" data-placeholder="Choose one" name="trucktype" id="trucktype">
+                                        <option label="Choose one">Select Vehicle</option>
+                                        <option value="small" @if($decode['result']['trucktype'] == "small")selected="selected" @endif>Small Vehicle</option>
+                                        <option value="medium" @if($decode['result']['trucktype'] == "medium")selected="selected" @endif>Medium Vehicle</option>
+                                        <option value="large" @if($decode['result']['trucktype'] == "large")selected="selected" @endif>Large Vehicle</option>
+                                    </select>
                                     <small class="form-element-hint cus_error" style="display:none;color:red;">
                                         <strong id="msg_trucktype"></strong>
                                     </small>

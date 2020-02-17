@@ -52,5 +52,6 @@ Route::any('pickup-create','PickupController@pickup_create')->name('pickup-creat
 Route::any('view-details/{groupName}','PickupController@pickup_details')->name('view-details')->middleware('CheckUserSession');
 Route::any('getDataDustbin','PickupController@getDataDustbin')->name('getDataDustbin')->middleware('CheckUserSession');
 Route::any('pickup-history','PickupController@pickup_history')->name('pickup-history')->middleware('CheckUserSession');
+Route::any('dustbin-history','PickupController@dustbin_history')->name('dustbin-history')->middleware('CheckUserSession');
 
 

@@ -87,6 +87,7 @@
                                         <th>Address</th>
                                         <th>Distance</th>
                                         <th>Duration</th>
+                                        <th>Data Percentage</th>
                                         
                                     </tr>
                                 </thead>
@@ -99,6 +100,7 @@
                                         <td>{{ $value['address'] }}</td>
                                         <td>{{ $value['distance'] }}</td>
                                         <td>{{ $value['duration'] }}</td>
+                                        <td>{{ $value['dustbindatapercentage'] }} %</td>
                                     @endforeach
                                 </tbody>
                             </table>

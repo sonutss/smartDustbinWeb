@@ -252,15 +252,19 @@
 
 
         $.each($("input[name='"+wid+"[]']:checked"), function(i,val){
-              checkList.push(val.value);
+
+              checkList.push({did:val.value,dataDustbin:$(this).attr("data-id")});
               
             });
         var parms = {
                     groupname : $('#groupname').val(),
                     wid       : wid,
-                    did       : checkList,
+                    dustbin      : checkList,
                     assigndate : $('#assigndate').val() 
         } 
+        console.log(parms);
+
+        //return false;
         $.ajax({
                 url : postdata+'assignVehicle',
                 type: 'POST',

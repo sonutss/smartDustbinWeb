@@ -56,7 +56,7 @@ class DustbinController extends Controller
                                         <td>'.$status.'</td>                      
                                         <td>'.$value['data_percentage'].' %</td>                      
                                         <td>
-                                            <a href="edit-dustbin/'.$value['id'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button></a>                                            
+                                            <a href="edit-dustbin/'.$value['id'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-edit"></i></div></button></a>                                            
                                             <a href="delete-dustbin/'.$value['id'].'"><button  class="btn btn-danger btn-icon mg-b-10 btn-sm"><div><i class="fa fa-trash"></i></div></button></a>                                            
                                         </td>
                                     </tr>';

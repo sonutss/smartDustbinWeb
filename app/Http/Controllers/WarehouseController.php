@@ -50,7 +50,7 @@ class WarehouseController extends Controller
                                         <td>'.$value['mobile_no'].'</td>                       
                                         <td><span class="text-success">'.$value['address'].'</span></td>
                                         <td>
-                                            <a href="edit-warehouse/'.$value['id'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button></a>                                            
+                                            <a href="edit-warehouse/'.$value['id'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-edit"></i></div></button></a>                                            
                                             <a href="delete-warehouse/'.$value['id'].'"><button  class="btn btn-danger btn-icon mg-b-10 btn-sm"><div><i class="fa fa-trash"></i></div></button></a>                                            
                                         </td>
                                     </tr>';

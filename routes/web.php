@@ -55,5 +55,6 @@ Route::any('pickup-history','PickupController@pickup_history')->name('pickup-his
 Route::any('dustbin-history','PickupController@dustbin_history')->name('dustbin-history')->middleware('CheckUserSession');
 Route::any('available-vehicle','PickupController@available_vehicle')->name('available-vehicle')->middleware('CheckUserSession');
 Route::any('notavailable-vehicle','PickupController@notavailable_vehicle')->name('notavailable-vehicle')->middleware('CheckUserSession');
+Route::any('avilable-history','PickupController@avilable_history')->name('avilable_history')->middleware('CheckUserSession');
 
 

@@ -22,14 +22,14 @@
                         <h6 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Driver List 
                             <button onclick="location.href='{{url('add-driver')}}'" class="btn btn-primary pd-x-15 pd-y-10 tx-bold tx-spacing-4 tx-12 btn-sm float-right mg-y-0-force"><div>Add Driver</div></button> 
                             <div class="form-group float-right  mg-r-20" style="width:250px;">
-                                <select class="form-control select2" data-placeholder="Choose one" id='status' onchange="getData(1);">
+                                <select class="form-control select2" data-placeholder="Choose one" id='status'>
                                     <option label="Choose one" value="">Select Status</option>
                                     <option value="1">Active</option>
                                     <option value="0">Inactive</option>
                                 </select>
                             </div>
                             <div class="form-group float-right  mg-r-20" style="width:250px;">
-                                <select class="form-control select2" data-placeholder="Choose one" id='avablitystatus' onchange="getData(1);">
+                                <select class="form-control select2" data-placeholder="Choose one" id='avablitystatus'>
                                     <option label="Choose one" value="">Select Avilability Status</option>
                                     <option value="0">Available</option>
                                     <option value="1">Unavailable</option>
@@ -98,6 +98,20 @@
     <script>
          $(".select2").select2();
          $(".select2").select2();
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#status').change(function(){
+                $('#avablitystatus').val(['']); 
+                 getData(1);
+       
+            }).trigger('change');
+             $('#avablitystatus').change(function(){
+                $('#status').val(['']); 
+                getData(1);
+            }).trigger('change');
+        });
+
     </script>
     <script type="text/javascript">
         //alert();

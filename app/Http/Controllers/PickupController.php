@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
+use Carbon\Carbon;
 
 class PickupController extends Controller
 {
@@ -602,5 +603,177 @@ class PickupController extends Controller
 	 	} 	 
     	return view('order');
     }
+     public function avilable_history(Request $req){
+    	$val  = Session::get('auth_key');
+	 	$data = $req->all();
+	 	if(isset($data['list'])){	
+	 		$arr 	= array('page'=>$data['page'],'perpage' =>$data['perpage'],'selectdate'=>$data['selectdate']);
+			$encode = json_encode($arr);
+			//echo "<pre>";print_r($encode);die();
+			$curl 	= curl_init();
+		    curl_setopt_array($curl, array(
+			    CURLOPT_URL 			=> env('API_URL').'driverlivehistory',
+			    CURLOPT_RETURNTRANSFER  => 1,
+			    CURLOPT_ENCODING 		=> "",
+			    CURLOPT_MAXREDIRS 		=> 10,
+			    CURLOPT_TIMEOUT 		=> 30000,
+			    CURLOPT_HTTP_VERSION 	=> CURL_HTTP_VERSION_1_1,
+			    CURLOPT_CUSTOMREQUEST 	=> "POST",
+			    CURLOPT_POSTFIELDS 		=> $encode,
+			    CURLOPT_HTTPHEADER 		=> array(
+			    // Set here requred headers
+			       //"accept: */*",
+			        "accept-language: en-US,en;q=0.8",
+			        "content-type: application/json",
+			        "Access-Control-Allow-Origin: http://192.168.0.150:3002",
+			        "Authorization: $val",
+
+			    ),
+	    	) );
+	    	$response 	= curl_exec($curl);
+		    $err 		= curl_error($curl);
+		    curl_close($curl);
+		    $decode 	= json_decode($response,true);
+		     //echo "<pre>";print_r($decode);die;
+		    $html 		= '';
+		    	$i = 1;
+		    if($decode['result']['data'] !=0){
+		    foreach ($decode['result']['data'] as $key => $value) {
+		    	 $combine = $value['avilable_date'].' '.$value['avilable_time'].' t';
+		    	 $newdatetime = date($combine);
+		    	 //echo "<pre>";print_r($newdatetime);die();
+		    	
+		    	$return =  self::time_ago($combine);
+		    	$date =  date_create($value['avilable_date']);
+                                               $date1 = date_format($date,"Y-m-d");
+                                               $yrdata= strtotime($date1);
+                                    $strdate =  date('d M,Y', $yrdata); 
+		    if($value['avabilityststus'] == 0){
+		    	$status = '<span class="text-danger">Unavailable</span>';
+		    }else{
+		    	$status = '<span class="text-success">Available</span>';
+		    }                
+		    	$html .= '<tr>
+                                    <td><span class="text-success">'.$i++.'</span></td>                                
+                                    <td>
+                                        <a href="#" class="media-list-link">
+                                            <div class="media pd-y-0-force pd-x-0-force">
+                                                <img src="'.env('STORAGE_PATH').'drivers/'.$value['driver_image'].'" alt="">
+                                                <div class="media-body">
+                                                <div>
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['name'].'</p>
+                                                </div>
+                                                <p class="tx-12 tx-gray-600 mg-b-0">'.$value['mobile_no'].'</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                     <td>'.$strdate.'</td>                             
+                                    <td>'.$value['avilable_time'].'</td>
+                                     <td>'.$return.'</td>
+                                     <td>'.$status.'</td>
+                                </tr>';
+		    }	
+		   }
+		    
+		    //echo "<pre>";print_r($decode);die;
+		    $count = $decode['result']['totalpage'];
+	     	$return = array('count'=> $count, 'html'=> $html);
+        	echo json_encode($return); exit ;
+	 	} 	 
+    	return view('available-history');
+    }
+function time_ago($timestamp){
+ 
+ date_default_timezone_set("Asia/Kolkata");        
+ $time_ago        = strtotime($timestamp);
+ $current_time    = time();
+ $time_difference = $current_time - $time_ago;
+ $seconds         = $time_difference;
+ 
+ $minutes = round($seconds / 60); // value 60 is seconds  
+ $hours   = round($seconds / 3600); //value 3600 is 60 minutes * 60 sec  
+ $days    = round($seconds / 86400); //86400 = 24 * 60 * 60;  
+ $weeks   = round($seconds / 604800); // 7*24*60*60;  
+ $months  = round($seconds / 2629440); //((365+365+365+365+366)/5/12)*24*60*60  
+ $years   = round($seconds / 31553280); //(365+365+365+365+366)/5 * 24 * 60 * 60
+               
+ if ($seconds <= 60){
+
+   return "Just Now";
+
+ } else if ($minutes <= 60){
+
+   if ($minutes == 1){
+
+     return "one minute ago";
+
+   } else {
+
+     return "$minutes minutes ago";
+
+   }
+
+ } else if ($hours <= 24){
+
+   if ($hours == 1){
+
+     return "an hour ago";
+
+   } else {
+
+     return "$hours hrs ago";
+
+   }
+
+ } else if ($days <= 7){
+
+   if ($days == 1){
+
+     return "yesterday";
+
+   } else {
+
+     return "$days days ago";
+
+   }
+
+ } else if ($weeks <= 4.3){
+
+   if ($weeks == 1){
+
+     return "a week ago";
+
+   } else {
+
+     return "$weeks weeks ago";
+
+   }
+
+ } else if ($months <= 12){
+
+   if ($months == 1){
+
+     return "a month ago";
+
+   } else {
+
+     return "$months months ago";
+
+   }
+
+ } else {
+   
+   if ($years == 1){
+
+     return "one year ago";
+
+   } else {
+
+     return "$years years ago";
+
+   }
+ }
+}
 
 }

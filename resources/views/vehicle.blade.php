@@ -32,14 +32,14 @@
                                 </select>
                             </div>
                             <div class="form-group float-right  mg-r-20" style="width:250px;">
-                                <select class="form-control select2" data-placeholder="Choose one" id='avablitystatus' onchange="getData(1);">
+                                <select class="form-control select2" data-placeholder="Choose one" id='avablitystatus'>
                                     <option label="Choose one" value="">Select Avilability Status</option>
                                     <option value="0">Available</option>
                                     <option value="1">Unavailable</option>
                                 </select>
                             </div>
                             <div class="form-group float-right mg-r-20" style="width:250px;">
-                                <select class="form-control select2" onchange="getData(1);" id="record">
+                                <select class="form-control select2"  id="record">
                                      <option value="10">10 Records</option>
                                      <option value="25">25 Records</option>
                                      <option value="50">50 Records</option>
@@ -104,6 +104,20 @@
         $(".select2").select2();
     </script>
     <script type="text/javascript">
+        $(document).ready(function(){
+            $('#status').change(function(){
+                $('#avablitystatus').val(['']); 
+                 getData(1);
+       
+            }).trigger('change');
+             $('#avablitystatus').change(function(){
+                $('#status').val(['']); 
+                getData(1);
+            }).trigger('change');
+        });
+
+    </script>
+    <script type="text/javascript">
         $('.pagination').twbsPagination({
             totalPages: 1,
             startPage: 1,
@@ -115,6 +129,8 @@
             },
         });  
         function getData(page){
+            console.log($("#status").val());
+            console.log($("#avablitystatus").val())
             var vehicledata={
                 page          : page,
                 perpage       : $("#record").val(),

@@ -23,9 +23,16 @@
                             <button onclick="location.href='{{url('add-driver')}}'" class="btn btn-primary pd-x-15 pd-y-10 tx-bold tx-spacing-4 tx-12 btn-sm float-right mg-y-0-force"><div>Add Driver</div></button> 
                             <div class="form-group float-right  mg-r-20" style="width:250px;">
                                 <select class="form-control select2" data-placeholder="Choose one" id='status' onchange="getData(1);">
-                                    <option label="Choose one" value="">All</option>
-                                    <option value="0">Unavailable</option>
-                                    <option value="1">Availability</option>
+                                    <option label="Choose one" value="">Select Status</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="form-group float-right  mg-r-20" style="width:250px;">
+                                <select class="form-control select2" data-placeholder="Choose one" id='avablitystatus' onchange="getData(1);">
+                                    <option label="Choose one" value="">Select Avilability Status</option>
+                                    <option value="0">Available</option>
+                                    <option value="1">Unavailable</option>
                                 </select>
                             </div>
                             <div class="form-group float-right mg-r-20" style="width:250px;" >
@@ -47,6 +54,7 @@
                                         <th>App User ID</th>
                                         <th>Address</th>
                                         <th>Status</th>
+                                        <th>AVAILABILITY</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -106,11 +114,13 @@
         function getData(page){
             //alert();
             var driverdata={
-                page          : page,
-                perpage       : $("#record").val(),
-                driverstatus : $("#status").val(),
-                list          : 'true'
+                page            : page,
+                perpage         : $("#record").val(),
+                driverstatus    : $("#status").val(),
+                avablitystatus  : $("#avablitystatus").val(),
+                list            : 'true'
             }
+            console.log(driverdata);
             $.ajax({
                 url : "{{ url('driver-list') }}",
                 type : 'POST',

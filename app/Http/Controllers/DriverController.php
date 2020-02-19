@@ -11,7 +11,7 @@ class DriverController extends Controller
     	$val  = Session::get('auth_key');
 	 	$data = $req->all();
 	 	if(isset($data['list'])){
-	 		$arr 	= array('page'=>$data['page'],'perpage' =>$data['perpage'],'driverstatus'=>$data['driverstatus']);
+	 		$arr 	= array('page'=>$data['page'],'perpage' =>$data['perpage'],'driverstatus'=>$data['driverstatus'],'avablitystatus'=>$data['avablitystatus']);
 			$encode = json_encode($arr);
 			$curl 	= curl_init();
 		    curl_setopt_array($curl, array(
@@ -44,6 +44,11 @@ class DriverController extends Controller
                     $status = '<span class="text-success">Active</span>' ;
                 } else {
                    	$status = '<span class="text-danger">Inactive</span>' ;
+                } 
+                if( $value['driverAblible'] == 0 ){
+                    $driverAblible = '<span class="text-success">Available</span>' ;
+                } else {
+                   	$driverAblible = '<span class="text-danger">Not Available</span>' ;
                 }        
 		    	$html .= '<tr>
                     <th>
@@ -86,6 +91,7 @@ class DriverController extends Controller
                     <td>'.$value['app_user_id'].'</td>
                     <td>'.$value['c_address'].'</td>
                     <td>'.$status.'</td>
+                    <td>'.$driverAblible.'</td>
                     <td>
                         <a href="edit-driver/'.$value['id'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-edit"></i></div></button></a>                                            
                         <a href="view-driver/'.$value['mobile_no'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button></a>                                            

@@ -11,6 +11,36 @@
     <link rel="stylesheet" href="{{ url('public/frontend/css/bracket.css') }}">
      <meta name="csrf-token" content="{{ csrf_token() }}">
      <link href="{{ asset('public/frontend/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
+     <style type="text/css">
+         a[data-tool-tip]{
+            position: relative;
+            text-decoration: none;
+            color: rgba(255,255,255,0.75);
+        }
+
+a[data-tool-tip]::after{
+    content: attr(data-tool-tip);
+    display: block;
+    position: absolute;
+    background-color: dimgrey;
+    padding: 1em 3em;
+    color: white;
+    border-radius: 5px;
+    font-size: .5em;
+    bottom: 0;
+    left: -180%;
+    white-space: nowrap;
+    transform: scale(0);
+    transition: 
+    transform ease-out 150ms,
+    bottom ease-out 150ms;
+}
+
+a[data-tool-tip]:hover::after{
+    transform: scale(1);
+    bottom: 200%;
+}
+     </style>
 </head>
 <body>
      @include('layouts.menu')
@@ -31,48 +61,14 @@
                                         <th>Date</th>
                                         <th>Vehicle</th>
                                         <th>Driver</th>
+                                        <th>Warehouse</th>
                                         <th>No. of dustbin</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr>
-                                        <td><span class="text-success">or2</span></td>
-                                        <td>20 jan, 2020</td>
-                                        <th>
-                                            <a href="#" class="media-list-link ">
-                                                <div class="pd-y-0-force pd-x-0-force media ">
-                                                    <img src="img/ic-truck.png" alt="">
-                                                    <div class="media-body">
-                                                    <div>
-                                                        <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Garbage Trucks</p>
-                                                    </div>
-                                                    <p class="tx-12 tx-gray-600 mg-b-0">DB254 2565</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </th>     
-                                        <td>
-                                            <a href="#" class="media-list-link">
-                                                <div class="media pd-y-0-force pd-x-0-force">
-                                                    <img src="img/img4.jpg" alt="">
-                                                    <div class="media-body">
-                                                    <div>
-                                                        <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
-                                                    </div>
-                                                    <p class="tx-12 tx-gray-600 mg-b-0">Abu Al qasim</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </td>                                   
-                                        <td><span class="text-success">20</span></td>
-                                        <td><span class="text-success">Active</span></td>
-                                        <td>
-                                            <button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button>                                            
-                                            <button  class="btn btn-danger btn-icon mg-b-10 btn-sm"><div><i class="fa fa-trash"></i></div></button>                                            
-                                        </td>
-                                    </tr> -->
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -91,6 +87,81 @@
                                 </li>
                             </ul> -->
                         </div>
+
+        <div id="modaldemo8" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content bd-0 tx-14">
+                <div class="modal-header pd-y-20 pd-x-25">
+                  <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Availabe Driver</h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body pd-25">
+                    <div class="bd table-responsive">
+                        <table class="table table-bordered" id="available-vehicle">
+                            <thead class="thead-colored thead-light">
+                                <tr>
+                                    <th>#</th>                                   
+                                    <th>Driver</th>
+                                    <th>Vehicle</th>
+                                    <th>Vehicle capacity</th>
+                                    <th>Select</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                            </tbody>
+                        </table>
+                    </div>
+                   <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
+                        <ul class="pagination pagination-circle mg-b-0">
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" onclick="saveModalData()">Assign</button>
+                  <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="modaldemo9" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content bd-0 tx-14">
+                <div class="modal-header pd-y-20 pd-x-25">
+                  <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Not Availabe Driver</h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body pd-25">
+                    <div class="bd table-responsive">
+                        <table class="table table-bordered" id="not-available">
+                            <thead class="thead-colored thead-light">
+                                <tr>
+                                    <th>#</th>                                   
+                                    <th>Driver</th>
+                                    <th>Vehicle</th>
+                                    <th>Vehicle capacity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
+                        <ul class="pagination pagination-circle mg-b-0">
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <!-- <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" onclick="saveModalData1()">Save changes</button> -->
+                  <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
                     </div>
                 </div>              
             </div>
@@ -111,9 +182,129 @@
     <script src="{{ url('public/frontend/js/bracket.js') }}"></script>
     <script src="{{ asset('public/frontend/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('public/frontend/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
 
     <script>
          $(".select2").select2();
+         var postdata = "{{ env('API_URL') }}";
+         $(function(){
+            // $('.modal-effect').on('click', function(e){
+            //     e.preventDefault();
+            //     var effect = $(this).attr('data-effect');
+            //     $('#modaldemo8').addClass(effect);
+            //     $('#modaldemo8').modal('show');
+            // });
+            $('#modaldemo8').on('hidden.bs.modal', function (e) {
+                $(this).removeClass (function (index, className) {
+                    return (className.match (/(^|\s)effect-\S+/g) || []).join(' ');
+                });
+            });
+            $('#modaldemo9').on('hidden.bs.modal', function (e) {
+                $(this).removeClass (function (index, className) {
+                    return (className.match (/(^|\s)effect-\S+/g) || []).join(' ');
+                });
+            });
+        });
+          $('.pagination').twbsPagination({
+            totalPages: 1,
+            startPage: 1,
+            visiblePages: 5,
+            href: false,
+            loop: false,
+            onPageClick: function (event, page) {
+                openModalAvailable(wid,page);
+                openModalNotAvailable(wid,page);
+            },
+        }); 
+         function openModalAvailable(wid,page){
+
+            var effect = $(this).attr('data-effect');
+                $('#modaldemo8').addClass(effect);
+                $('#modaldemo8').modal('show');
+            var avilable={
+                page          : page,
+                perpage       : 10,
+                wid           : wid,
+                list          : 'true'
+            }
+            console.log(avilable);
+                $.ajax({
+                url : "{{url('available-vehicle')}}",
+                type : 'POST',
+                data : avilable,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success : function(data){
+                    var data = JSON.parse(data);
+                    console.log(data);//return false; 
+                    $("#available-vehicle tbody").html('');
+                    if(data.count == 0){
+                        $("#available-vehicle tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
+                    } else {
+                        $("#available-vehicle tbody").html(data.html);
+                        if(page == 1){
+                            $('.pagination').twbsPagination('destroy');
+                            $('.pagination').twbsPagination({
+                                totalPages: data.count,
+                                href: false,
+                            }).on('page', function (event, page) {
+                                console.log(page);
+                               getData(page);
+                            }); 
+                        }
+                    } 
+                },
+                cache : false ,
+            }) ;
+
+
+         }
+
+         function openModalNotAvailable(wid,page){
+
+            var effect = $(this).attr('data-effect');
+                $('#modaldemo9').addClass(effect);
+                $('#modaldemo9').modal('show');
+            var notavilable={
+                page          : page,
+                perpage       : 10,
+                wid           : wid,
+                list          : 'true'
+            }
+            console.log(notavilable);
+                $.ajax({
+                url : "{{url('notavailable-vehicle')}}",
+                type : 'POST',
+                data : notavilable,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success : function(data){
+                    var data = JSON.parse(data);
+                    console.log(data);//return false; 
+                    $("#not-available tbody").html('');
+                    if(data.count == 0){
+                        $("#not-available tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
+                    } else {
+                        $("#not-available tbody").html(data.html);
+                        if(page == 1){
+                            $('.pagination').twbsPagination('destroy');
+                            $('.pagination').twbsPagination({
+                                totalPages: data.count,
+                                href: false,
+                            }).on('page', function (event, page) {
+                                console.log(page);
+                               getData(page);
+                            }); 
+                        }
+                    } 
+                },
+                cache : false ,
+            }) ;
+
+
+         }
     </script>
     <script type="text/javascript">
         getData();
@@ -169,7 +360,7 @@
         }
 
         function completedPickup(vid){
-            var postdata = "{{ env('API_URL') }}";
+            // var postdata = "{{ env('API_URL') }}";
             var pickup = "{{ url('pickup') }}";
             //alert();
             var parms={
@@ -221,6 +412,15 @@
                 processData: false 
             });
             
+        }
+        function saveModalData(){
+            alert();
+               var parms = {
+                    wid : $('#warehouseID').val(),
+                    driverID : $('#driverid').val(),
+                    vehicelID : $('#vehicleid').val(),
+               }
+               console.log(parms);
         }
     </script>
 </body>

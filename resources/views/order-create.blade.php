@@ -27,13 +27,35 @@
                                     <option label="Choose one">No. od records</option>
                                     <option value="Firefox"></option>
                                 </select>
-                            </div>  -->                           
+                            </div>  --> 
                         </h6>
-                         <div>
-                        
-                       <div  id="pickup"></div>
-                      
-
+                            <div>
+                                <div class="row">
+                                    <div class="input-group col-md-4" style="margin-right: 0px;">
+                                        <select class="form-control select2" data-placeholder="Choose one" name="wid" id="wid" onchange="getData(1);">
+                                            <option value="">Select Warehouse</option>
+                                        </select>
+                                    </div>
+                                 <div class="form-group col-md-4" style="margin-right: 0px;">
+                                    <select class="form-control select2" data-placeholder="Choose one " onchange="getData(1);" id="dataperfrom">
+                                         <option value="">Select Datapercentage</option>
+                                         <option value="10">0-10%</option>
+                                         <option value="25">0-25%</option>
+                                         <option value="50">0-50%</option>
+                                         <option value="75">0-75%</option>
+                                         <option value="100">0-100%</option>
+                                    </select>
+                                </div> 
+                                <div class="form-group col-md-4" style="margin-right: 0px;">
+                                    <select class="form-control select2" data-placeholder="Choose one " onchange="getData(1);" id="record">
+                                         <option value="10">10 Records</option>
+                                         <option value="25">25 Records</option>
+                                         <option value="50">50 Records</option>
+                                         <option value="100">100 Records</option>
+                                    </select>
+                                </div>    
+                            </div>                        
+                            <div  id="pickup"></div>   
                            <!--  <table class="table table-bordered mg-b-0" id="pickup">
                                 <thead class="thead-colored thead-light">
                                     <tr>
@@ -89,9 +111,9 @@
                             <button class="btn btn-primary">Create</button>
                             <button class="btn btn-secondary">Cancel</button>
                         </div> -->
-                       <!--  <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
+                        <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
                             <ul class="pagination pagination-circle mg-b-0">
-                                <li class="page-item hidden-xs-down">
+                                <!-- <li class="page-item hidden-xs-down">
                                     <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
                                 </li>
                                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -101,9 +123,9 @@
                              
                                 <li class="page-item hidden-xs-down">
                                     <a class="page-link" href="#" aria-label="Last"><i class="fa fa-angle-double-right"></i></a>
-                                </li>
+                                </li> -->
                             </ul>
-                        </div> -->
+                        </div>
                     </div>
                 </div>              
             </div>
@@ -127,12 +149,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
     <script src="{{ asset('public/frontend/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('public/frontend/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> -->
     <script>
+         var list_ware = "{{ env('API_URL')}}";
          $(".select2").select2();
         //  $(document).ready(function(){
         //     $('button').attr('disabled',true);
         // });
+         $(function(){
+            // $('.modal-effect').on('click', function(e){
+            //     e.preventDefault();
+            //     var effect = $(this).attr('data-effect');
+            //     $('#modaldemo8').addClass(effect);
+            //     $('#modaldemo8').modal('show');
+            // });
+            $('#modaldemo8').on('hidden.bs.modal', function (e) {
+                $(this).removeClass (function (index, className) {
+                    return (className.match (/(^|\s)effect-\S+/g) || []).join(' ');
+                });
+            });
+        });
+         function openModal(){
+            alert();
+            var effect = $(this).attr('data-effect');
+                $('#modaldemo8').addClass(effect);
+                $('#modaldemo8').modal('show');
+         }
+
         var status=false, status1=false;
          function checkAll(thiss,name){
           
@@ -142,9 +184,7 @@
                  }else{
                   $('input:checkbox[name="'+name+'[]"]').prop('checked', '');
                   $("#button"+name+"").attr('disabled',true);
-                }
-           
-          
+                }      
     }
 
 
@@ -188,9 +228,7 @@
 
     </script>
     <script type="text/javascript">
-
-        getData();
-        $('.pagination').twbsPagination({
+       $('.pagination').twbsPagination({
             totalPages: 1,
             startPage: 1,
             visiblePages: 5,
@@ -199,13 +237,14 @@
             onPageClick: function (event, page) {
                 getData(page);
             },
-        });  
-        function getData(){
+        });   
+        function getData(page){
             //alert();
             var pickup={
-                //page          : page,
-                //perpage       : $("#record").val(),
-                //driverstatus : $("#status").val(),
+                page          : page,
+                perpage       : $("#record").val(),
+                wid           : $("#wid").val(),
+                dataperfrom   : $("#dataperfrom").val(),
                 list          : 'true'
             }
             $.ajax({
@@ -223,16 +262,16 @@
                         $("#pickup").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
                     } else {
                         $("#pickup").html(data.html);
-                        // if(page == 1){
-                        //     $('.pagination').twbsPagination('destroy');
-                        //     $('.pagination').twbsPagination({
-                        //         totalPages: data.count,
-                        //         href: false,
-                        //     }).on('page', function (event, page) {
-                        //         console.log(page);
-                        //        getData(page);
-                        //     }); 
-                        // }
+                        if(page == 1){
+                            $('.pagination').twbsPagination('destroy');
+                            $('.pagination').twbsPagination({
+                                totalPages: data.count,
+                                href: false,
+                            }).on('page', function (event, page) {
+                                console.log(page);
+                               getData(page);
+                            }); 
+                        }
                     } 
                 },
                 cache : false ,
@@ -257,16 +296,16 @@
               
             });
         var parms = {
-                    groupname : $('#groupname').val(),
-                    wid       : wid,
-                    dustbin      : checkList,
-                    assigndate : $('#assigndate').val() 
+                    groupname   : $('#groupname').val(),
+                    wid         : wid,
+                    dustbin     : checkList,
+                    assigndate  : $('#assigndate').val() 
         } 
         console.log(parms);
 
         //return false;
         $.ajax({
-                url : postdata+'assignVehicle',
+                url : postdata+'assigingroupPicup',
                 type: 'POST',
                 data : JSON.stringify(parms),
                 async:false, 
@@ -312,80 +351,33 @@
             });
       }
 
- // const socket = io('http://3.6.124.196:3002/');
- //   socket.on('connect',function(data) {
- //        console.log("Server is connected");
- //    });
- //    socket.on('groupdustbinpickup', (dataSet)=>{
- //        $("#pickup").html('');
- //        if(dataSet.length!=0){
- //       var html = "";
- //        for(var x=0;x<dataSet.length;x++){
- //             html += '<div class="row mg-t-20">'
- //                            +'<div class="col-md-8">'
- //                                +'<h6 class="tx-inverse"> Warehouse </h6>'
- //                                +'<p class="lh-7">'+dataSet[x].warehousename+'<br>'+dataSet[x].warehouseaddress+'</p>'
- //                            +'</div>'
- //                            +'<div class="col-md-4">'
- //                                +'<p class="d-flex justify-content-between mg-b-5">'
- //                                    +'<span>Dustbin Today Count</span>'
- //                                    +'<span>'+dataSet[x].NoofDustbin+'</span>'
- //                                +'</p>'
- //                                // +'<p class="d-flex justify-content-between mg-b-5">'
- //                                //     +'<span>Vehicle Used</span>'
- //                                //     +'<span>'+dataSet[x].novehicle+'</span>'
- //                                // +'</p>'
- //                            +'</div>'
- //                        +'</div>'
- //                 +'<div class="bd rounded table-responsive"><table class="table table-bordered mg-b-0">'
- //                                +'<thead class="thead-colored thead-light">'
- //                                    +'<tr>'
- //                                        +'<th>'
- //                                            +'<label class="ckbox mg-b-0">'
- //                                                +'<input type="checkbox">'
- //                                                +'<span></span>'
- //                                            +'</label>' 
- //                                        +'</th>'
- //                                        +'<th>Dustbin Name</th>'
- //                                        +'<th>GSM Number</th>'
- //                                        +'<th>Distance</th>'
- //                                        +'<th>Duration</th>'
- //                                        +'<th>Data Percentage</th>'  
- //                                    +'</tr>'
- //                                +'</thead>'
- //                                +'<tbody>';
- //          for(var xx=0;xx<dataSet[x].data.length;xx++){
- //               html += '<tr>'
- //                                 +'<td>'
- //                                    +'<label class="ckbox">'
- //                                        +'<input type="checkbox" value="'+dataSet[x].data[xx].id+'" id="check" name="check[]">'
- //                                        +'<span></span>'
- //                                    +'</label>'                                           
- //                                +'</td>'
- //                                +'<td>'+dataSet[x].data[xx].name+'</td>'
- //                                +'<td>'+dataSet[x].data[xx].gsm_moblie_number+'</td>'
- //                                +'<td>'+dataSet[x].data[xx].distance+'</td>'                                       
- //                                +'<td>'+dataSet[x].data[xx].duration+'</td>'                                       
- //                                +'<td><span class="text-danger">'+dataSet[x].data[xx].data_percentage+' %</span></td>'
-                                      
- //                         +'</tr>';
- //          }
- //          html += '</tbody>'
- //                           +'</table>'
-                              
- //                            +'</div>'
- //                            +'<div class="form-layout-footer mg-t-30 tx-center">'
- //                            +'<button class="btn btn-primary" onclick="getCheckData('+dataSet[x].WareHouseId+');">Create</button>'
- //                        +'</div>';
- //        $("#pickup").append(html);
- //      }
- //      }
- //    });
-
-
-
-
+ 
     </script> 
+    <script type="text/javascript">
+  getwarehouse();
+      function getwarehouse(){
+      $.ajax({ 
+                url : list_ware+'dropdownlistwarehouse',
+                type : 'GET',
+                headers:{ 
+                    'Access-Control-Allow-Origin': '*', 
+                    'Authorization' : $("#tocken").val(),
+                },
+                success : function(data){
+                    $('#wid').html('<option value=""> Select Warehouse</option>');
+                    $.each(data.result, function() { 
+                        var selected = ''; 
+                        $('#wid').append($("<option "+ selected +"></option>").attr("value",this['id']).text(this['name'])); 
+                    }); 
+                },
+            }); 
+    } 
+    function resetAll(){
+        $("#wid")[0].selectedIndex=0;
+        $('input[name="datefilter"]').val('');
+        getData(1);
+    }   
+</script>
 
     
 </body>

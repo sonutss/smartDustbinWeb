@@ -25,10 +25,17 @@
                             <a href="{{ url('add-vehicle') }}"><button id="add-vehicle" class="btn btn-primary pd-x-15 pd-y-10 tx-bold tx-spacing-4 tx-12 btn-sm float-right mg-y-0-force"><div>Add Vehicle</div></button></a>
 
                             <div class="form-group float-right  mg-r-20" style="width:250px;">
-                                <select class="form-control select2" id='status' onchange="getData(1);">
-                                    <option value="">All</option>
-                                    <option value="0">Unavailable</option>
-                                    <option value="1">Availability</option>
+                                <select class="form-control select2" data-placeholder="Choose one" id='status' onchange="getData(1);">
+                                    <option label="Choose one" value="">Select Status</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="form-group float-right  mg-r-20" style="width:250px;">
+                                <select class="form-control select2" data-placeholder="Choose one" id='avablitystatus' onchange="getData(1);">
+                                    <option label="Choose one" value="">Select Avilability Status</option>
+                                    <option value="0">Available</option>
+                                    <option value="1">Unavailable</option>
                                 </select>
                             </div>
                             <div class="form-group float-right mg-r-20" style="width:250px;">
@@ -112,6 +119,7 @@
                 page          : page,
                 perpage       : $("#record").val(),
                 vehiclestatus : $("#status").val(),
+                avablitystatus  : $("#avablitystatus").val(),
                 list          : 'true'
             }
             $.ajax({

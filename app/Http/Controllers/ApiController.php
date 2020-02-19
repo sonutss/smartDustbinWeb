@@ -79,7 +79,7 @@ class ApiController extends Controller
 	 	$data = $req->all();
 	 	if(isset($data['list'])){
 	 		//echo 'sadasd'; exit;
-	 		$arr =array('page'=>$data['page'],'perpage' =>$data['perpage'],'vehiclestatus'=>$data['vehiclestatus']);
+	 		$arr =array('page'=>$data['page'],'perpage' =>$data['perpage'],'vehiclestatus'=>$data['vehiclestatus'],'avablitystatus'=>$data['avablitystatus']);
 			$encode = json_encode($arr);
 			$curl = curl_init();
 		    curl_setopt_array($curl, array(

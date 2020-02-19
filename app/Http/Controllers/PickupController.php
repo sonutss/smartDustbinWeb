@@ -38,15 +38,36 @@ class PickupController extends Controller
 		    curl_close($curl);
 		    $decode 	= json_decode($response,true);
 		    $html 		= '';
-		    //echo "<pre>";print_r(count($decode['dustbinData']));die;
-		    if(count($decode['dustbinData'])>0){
-		    	foreach ($decode['dustbinData'] as $key => $value) {	
-		    	                   
-		    	$html .= '<tr>
-                                        <td><span class="text-success">'.$value['groupName'].'</span></td>
-                                        <td>'.$value['dataassignDate'].'</td>
-                                        <th>
-                                            <a href="#" class="media-list-link ">
+		   //echo "<pre>";print_r($decode);die;
+		    if(count($decode['finalData'])>0){
+		    	foreach ($decode['finalData'] as $key => $value) {
+		    	if($value['vehicleID'] == 0){
+		    		$vehicleID = '<a href="#" class="media-list-link ">
+                                                <div class="pd-y-0-force pd-x-0-force media ">
+                                                    <img src="./public/frontend/img/ic-truck.png" alt="">
+                                                    <div class="media-body">
+                                                    <div>
+                                                        <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Not Assigned</p>
+                                                    </div>
+                                                    
+                                                    </div>
+                                                </div>
+                                            </a>';
+
+		    		$driverID = '<a href="#" class="media-list-link ">
+                                                <div class="pd-y-0-force pd-x-0-force media ">
+                                                    <img src="./public/frontend/img/ic-truck.png" alt="">
+                                                    <div class="media-body">
+                                                    <div>
+                                                        <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Not Assigned</p>
+                                                    </div>
+                                               
+                                                    </div>
+                                                </div>
+                                            </a>';
+                    $driverstatus = '<span class="text-danger">Not Assigned</span>';
+		    	}else{
+		    		$vehicleID = '<a href="#" class="media-list-link ">
                                                 <div class="pd-y-0-force pd-x-0-force media ">
                                                     <img src="./public/frontend/img/ic-truck.png" alt="">
                                                     <div class="media-body">
@@ -56,27 +77,46 @@ class PickupController extends Controller
                                                     <p class="tx-12 tx-gray-600 mg-b-0">'.$value['VehicleRC'].'</p>
                                                     </div>
                                                 </div>
-                                            </a>
-                                        </th>     
-                                        <td>
-                                            <a href="#" class="media-list-link">
+                                            </a>';
+                    $driverID='<a href="#" class="media-list-link">
                                                 <div class="media pd-y-0-force pd-x-0-force">
-                                                    <img src="'.env('STORAGE_PATH').'drivers/'.$value['driverphoto'].'" alt="">
+                                                    <img src="'.env('STORAGE_PATH').'drivers/'.$value['DriverPhoto'].'" alt="">
                                                     <div class="media-body">
                                                     <div>
-                                                        <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['driverName'].'</p>
+                                                        <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['Drivername'].'</p>
                                                     </div>
-                                                    <p class="tx-12 tx-gray-600 mg-b-0">'.$value['drivermobile'].'</p>
+                                                    <p class="tx-12 tx-gray-600 mg-b-0">'.$value['Drivermobile'].'</p>
                                                     </div>
                                                 </div>
-                                            </a>
-                                        </td>                                   
-                                        <td><span class="text-success">'.$value['datacount'].'</span></td>
-                                        <td><span class="text-success"><button type="button" class="btn btn-danger" onclick="completedPickup('.$value['vehicleID'].')">Complete</button></span></td>
+                                            </a>';
+                   // $driverstatus = '<span class="text-success"><button type="button" class="btn btn-success" onclick="completedPickup('.$value['vehicleID'].')">Assigned</button></span>';                        
+                   $driverstatus = '<span class="text-success">Assigned</span>';                        
+		    	}	
+		    	                   
+		    	$html .= '<tr>
+                                        <td><span class="text-success">'.$value['groupName'].'</span></td>
+                                        <td>'.$value['dataassignDate'].'</td>
+                                        <th>
+                                           '.$vehicleID.'
+                                        </th>     
                                         <td>
-                                            <a href="view-details/'.$value['groupName'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button></a>                                                     
+                                       		'.$driverID.'
+                                        </td> 
+                                        <td>
+                                       		'.$value['warehousename'].'
+                                        </td>                                  
+                                        <td><span class="text-success">'.$value['datacount'].'</span></td>
+                                        <td>'.$driverstatus.'</td>
+                                        <td>
+                                            <a href="view-details/'.$value['groupName'].'"><button  class="btn btn-primary btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button></a>
+
+                                            <button  class="btn btn-success btn-icon mg-b-10 btn-sm" title="Availabe Vehicle"  onclick="openModalAvailable('.$value['warehouseID'].',1)"><div><i class="fa fa-check"></i></div></button>
+
+                                            <button  class="btn btn-danger btn-icon mg-b-10 btn-sm" title="Not Availabe vehicle" onclick="openModalNotAvailable('.$value['warehouseID'].',1)"><div><i class="fa fa-times"></i></div></button>                                                   
                                         </td>
                                     </tr>';
+
+                                    // <button class="modal-effect btn btn-primary"data-effect="effect-sign" onclick="openModal();">open modal</button>
 		    
 
 		  }    
@@ -97,6 +137,9 @@ class PickupController extends Controller
     	$val  = Session::get('auth_key');
 	 	$data = $req->all();
 	 	if(isset($data['list'])){
+	 		$arr 	= array('page'=>$data['page'],'perpage' =>$data['perpage'],'wid'=>$data['wid'],'dataperfrom'=>$data['dataperfrom']);
+			$encode = json_encode($arr);
+			//echo "<pre>";print_r($encode);die;
 			$curl 	= curl_init();
 		    curl_setopt_array($curl, array(
 			    CURLOPT_URL 			=> env('API_URL').'dustbinpickup',
@@ -105,8 +148,8 @@ class PickupController extends Controller
 			    CURLOPT_MAXREDIRS 		=> 10,
 			    CURLOPT_TIMEOUT 		=> 30000,
 			    CURLOPT_HTTP_VERSION 	=> CURL_HTTP_VERSION_1_1,
-			    CURLOPT_CUSTOMREQUEST 	=> "GET",
-			    //CURLOPT_POSTFIELDS 		=> $encode,
+			    CURLOPT_CUSTOMREQUEST 	=> "POST",
+			    CURLOPT_POSTFIELDS 		=> $encode,
 			    CURLOPT_HTTPHEADER 		=> array(
 			    // Set here requred headers
 			       //"accept: */*",
@@ -181,16 +224,28 @@ class PickupController extends Controller
                             </div>
                             <div class="form-layout-footer mg-t-30 tx-center">
                             <button disabled="true" class="btn btn-primary" id="button'.$value['WareHouseId'].'" onclick="getCheckData('.$value['WareHouseId'].');">Create</button>
+                            
                         </div>';
 
+		  }   
 
-
-
-		  }    
+		             // <ul class="pagination pagination-circle mg-b-0">
+               //              <li class="page-item hidden-xs-down">
+               //                  <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
+               //              </li>
+               //              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+               //              <li class="page-item"><a class="page-link" href="#">2</a></li>
+               //              <li class="page-item disabled"><span class="page-link">...</span></li>
+               //              <li class="page-item"><a class="page-link" href="#">10</a></li>
+                         
+               //              <li class="page-item hidden-xs-down">
+               //                  <a class="page-link" href="#" aria-label="Last"><i class="fa fa-angle-double-right"></i></a>
+               //              </li>
+               //          </ul> 
 		    //echo "<pre>";print_r($decode);die;
-		    //$count = $decode['result']['totalpage'];
+		    $count = $decode['totalpage'];
 	     	$return = array('html'=> $html);
-	     	//$return = array('count'=> $count, 'html'=> $html);
+	     	$return = array('count'=> $count, 'html'=> $html);
         	echo json_encode($return); exit ;
 	 	} 	 
     	return view('order-create');
@@ -384,6 +439,168 @@ class PickupController extends Controller
 	 	} 	 
     	return view('dustbin-history');
     }
-   
+
+    public function available_vehicle(Request $req){
+
+    	$val  = Session::get('auth_key');
+	 	$data = $req->all();
+	 	if(isset($data['list'])){	
+	 		$arr 	= array('page'=>$data['page'],'perpage' =>$data['perpage'],'wid'=>$data['wid']);
+			$encode = json_encode($arr);
+			//echo "<pre>";print_r($encode);die();
+			$curl 	= curl_init();
+		    curl_setopt_array($curl, array(
+			    CURLOPT_URL 			=> env('API_URL').'avlibleVehicle',
+			    CURLOPT_RETURNTRANSFER  => 1,
+			    CURLOPT_ENCODING 		=> "",
+			    CURLOPT_MAXREDIRS 		=> 10,
+			    CURLOPT_TIMEOUT 		=> 30000,
+			    CURLOPT_HTTP_VERSION 	=> CURL_HTTP_VERSION_1_1,
+			    CURLOPT_CUSTOMREQUEST 	=> "POST",
+			    CURLOPT_POSTFIELDS 		=> $encode,
+			    CURLOPT_HTTPHEADER 		=> array(
+			    // Set here requred headers
+			       //"accept: */*",
+			        "accept-language: en-US,en;q=0.8",
+			        "content-type: application/json",
+			        "Access-Control-Allow-Origin: http://192.168.0.150:3002",
+			        "Authorization: $val",
+
+			    ),
+	    	) );
+	    	$response 	= curl_exec($curl);
+		    $err 		= curl_error($curl);
+		    curl_close($curl);
+		    $decode 	= json_decode($response,true);
+		    //echo "<pre>";print_r($decode);die;
+		    $html 		= '';
+		    $i = 1;
+		    if($decode['data'] !=0){
+		    foreach ($decode['data'] as $key => $value) {                
+		    	$html .= '<tr>
+                                    <td><span class="text-success">'.$i++.'</span></td>                                   
+                                    <td>
+                                        <a href="#" class="media-list-link">
+                                            <div class="media pd-y-0-force pd-x-0-force">
+                                                <img src="'.env('STORAGE_PATH').'drivers/'.$value['driver_image'].'" alt="">
+                                                <div class="media-body">
+                                                <div>
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['Drivername'].'</p>
+                                                </div>
+                                                <p class="tx-12 tx-gray-600 mg-b-0">'.$value['mobile_no'].'</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <th>
+                                        <a href="#" class="media-list-link ">
+                                            <div class="pd-y-0-force pd-x-0-force media ">
+                                                <img src="./public/frontend/img/ic-truck.png" alt="">
+                                                <div class="media-body">
+                                                <div>
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['model_name'].'</p>
+                                                </div>
+                                                <p class="tx-12 tx-gray-600 mg-b-0">'.$value['vehicle_rc'].'</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </th>                                        
+                                    <td>'.$value['capacity'].' Dustbin</td>
+                                    <td>
+                                        <label class="rdiobox">
+                                            <input name="warehouseID" type="radio" id="warehouseID" value="'.$data['wid'].'">
+                                            <span></span>
+                                        </label>
+                                        <input name="driverid" type="hidden" id="driverid" value="'.$value['DriverID'].'">
+                                        <input name="vehicleid" type="hidden" id="vehicleid" value="'.$value['VehicleID'].'">
+                                    </td>
+                                </tr>';
+		    }	
+		   }
+		    
+		    //echo "<pre>";print_r($decode);die;
+		    $count = $decode['totalpage'];
+	     	$return = array('count'=> $count, 'html'=> $html);
+        	echo json_encode($return); exit ;
+	 	} 	 
+    	return view('order');
+    }
+    public function notavailable_vehicle(Request $req){
+
+    	$val  = Session::get('auth_key');
+	 	$data = $req->all();
+	 	if(isset($data['list'])){	
+	 		$arr 	= array('page'=>$data['page'],'perpage' =>$data['perpage'],'wid'=>$data['wid']);
+			$encode = json_encode($arr);
+			//echo "<pre>";print_r($encode);die();
+			$curl 	= curl_init();
+		    curl_setopt_array($curl, array(
+			    CURLOPT_URL 			=> env('API_URL').'notavlibleVehicle',
+			    CURLOPT_RETURNTRANSFER  => 1,
+			    CURLOPT_ENCODING 		=> "",
+			    CURLOPT_MAXREDIRS 		=> 10,
+			    CURLOPT_TIMEOUT 		=> 30000,
+			    CURLOPT_HTTP_VERSION 	=> CURL_HTTP_VERSION_1_1,
+			    CURLOPT_CUSTOMREQUEST 	=> "POST",
+			    CURLOPT_POSTFIELDS 		=> $encode,
+			    CURLOPT_HTTPHEADER 		=> array(
+			    // Set here requred headers
+			       //"accept: */*",
+			        "accept-language: en-US,en;q=0.8",
+			        "content-type: application/json",
+			        "Access-Control-Allow-Origin: http://192.168.0.150:3002",
+			        "Authorization: $val",
+
+			    ),
+	    	) );
+	    	$response 	= curl_exec($curl);
+		    $err 		= curl_error($curl);
+		    curl_close($curl);
+		    $decode 	= json_decode($response,true);
+		    //echo "<pre>";print_r($decode);die;
+		    $html 		= '';
+		    	$i = 1;
+		    if($decode['data'] !=0){
+		    foreach ($decode['data'] as $key => $value) {                
+		    	$html .= '<tr>
+                                    <td><span class="text-success">'.$i++.'</span></td>                                   
+                                    <td>
+                                        <a href="#" class="media-list-link">
+                                            <div class="media pd-y-0-force pd-x-0-force">
+                                                <img src="'.env('STORAGE_PATH').'drivers/'.$value['driver_image'].'" alt="">
+                                                <div class="media-body">
+                                                <div>
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['Drivername'].'</p>
+                                                </div>
+                                                <p class="tx-12 tx-gray-600 mg-b-0">'.$value['mobile_no'].'</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <th>
+                                        <a href="#" class="media-list-link ">
+                                            <div class="pd-y-0-force pd-x-0-force media ">
+                                                <img src="./public/frontend/img/ic-truck.png" alt="">
+                                                <div class="media-body">
+                                                <div>
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['model_name'].'</p>
+                                                </div>
+                                                <p class="tx-12 tx-gray-600 mg-b-0">'.$value['vehicle_rc'].'</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </th>                                        
+                                    <td>'.$value['capacity'].' Dustbin</td>
+                                </tr>';
+		    }	
+		   }
+		    
+		    //echo "<pre>";print_r($decode);die;
+		    $count = $decode['totalpage'];
+	     	$return = array('count'=> $count, 'html'=> $html);
+        	echo json_encode($return); exit ;
+	 	} 	 
+    	return view('order');
+    }
 
 }

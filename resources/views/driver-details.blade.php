@@ -158,12 +158,13 @@
                                     <thead class="thead-colored thead-light">
                                         <tr>
                                             <th>Assigned Vehicle</th>
-                                            <!-- <th>No. of Daily Pickup</th>
-                                            <th>Assigned time</th> -->
+                                            <th>Vehicle Assign status</th>
+                                            <!-- <th>Assigned time</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($decode['result']['vehicleList'] as $key=>$val)
+                                        
                                         <tr>
                                             <td>
                                                 <a href="#" class="media-list-link">
@@ -178,9 +179,13 @@
                                                     </div>
                                                 </a>
                                             </td>                                   
-                                          <!--   <td><span class="text-success">50</span></td>
-                                            <td>Current</td>
-                                           -->
+                                            <td>@if($val['oldstatus']==1)
+                                                <span class="text-success">Current vehicle</span>
+                                                @else
+                                                <span class="text-defult"> Previous vehicle</span> 
+                                                @endif
+                                            </td>
+                                          
                                         </tr>
                                         @endforeach
                                        

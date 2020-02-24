@@ -134,7 +134,26 @@ class ApiController extends Controller
                                 </div>
                             </div>
                         </a>';
-                }      
+                }  
+
+                if($value['Currentstatus'] == 0 || $value['Currentstatus'] == 2) {
+                	$msg = ' <div class="media-body">
+                			<p class="mg-b-0 tx-medium tx-gray-800 tx-13">Driver is Not Assign</p>
+                			</div>';
+                } 
+                else{
+                	 $msg = ' <a href="#" class="media-list-link">
+                            <div class="media pd-y-0-force pd-x-0-force">
+                                <img src="img/img4.jpg" alt="">
+                                <div class="media-body">
+                                <div>
+                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['name'].'</p>
+                                </div>
+                                <p class="tx-12 tx-gray-600 mg-b-0">'.$value['mobile_no'].'</p>
+                                </div>
+                            </div>
+                        </a>';
+                }       
 		    	$html .= '<tr>
                     <th>
                         <a href="#" class="media-list-link ">

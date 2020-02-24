@@ -11,6 +11,19 @@
     <link href="{{ url('public/frontend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('public/frontend/css/bracket.css') }}">
     <link href="{{ asset('public/frontend/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .show-grid [class^=col-] {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border: 1px solid #ddd;
+            border: 1px solid rgba(86,61,124,.2);
+            list-style: none;
+        }
+        .inactive { 
+           color: #ccc;
+            background-color: #fafafa;
+        } 
+    </style>
 </head>
 <body>
     @include('layouts.menu')
@@ -130,6 +143,83 @@
                 </div>              
             </div>
         </div>
+         <div id="modaldemo8" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content bd-0 tx-14">
+                <div class="modal-header pd-y-20 pd-x-25">
+                  <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Availabe Driver</h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body pd-25">
+                    <div class="bd table-responsive">
+                        <table class="table table-bordered" id="available-vehicle">
+                            <thead class="thead-colored thead-light">
+                                <tr>
+                                    <th>#</th>                                   
+                                    <th>Driver</th>
+                                    <th>Vehicle</th>
+                                    <th>Vehicle capacity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                   <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
+                        <ul class="pagination pagination-circle mg-b-0">
+                        </ul>
+                    </div>
+                </div>
+               <!--  <div class="modal-footer">
+                <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" onclick="saveModalData()">Assign</button>
+                  <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <!-- modela -->
+          <div id="modaldemo9" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content bd-0 tx-14">
+                <div class="modal-header pd-y-20 pd-x-25">
+                  <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Un-availabe Driver</h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body pd-25">
+                    <div class="bd table-responsive">
+                        <table class="table table-bordered" id="available-vehicle">
+                            <thead class="thead-colored thead-light">
+                                <tr>
+                                    <th>#</th>                                   
+                                    <th>Driver</th>
+                                    <th>Vehicle</th>
+                                    <th>Vehicle capacity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                   <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
+                        <ul class="pagination pagination-circle mg-b-0">
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" onclick="saveModalData()">Assign</button>
+                  <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
+                </div> -->
+              </div>
+            </div>
+          </div>
         <input type="hidden" name="groupname" id="groupname" value="{{ uniqid() }}">
         <input type="hidden" name="assigndate" id="assigndate" value="{{ date('Y-m-d H:i:s') }}">
         <input type="hidden" name="tocken" id="tocken" value="{{ Session::get('auth_key') }}">
@@ -376,6 +466,103 @@
         $("#wid")[0].selectedIndex=0;
         $('input[name="datefilter"]').val('');
         getData(1);
+    }
+    $('#modaldemo8').on('hidden.bs.modal', function (e) {
+                $(this).removeClass (function (index, className) {
+                    return (className.match (/(^|\s)effect-\S+/g) || []).join(' ');
+                });
+            });
+            $('#modaldemo9').on('hidden.bs.modal', function (e) {
+                $(this).removeClass (function (index, className) {
+                    return (className.match (/(^|\s)effect-\S+/g) || []).join(' ');
+                });
+            });
+    function availableVehicle(wid,page=1){
+        var effect = $(this).attr('data-effect');
+                $('#modaldemo8').addClass(effect);
+                $('#modaldemo8').modal('show');
+
+                var avilable={
+                page          : page,
+                perpage       : 10,
+                wid           : wid,
+                list          : 'true',
+                show          : 'false'
+            }
+            console.log(avilable);
+             //return false;
+                $.ajax({
+                url : "{{url('available-vehicle')}}",
+                type : 'POST',
+                data : avilable,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success : function(data){
+                    var data = JSON.parse(data);
+                    console.log(data);//return false; 
+                    $("#available-vehicle tbody").html('');
+                    if(data.count == 0){
+                        $("#available-vehicle tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
+                    } else {
+                        $("#available-vehicle tbody").html(data.html);
+                        if(page == 1){
+                            $('.pagination').twbsPagination('destroy');
+                            $('.pagination').twbsPagination({
+                                totalPages: data.count,
+                                href: false,
+                            }).on('page', function (event, page) {
+                                console.log(page);
+                               availableVehicle(page);
+                            }); 
+                        }
+                    } 
+                },
+                cache : false ,
+            }) ;
+    }
+    function unavailableVehicle(wid,page=1){
+         var effect = $(this).attr('data-effect');
+                $('#modaldemo9').addClass(effect);
+                $('#modaldemo9').modal('show');
+
+                var avilable={
+                page          : page,
+                perpage       : 10,
+                wid           : wid,
+                list          : 'true'
+            }
+            //console.log(avilable);
+             //return false;
+                $.ajax({
+                url : "{{url('notavailable-vehicle')}}",
+                type : 'POST',
+                data : avilable,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success : function(data){
+                    var data = JSON.parse(data);
+                    console.log(data);//return false; 
+                    $("#available-vehicle tbody").html('');
+                    if(data.count == 0){
+                        $("#available-vehicle tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
+                    } else {
+                        $("#available-vehicle tbody").html(data.html);
+                        if(page == 1){
+                            $('.pagination').twbsPagination('destroy');
+                            $('.pagination').twbsPagination({
+                                totalPages: data.count,
+                                href: false,
+                            }).on('page', function (event, page) {
+                                console.log(page);
+                               unavailableVehicle(page);
+                            }); 
+                        }
+                    } 
+                },
+                cache : false ,
+            }) ;
     }   
 </script>
 

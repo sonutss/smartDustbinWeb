@@ -41,61 +41,55 @@ class DriverController extends Controller
 		    $html 		= '';
 		    foreach ($decode['result']['data'] as $key => $value) {
 		    	if( $value['status'] == 1 ){
-                    $status = '<span class="text-success">Active</span>' ;
+                    $status = '<button  class="btn btn-success btn-icon mg-b-10 btn-sm" onclick="updateStatus('.$value['id'].',0)" style="padding:5px"><div>Active</div></button>' ;
                 } else {
-                   	$status = '<span class="text-danger">Inactive</span>' ;
+                   	$status = '<button  class="btn btn-danger btn-icon mg-b-10 btn-sm"  onclick="updateStatus('.$value['id'].',1)" style="padding:5px"><div>Inactive</div></button>' ;
                 } 
                 if( $value['driverAblible'] == 0 ){
                     $driverAblible = '<span class="text-success">Available</span>' ;
                 } else {
                    	$driverAblible = '<span class="text-danger">Not Available</span>' ;
-                }        
-		    	$html .= '<tr>
-                    <th>
-                        <a href="#" class="media-list-link ">
-                            <div class="pd-y-0-force pd-x-0-force media ">
-                                <img src="img/ic-truck.png" alt="">
-                                <div class="media-body">
-                                <div>
-                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['name'].'</p>
-                                </div>
-                                </div>
-                            </div>
-                        </a>
-                    </th>
-                    <td>
-                        <a href="#" class="media-list-link">
+                } 
+                if( $value['VehicleID'] == 0 ){
+                    $vehicle = '<span>Not Assigned</span>' ;
+                    $assignbutton = '<button  class="btn btn-primary btn-icon mg-b-10 btn-sm" title="Assigned" onclick="openVehicleModel(1,'.$value['id'].')"><div><i class="fa fa-tasks"></i></div></button>';
+                    
+                           
+                } else {
+                   	$vehicle = '<a href="#" class="media-list-link">
                             <div class="media pd-y-0-force pd-x-0-force">
-                                <img src="img/img4.jpg" alt="">
+                                <img src="./public/frontend/img/ic-truck.png" alt="">
                                 <div class="media-body">
                                 <div>
-                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['email'].'</p>
+                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['model_name'].'</p>
                                 </div>
-                        
+                                 <p class="mg-b-0 tx-medium tx-gray-800 tx-13">( '.$value['vehicle_rc'].' )</p>
                                 </div>
                             </div>
-                        </a>
+                        </a>' ;
+                $assignbutton  = '<button  class="btn btn-info btn-icon mg-b-10 btn-sm" title="Re-assigned" onclick="openVehicleModel(1,'.$value['id'].')"><div><i class="fa fa-tasks"></i></div></button>'; 
+                }       
+		    	$html .= '<tr>
+                    <td>
+                        '.$value['name'].'
+                                
                     </td>
                     <td>
-                        <a href="#" class="media-list-link">
-                            <div class="media pd-y-0-force pd-x-0-force">
-                                <img src="img/img4.jpg" alt="">
-                                <div class="media-body">
-                                <div>
-                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['mobile_no'].'</p>
-                                </div>
-                                </div>
-                            </div>
-                        </a>
+                      '.$value['email'].'
+                    </td>
+                    <td>
+                       '.$value['mobile_no'].'
                     </td>
                     <td>'.$value['app_user_id'].'</td>
-                    <td>'.$value['c_address'].'</td>
+                    <td> '.$vehicle.'</td>
                     <td>'.$status.'</td>
                     <td>'.$driverAblible.'</td>
                     <td>
                         <a href="edit-driver/'.$value['id'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-edit"></i></div></button></a>                                            
                         <a href="view-driver/'.$value['mobile_no'].'"><button  class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button></a>                                            
-                        <a href="delete-driver/'.$value['id'].'"><button  class="btn btn-danger btn-icon mg-b-10 btn-sm"><div><i class="fa fa-trash"></i></div></button></a>                                            
+                        <a href="delete-driver/'.$value['id'].'"><button  class="btn btn-danger btn-icon mg-b-10 btn-sm"><div><i class="fa fa-trash"></i></div></button></a>
+                        '.$assignbutton.'
+                                                               
                     </td>
                 </tr>';
 		    }

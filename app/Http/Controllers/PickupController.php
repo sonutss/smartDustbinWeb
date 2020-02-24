@@ -92,6 +92,16 @@ class PickupController extends Controller
                                             </a>';
                    // $driverstatus = '<span class="text-success"><button type="button" class="btn btn-success" onclick="completedPickup('.$value['vehicleID'].')">Assigned</button></span>';                        
                    $driverstatus = '<span class="text-success">Assigned</span>';                        
+		    	}
+
+		    	if($value['driverAblible'] == 0){
+		    		$driverstatus = '<span class="text-danger">Not Assigned</span>';
+		    		$pickup_assigned = '<button  class="btn btn-info btn-icon mg-b-10 btn-sm" title="Assign availabe vehicle" data-groupname="'.$value['groupName'].'"  onclick="openModalAvailable(this,'.$value['warehouseID'].',1)"><div><i class="fa fa-check"></i></div></button>';
+		    	}elseif ($value['driverAblible'] == 1) {
+		    		$driverstatus = '<span class="text-warning">Assigned</span>';
+		    		$pickup_assigned = '<button  class="btn btn-success btn-icon mg-b-10 btn-sm" title="Re-assign availabe vehicle" data-groupname="'.$value['groupName'].'"  onclick="openModalAvailable(this,'.$value['warehouseID'].',1)"><div><i class="fa fa-check"></i></div></button>';
+		    	}else{
+		    		$driverstatus = '<span class="text-success">Ongoing</span>';
 		    	}	
 		    	                   
 		    	$html .= '<tr>
@@ -110,16 +120,12 @@ class PickupController extends Controller
                                         <td>'.$driverstatus.'</td>
                                         <td>
                                             <a href="view-details/'.$value['groupName'].'"><button  class="btn btn-primary btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button></a>
-
-                                            <button  class="btn btn-success btn-icon mg-b-10 btn-sm" title="Availabe Vehicle"  onclick="openModalAvailable('.$value['warehouseID'].',1)"><div><i class="fa fa-check"></i></div></button>
-
-                                            <button  class="btn btn-danger btn-icon mg-b-10 btn-sm" title="Not Availabe vehicle" onclick="openModalNotAvailable('.$value['warehouseID'].',1)"><div><i class="fa fa-times"></i></div></button>                                                   
+                                           '.$pickup_assigned.'
+                                                                                             
                                         </td>
                                     </tr>';
 
                                     // <button class="modal-effect btn btn-primary"data-effect="effect-sign" onclick="openModal();">open modal</button>
-		    
-
 		  }    
 		    }
 		    else{
@@ -168,21 +174,67 @@ class PickupController extends Controller
 		    //echo "<pre>";print_r($decode);die;
 		    $html 		= '';
 		    foreach ($decode['dustbinData'] as $key => $value) {
-
-		    	$html.='<div class="row mg-t-20">
-                            <div class="col-md-8">
-                                <h6 class="tx-inverse"> Warehouse </h6>
-                                <p class="lh-7">'.$value['warehousename'].'<br>'.$value['warehouseaddress'].'</p>
-                            </div><!-- col -->
-                            <div class="col-md-4">
-                                <p class="d-flex justify-content-between mg-b-5">
-                                    <span>Dustbin Today Count</span>
-                                    <span>'.$value['NoofDustbin'].'</span>
-                                </p>
-                     
-                            </div>
-                        </div>
-		    	 <div class="bd rounded table-responsive"><table class="table table-bordered mg-b-0">
+		    	if($decode['vehicleData'][$key]['warehouse_Id']==$value['WareHouseId']){
+		    		$html.='<div class=" show-grid" style="margin-bottom:15px;">
+			    	<div class=" row mg-x-5">
+				      	<div class="col-md-6 active">
+				           <div class="media">
+				              <div class="pull-left" href="#">
+				              </div>
+					            <div class="media-body">
+					                <h6 class="media-heading"><strong>Warehouse</strong>: '.$value['warehousename'].'</h6>
+					                '.$value['warehouseaddress'].'
+					            </div>
+					        </div>
+					      </div>
+					      <div class="col-md-3 active" onclick="availableVehicle('.$value['WareHouseId'].');" style="cursor: pointer;">
+					          <div class="media">
+					            <div class="media-body">
+					                <h6 class="media-heading"><strong>Available Vehicle</strong></h6>
+					               <strong>'.$decode['vehicleData'][$key]['avabileVehicle'].'</strong>
+					            </div>
+					        </div>
+					      </div>
+				         <div class="col-md-3 active" onclick="unavailableVehicle('.$value['WareHouseId'].');" style="cursor: pointer;">
+				            <div class="media-body">
+				                <h6 class="media-heading"><strong>Unavailable Vehicle</strong></h6>
+				                <strong>'.$decode['vehicleData'][$key]['notavabileVehicle'].'</strong>
+				            </div>
+				        </div>
+				    </div>
+				</div>';	
+		    	}
+		    	else{
+		    		$html.='<div class=" show-grid" style="margin-bottom:15px;">
+			    	<div class=" row mg-x-5">
+				      	<div class="col-md-6 active">
+				           <div class="media">
+				              <div class="pull-left" href="#">
+				              </div>
+					            <div class="media-body">
+					                <h6 class="media-heading"><strong>Warehouse</strong>: '.$value['warehousename'].'</h6>
+					                '.$value['warehouseaddress'].'
+					            </div>
+					        </div>
+					      </div>
+					      <div class="col-md-3 active" onclick="availableVehicle('.$value['WareHouseId'].');" style="cursor: pointer;">
+					          <div class="media">
+					            <div class="media-body">
+					                <h6 class="media-heading"><strong>Available Vehicle</strong></h6>
+					               <strong>0</strong>
+					            </div>
+					        </div>
+					      </div>
+				         <div class="col-md-3 active" onclick="unavailableVehicle('.$value['WareHouseId'].');" style="cursor: pointer;">
+				            <div class="media-body">
+				                <h6 class="media-heading"><strong>Unavailable Vehicle</strong></h6>
+				                <strong>0</strong>
+				            </div>
+				        </div>
+				    </div>
+				</div>';
+		    	}
+		    	$html.='<div class="bd rounded table-responsive"><table class="table table-bordered mg-b-0">
                                 <thead class="thead-colored thead-light">
                                     <tr>
                                         <th>
@@ -223,8 +275,8 @@ class PickupController extends Controller
                             </table>
                               
                             </div>
-                            <div class="form-layout-footer mg-t-30 tx-center">
-                            <button disabled="true" class="btn btn-primary" id="button'.$value['WareHouseId'].'" onclick="getCheckData('.$value['WareHouseId'].');">Create</button>
+                            <div class="form-layout-footer mg-t-30 tx-center" style="margin-bottom:15px;">
+                            <button disabled="true" class="btn btn-primary" id="button'.$value['WareHouseId'].'" onclick="getCheckData('.$value['WareHouseId'].');">Create a Pickup</button>
                             
                         </div>';
 
@@ -473,11 +525,23 @@ class PickupController extends Controller
 		    $err 		= curl_error($curl);
 		    curl_close($curl);
 		    $decode 	= json_decode($response,true);
-		    //echo "<pre>";print_r($decode);die;
+		    
 		    $html 		= '';
 		    $i = 1;
 		    if($decode['data'] !=0){
-		    foreach ($decode['data'] as $key => $value) {                
+		    foreach ($decode['data'] as $key => $value) { 
+		    	//echo "<pre>";print_r($data['show']);die;
+		    if($data['show']==='true'){
+					$show = '<td><label class="rdiobox">
+                                            <input name="vehicle_id" type="radio" value="'.$value['VehicleID'].'">
+                                            <span></span>
+                                        </label>
+                                        <input name="driverid" type="hidden" id="driverid" value="'.$value['DriverID'].'">
+                                        <input name="vehicleid" type="hidden" id="vehicleid" value="'.$value['VehicleID'].'"></td>';
+			} 
+			else{
+				$show ='';
+			}             
 		    	$html .= '<tr>
                                     <td><span class="text-success">'.$i++.'</span></td>                                   
                                     <td>
@@ -507,14 +571,7 @@ class PickupController extends Controller
                                         </a>
                                     </th>                                        
                                     <td>'.$value['capacity'].' Dustbin</td>
-                                    <td>
-                                        <label class="rdiobox">
-                                            <input name="warehouseID" type="radio" id="warehouseID" value="'.$data['wid'].'">
-                                            <span></span>
-                                        </label>
-                                        <input name="driverid" type="hidden" id="driverid" value="'.$value['DriverID'].'">
-                                        <input name="vehicleid" type="hidden" id="vehicleid" value="'.$value['VehicleID'].'">
-                                    </td>
+                                    '.$show.' 
                                 </tr>';
 		    }	
 		   }
@@ -603,7 +660,7 @@ class PickupController extends Controller
 	 	} 	 
     	return view('order');
     }
-     public function avilable_history(Request $req){
+    public function avilable_history(Request $req){
     	$val  = Session::get('auth_key');
 	 	$data = $req->all();
 	 	if(isset($data['list'])){	
@@ -682,6 +739,81 @@ class PickupController extends Controller
         	echo json_encode($return); exit ;
 	 	} 	 
     	return view('available-history');
+    }
+     public function vehicle_assign(Request $req){
+
+    	$val  = Session::get('auth_key');
+	 	$data = $req->all();
+	 	if(isset($data['list'])){	
+	 		$arr 	= array('page'=>$data['page'],'perpage' =>$data['perpage']);
+			$encode = json_encode($arr);
+			//echo "<pre>";print_r($encode);die();
+			$curl 	= curl_init();
+		    curl_setopt_array($curl, array(
+			    CURLOPT_URL 			=> env('API_URL').'vehiclelistforassign',
+			    CURLOPT_RETURNTRANSFER  => 1,
+			    CURLOPT_ENCODING 		=> "",
+			    CURLOPT_MAXREDIRS 		=> 10,
+			    CURLOPT_TIMEOUT 		=> 30000,
+			    CURLOPT_HTTP_VERSION 	=> CURL_HTTP_VERSION_1_1,
+			    CURLOPT_CUSTOMREQUEST 	=> "POST",
+			    CURLOPT_POSTFIELDS 		=> $encode,
+			    CURLOPT_HTTPHEADER 		=> array(
+			    // Set here requred headers
+			       //"accept: */*",
+			        "accept-language: en-US,en;q=0.8",
+			        "content-type: application/json",
+			        "Access-Control-Allow-Origin: http://192.168.0.150:3002",
+			        "Authorization: $val",
+
+			    ),
+	    	) );
+	    	$response 	= curl_exec($curl);
+		    $err 		= curl_error($curl);
+		    curl_close($curl);
+		    $decode 	= json_decode($response,true);
+		    //echo "<pre>";print_r($decode);die;
+		    $html 		= '';
+		    if($decode['result']['data'] !=0){
+		    foreach ($decode['result']['data'] as $key => $value) { 
+		    if($value['driverAvablityStatus']==1){ 
+ 							$rediobtn='<span class="text-danger">Pickup already assigned !!</span>'; 
+		     }
+		     else{
+		     	$rediobtn='<label class="rdiobox">
+                                            <input name="vehicle_id" type="radio" value="'.$value['VehicleID'].'">
+                                            <span></span>
+                                        </label>'; 
+		     }            
+		    	$html .= '<tr>
+                                    <th>
+                                        <a href="#" class="media-list-link ">
+                                            <div class="pd-y-0-force pd-x-0-force media ">
+                                                <img src="./public/frontend/img/ic-truck.png" alt="">
+                                                <div class="media-body">
+                                                <div>
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-13">'.$value['model_name'].'</p>
+                                                </div>
+                                                <p class="tx-12 tx-gray-600 mg-b-0">'.$value['vehicle_rc'].'</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </th>                                        
+                                    <td>'.$value['capacity'].' Dustbin</td>
+                                    <td>
+                                       '.$rediobtn.'
+                                    </td>
+                                </tr>';
+		    
+		   } 	
+		  }
+		    
+		    //echo "<pre>";print_r($decode);die;
+		    $count = $decode['result']['totalpage'];
+	     	$return = array('count'=> $count, 'html'=> $html);
+        	echo json_encode($return); exit ;
+	 	} 	 
+    	return view('driver');
     }
 function time_ago($timestamp){
  

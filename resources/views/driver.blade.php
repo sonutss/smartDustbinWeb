@@ -112,7 +112,7 @@
                 </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" onclick="assigning();">Save changes</button>
+                  <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" onclick="assigning();">Assign</button>
                   <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
                 </div>
                 <input type="hidden" name="tocken" value="{{ Session::get('auth_key') }}" id="tocken">

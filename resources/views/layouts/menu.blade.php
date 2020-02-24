@@ -57,7 +57,7 @@
                     <span class="menu-item-label">Dustbin List</span>
                 </a>
             </li>
-             <li class="br-menu-item">
+             <!-- <li class="br-menu-item">
                 <a href="{{ url('warehouse-vehicle-mapping') }}" class="br-menu-link {{ (\Request::route()->getName() == 'warehouse-vehicle-mapping') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-settings tx-24"></i>
                     <span class="menu-item-label">Warehouse Vehicle Map.</span>
@@ -68,6 +68,17 @@
                     <i class="menu-item-icon icon ion-ios-settings tx-24"></i>
                     <span class="menu-item-label">Vehicle Driver Mapping</span>
                 </a>
+            </li> -->
+            <li class="br-menu-item">
+                <a href="#" class="br-menu-link with-sub {{ (\Request::route()->getName() == 'warehouse-vehicle-mapping') ? 'active' : '' }} {{ (\Request::route()->getName() == 'driver-vehicle-mapping') ? 'active' : '' }}">
+                    <i class="menu-item-icon icon ion-ios-settings  tx-20"></i>
+                    <span class="menu-item-label">Mapping</span>
+                </a>
+                <ul class="br-menu-sub">
+                    <li class="sub-item"><a href="{{ url('warehouse-vehicle-mapping') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'warehouse-vehicle-mapping') ? 'active' : '' }}" class="sub-link"> Warehouse Vehicle</a></li>
+                    <li class="sub-item"> <a href="{{ url('driver-vehicle-mapping') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'driver-vehicle-mapping') ? 'active' : '' }}" class="sub-link"> Vehicle Driver</a></li>
+                   
+                </ul>
             </li>
              <li class="br-menu-item">
                 <a href="#" class="br-menu-link with-sub  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }} {{ (\Request::route()->getName() == 'dustbin-history') ? 'active' : '' }} {{ (\Request::route()->getName() == 'avilable-history') ? 'active' : '' }}">
@@ -75,8 +86,7 @@
                     <span class="menu-item-label">History</span>
                 </a>
                 <ul class="br-menu-sub">
-            <li class="sub-item"><a href="{{ url('pickup-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }}" class="sub-link">
-                    Pickup History</a></li>
+                    <li class="sub-item"><a href="{{ url('pickup-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }}" class="sub-link"> Pickup History</a></li>
                     <li class="sub-item"> <a href="{{ url('dustbin-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'dustbin-history') ? 'active' : '' }}" class="sub-link"> Dustbin History</a></li>
                     <li class="sub-item"><a href="{{ url('avilable-history') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'avilable-history') ? 'active' : '' }}" class="sub-link">Avilable History</a></li>
                 </ul>

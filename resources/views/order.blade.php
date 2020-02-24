@@ -50,7 +50,7 @@ a[data-tool-tip]:hover::after{
             <div class="mg-t-20 w-100"></div>
                 <div class="col-lg-12">            
                     <div class="card shadow-base bd-0 pd-25 ">                        
-                        <h6 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Pickup List 
+                        <h6 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Daily Pickup List 
                               <button onclick="location.href='{{ url('pickup-create') }}'" class="btn btn-primary pd-x-15 pd-y-10 tx-bold tx-spacing-4 tx-12 btn-sm float-right mg-y-0-force"><div>Schedule Pickup</div></button>   
                         </h6>
                        <div class="bd rounded table-responsive">

@@ -616,11 +616,9 @@ class PickupController extends Controller
 		    $decode 	= json_decode($response,true);
 		    //echo "<pre>";print_r($decode);die;
 		    $html 		= '';
-		    	$i = 1;
 		    if($decode['data'] !=0){
 		    foreach ($decode['data'] as $key => $value) {                
-		    	$html .= '<tr>
-                                    <td><span class="text-success">'.$i++.'</span></td>                                   
+		    	$html .= '<tr>                                   
                                     <td>
                                         <a href="#" class="media-list-link">
                                             <div class="media pd-y-0-force pd-x-0-force">

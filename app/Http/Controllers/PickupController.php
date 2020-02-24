@@ -817,7 +817,7 @@ class PickupController extends Controller
     }
 function time_ago($timestamp){
  
- date_default_timezone_set("Asia/Kolkata");        
+ date_default_timezone_set("Asia/Dubai");        
  $time_ago        = strtotime($timestamp);
  $current_time    = time();
  $time_difference = $current_time - $time_ago;

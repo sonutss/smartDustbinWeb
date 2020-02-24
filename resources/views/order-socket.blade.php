@@ -101,8 +101,7 @@ a[data-tool-tip]:hover::after{
                     <div class="bd table-responsive">
                         <table class="table table-bordered" id="available-vehicle">
                             <thead class="thead-colored thead-light">
-                                <tr>
-                                    <th>#</th>                                   
+                                <tr>                                   
                                     <th>Driver</th>
                                     <th>Vehicle</th>
                                     <th>Vehicle capacity</th>
@@ -139,8 +138,7 @@ a[data-tool-tip]:hover::after{
                     <div class="bd table-responsive">
                         <table class="table table-bordered" id="not-available">
                             <thead class="thead-colored thead-light">
-                                <tr>
-                                    <th>#</th>                                   
+                                <tr>                                   
                                     <th>Driver</th>
                                     <th>Vehicle</th>
                                     <th>Vehicle capacity</th>

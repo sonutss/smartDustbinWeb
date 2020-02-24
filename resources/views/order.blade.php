@@ -101,8 +101,7 @@ a[data-tool-tip]:hover::after{
                     <div class="bd table-responsive">
                         <table class="table table-bordered" id="available-vehicle">
                             <thead class="thead-colored thead-light">
-                                <tr>
-                                    <th>#</th>                                   
+                                <tr>                                  
                                     <th>Driver</th>
                                     <th>Vehicle</th>
                                     <th>Vehicle capacity</th>
@@ -141,8 +140,7 @@ a[data-tool-tip]:hover::after{
                     <div class="bd table-responsive">
                         <table class="table table-bordered" id="not-available">
                             <thead class="thead-colored thead-light">
-                                <tr>
-                                    <th>#</th>                                   
+                                <tr>                                 
                                     <th>Driver</th>
                                     <th>Vehicle</th>
                                     <th>Vehicle capacity</th>
@@ -230,11 +228,13 @@ a[data-tool-tip]:hover::after{
         //     },
         // });
         var groupid = 0;
-        var wid = 0; 
+        var wid = 0;
+        var dustbincount = 0; 
         function openModalAvailable(xyz,wid,page){
-               console.log($(xyz).data('groupname'))
-              
+               console.log($(xyz).data('dustbincount'))
+                dustbincount = $(xyz).data('dustbincount'); 
                 groupid = $(xyz).data('groupname');
+                
                 wid     = wid;    
             var effect = $(this).attr('data-effect');
                 $('#modaldemo8').addClass(effect);
@@ -278,10 +278,25 @@ a[data-tool-tip]:hover::after{
                 cache : false ,
             }) ;
         }
+
+
+// $("input[name='vehicle_id']:checked").on("click",function(){
+        
+//         console.log("val gety"+ getvalue);
+// });      
+
         function saveModalData(){
             var vehicle_id = $("input[name='vehicle_id']:checked").val();
+            var vcapacity = $("input[name='vehicle_id']:checked").data("value");
             // alert();
-               var params = {
+            //console.log("vehicle_id"+ vehicle_id);return false;
+           // var vcapacity = $("input[name='vehicle_capacity']").val();
+            // vehicle_capacity = $("").data('vehiclecapacity');
+            //console.log('vehicl'+vcapacity);
+            //console.log('dustbincount'+dustbincount);
+        if(dustbincount<=vcapacity)
+        {
+                 var params = {
                     groupid : groupid,
                     vid : vehicle_id,
                }
@@ -331,6 +346,17 @@ a[data-tool-tip]:hover::after{
                 contentType : 'application/json',
                 processData: false 
             });
+        }else{
+             swal({   
+                            title: "Warnings",   
+                            text: "To assign order no. of dustbin should not be greater then vehicle capacity !!",   
+                            type: "warning",   
+                            showCancelButton: true,   
+                            confirmButtonColor: "#DD6B55",   
+                        });
+            console.log(vcapacity);return false;
+        }
+              
         }
 
         // function openModalNotAvailable(wid,page){

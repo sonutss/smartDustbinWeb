@@ -70,7 +70,7 @@
                 </a>
             </li> -->
             <li class="br-menu-item">
-                <a href="#" class="br-menu-link with-sub {{ (\Request::route()->getName() == 'warehouse-vehicle-mapping') ? 'active' : '' }} {{ (\Request::route()->getName() == 'driver-vehicle-mapping') ? 'active' : '' }}">
+                <a href="{{ url('warehouse-vehicle-mapping') }}" class="br-menu-link with-sub {{ (\Request::route()->getName() == 'warehouse-vehicle-mapping') ? 'active' : '' }} {{ (\Request::route()->getName() == 'driver-vehicle-mapping') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-settings  tx-20"></i>
                     <span class="menu-item-label">Mapping</span>
                 </a>
@@ -81,7 +81,7 @@
                 </ul>
             </li>
              <li class="br-menu-item">
-                <a href="#" class="br-menu-link with-sub  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }} {{ (\Request::route()->getName() == 'dustbin-history') ? 'active' : '' }} {{ (\Request::route()->getName() == 'avilable-history') ? 'active' : '' }}">
+                <a href="{{ url('pickup-history') }}" class="br-menu-link with-sub  {{ (\Request::route()->getName() == 'pickup-history') ? 'active' : '' }} {{ (\Request::route()->getName() == 'dustbin-history') ? 'active' : '' }} {{ (\Request::route()->getName() == 'avilable-history') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-list-outline  tx-20"></i>
                     <span class="menu-item-label">History</span>
                 </a>
@@ -126,149 +126,10 @@
         </div>
         <div class="br-header-right">
             <nav class="nav">
-                <!-- <div class="dropdown">
-                    <a href="#" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
-                        <i class="icon ion-ios-email-outline tx-24"></i>
-                        <span class="square-8 bg-danger pos-absolute t-15 r-0 rounded-circle"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-header">
-                        <div class="dropdown-menu-label">
-                            <label>Messages</label>
-                            <a href="#">+ Add New Message</a>
-                        </div>
-                        <div class="media-list">
-                            <a href="#" class="media-list-link">
-                                <div class="media">
-                                    <img src="{{ url('public/frontend/img/img3.jpg') }}" alt="">
-                                    <div class="media-body">
-                                        <div>
-                                            <p>Donna Seay</p>
-                                            <span>2 minutes ago</span>
-                                        </div>
-                                        <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring.</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="media-list-link read">
-                                <div class="media">
-                                    <img src="{{ url('public/frontend/img/img4.jpg') }}" alt="">
-                                    <div class="media-body">
-                                        <div>
-                                            <p>Samantha Francis</p>
-                                            <span>3 hours ago</span>
-                                        </div>
-                                        <p>My entire soul, like these sweet mornings of spring.</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="media-list-link read">
-                                <div class="media">
-                                    <img src="{{ url('public/frontend/img/img7.jpg') }}" alt="">
-                                    <div class="media-body">
-                                        <div>
-                                            <p>Robert Walker</p>
-                                            <span>5 hours ago</span>
-                                        </div>
-                                        <p>I should be incapable of drawing a single stroke at the present moment...</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="media-list-link read">
-                                <div class="media">
-                                    <img src="{{ url('public/frontend/img/img5.jpg') }}" alt="">
-                                    <div class="media-body">
-                                        <div>
-                                            <p>Larry Smith</p>
-                                            <span>Yesterday</span>
-                                        </div>
-                                        <p>When, while the lovely valley teems with vapour around me, and the meridian sun strikes...</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="dropdown-footer">
-                                <a href="#"><i class="fas fa-angle-down"></i> Show All Messages</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <div class="dropdown">
-                    <a href="#" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
-                        <i class="icon ion-ios-bell-outline tx-24"></i>
-                        <span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-header">
-                        <div class="dropdown-menu-label">
-                            <label>Notifications</label>
-                            <a href="#">Mark All as Read</a>
-                        </div>
-                        <div class="media-list">
-                            <a href="#" class="media-list-link read">
-                                <div class="media">
-                                    <img src="{{ url('public/frontend/img/img8.jpg') }}" alt="">
-                                    <div class="media-body">
-                                        <p class="noti-text"><strong>Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
-                                        <span>October 03, 2017 8:45am</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="media-list-link read">
-                                <div class="media">
-                                    <img src="{{ url('public/frontend/img/img9.jpg') }}" alt="">
-                                    <div class="media-body">
-                                        <p class="noti-text"><strong>Mellisa Brown</strong> appreciated your work <strong>The Social Network</strong></p>
-                                        <span>October 02, 2017 12:44am</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="media-list-link read">
-                                <div class="media">
-                                    <img src="{{ url('public/frontend/img/img10.jpg') }}" alt="">
-                                    <div class="media-body">
-                                        <p class="noti-text">20+ new items added are for sale in your <strong>Sale Group</strong></p>
-                                        <span>October 01, 2017 10:20pm</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <a href="#" class="media-list-link read">
-                                <div class="media">
-                                    <img src="{{ url('public/frontend/img/img5.jpg') }}" alt="">
-                                    <div class="media-body">
-                                        <p class="noti-text"><strong>Julius Erving</strong> wants to connect with you on your conversation with <strong>Ronnie Mara</strong></p>
-                                        <span>October 01, 2017 6:08pm</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="dropdown-footer">
-                                <a href="#"><i class="fas fa-angle-down"></i> Show All Notifications</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="dropdown">
-                    <!-- <a href="#" class="nav-link nav-link-profile" data-toggle="dropdown">
-                        <span class="logged-name hidden-md-down">Katherine</span>
-                        <img src="{{ url('public/frontend/img/img1.jpg') }}" class="wd-32 rounded-circle" alt="">
-                        <span class="square-10 bg-success"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-header wd-250">
-                        <div class="tx-center">
-                            <a href="#"><img src="{{ url('public/frontend/img/img1.jpg') }}" class="wd-80 rounded-circle" alt=""></a>
-                            <h6 class="logged-fullname">Katherine P. Lumaad</h6>
-                            <p>youremail@domain.com</p>
-                        </div>
-                        <hr>
-                        <div class="tx-center">
-                            <span class="profile-earning-label">Earnings After Taxes</span>
-                            <h3 class="profile-earning-amount">$13,230 <i class="icon ion-ios-arrow-thin-up tx-success"></i></h3>
-                            <span class="profile-earning-text">Based on list price.</span>
-                        </div> -->
-                        <!-- <hr> -->
+                  
                         <ul class="list-unstyled user-profile-nav">
-                            <!-- <li><a href="#"><i class="icon ion-ios-person"></i> Edit Profile</a></li>
-                            <li><a href="#"><i class="icon ion-ios-gear"></i> Settings</a></li>
-                            <li><a href="#"><i class="icon ion-ios-download"></i> Downloads</a></li>
-                            <li><a href="#"><i class="icon ion-ios-star"></i> Favorites</a></li>
-                            <li><a href="#"><i class="icon ion-ios-folder"></i> Collections</a></li> -->
+                          
                             <li><a href="{{ url('logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
                         </ul>
                     </div>
@@ -277,3 +138,19 @@
     
         </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+    console.log(window.location.pathname);
+    // -----------------------------------------------------------------------
+    $.each($('.navbar').find('li'), function() {
+      console.log($(this));
+        if (window.location.pathname.indexOf($(this).find('a').attr('href')) > -1)
+        {
+            $(this).toggleClass('active');
+            $(this).parent().closest( "li" ).toggleClass('active');
+        }
+    });
+    // -----------------------------------------------------------------------
+});
+</script>

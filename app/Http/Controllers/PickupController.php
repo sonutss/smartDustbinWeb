@@ -96,10 +96,10 @@ class PickupController extends Controller
 
 		    	if($value['driverAblible'] == 0){
 		    		$driverstatus = '<span class="text-danger">Not Assigned</span>';
-		    		$pickup_assigned = '<button  class="btn btn-info btn-icon mg-b-10 btn-sm" title="Assign availabe vehicle" data-groupname="'.$value['groupName'].'"  onclick="openModalAvailable(this,'.$value['warehouseID'].',1)"><div><i class="fa fa-check"></i></div></button>';
+		    		$pickup_assigned = '<button  class="btn btn-info btn-icon mg-b-10 btn-sm" title="Assign availabe vehicle" data-dustbincount="'.$value['datacount'].'" data-groupname="'.$value['groupName'].'"  onclick="openModalAvailable(this,'.$value['warehouseID'].',1)"><div><i class="fa fa-check"></i></div></button>';
 		    	}elseif ($value['driverAblible'] == 1) {
 		    		$driverstatus = '<span class="text-warning">Assigned</span>';
-		    		$pickup_assigned = '<button  class="btn btn-success btn-icon mg-b-10 btn-sm" title="Re-assign availabe vehicle" data-groupname="'.$value['groupName'].'"  onclick="openModalAvailable(this,'.$value['warehouseID'].',1)"><div><i class="fa fa-check"></i></div></button>';
+		    		$pickup_assigned = '<button  class="btn btn-success btn-icon mg-b-10 btn-sm" title="Re-assign availabe vehicle" data-dustbincount="'.$value['datacount'].'" data-groupname="'.$value['groupName'].'" " data-indexval="'.$key.'"  onclick="openModalAvailable(this,'.$value['warehouseID'].',1)"><div><i class="fa fa-check"></i></div></button>';
 		    	}else{
 		    		$driverstatus = '<span class="text-success">Ongoing</span>';
 		    	}	
@@ -173,6 +173,7 @@ class PickupController extends Controller
 		    $decode 	= json_decode($response,true);
 		    //echo "<pre>";print_r($decode);die;
 		    $html 		= '';
+		    if(count($decode['vehicleData'])>0){
 		    foreach ($decode['dustbinData'] as $key => $value) {
 		    	if($decode['vehicleData'][$key]['warehouse_Id']==$value['WareHouseId']){
 		    		$html.='<div class=" show-grid" style="margin-bottom:15px;">
@@ -281,8 +282,7 @@ class PickupController extends Controller
                         </div>';
 
 		  }   
-
-		             // <ul class="pagination pagination-circle mg-b-0">
+ }	             // <ul class="pagination pagination-circle mg-b-0">
                //              <li class="page-item hidden-xs-down">
                //                  <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
                //              </li>
@@ -527,23 +527,22 @@ class PickupController extends Controller
 		    $decode 	= json_decode($response,true);
 		    
 		    $html 		= '';
-		    $i = 1;
 		    if($decode['data'] !=0){
 		    foreach ($decode['data'] as $key => $value) { 
 		    	//echo "<pre>";print_r($data['show']);die;
 		    if($data['show']==='true'){
 					$show = '<td><label class="rdiobox">
-                                            <input name="vehicle_id" type="radio" value="'.$value['VehicleID'].'">
+                                            <input name="vehicle_id" type="radio" value="'.$value['VehicleID'].'" data-value="'.$value['capacity'].'">
                                             <span></span>
                                         </label>
                                         <input name="driverid" type="hidden" id="driverid" value="'.$value['DriverID'].'">
+                                        <input name="vehicle_capacity" type="hidden" id="vcapacity" value="'.$value['capacity'].'">
                                         <input name="vehicleid" type="hidden" id="vehicleid" value="'.$value['VehicleID'].'"></td>';
 			} 
 			else{
 				$show ='';
 			}             
-		    	$html .= '<tr>
-                                    <td><span class="text-success">'.$i++.'</span></td>                                   
+		    	$html .= '<tr>                  
                                     <td>
                                         <a href="#" class="media-list-link">
                                             <div class="media pd-y-0-force pd-x-0-force">
@@ -696,7 +695,7 @@ class PickupController extends Controller
 		    	$i = 1;
 		    if($decode['result']['data'] !=0){
 		    foreach ($decode['result']['data'] as $key => $value) {
-		    	 $combine = $value['avilable_date'].' '.$value['avilable_time'].' t';
+		    	 $combine = $value['avilable_date'].' '.$value['avilable_time'];
 		    	 $newdatetime = date($combine);
 		    	 //echo "<pre>";print_r($newdatetime);die();
 		    	
@@ -820,6 +819,7 @@ function time_ago($timestamp){
  date_default_timezone_set("Asia/Dubai");        
  $time_ago        = strtotime($timestamp);
  $current_time    = time();
+ //echo "<pre>";print_r($time_ago);die;
  $time_difference = $current_time - $time_ago;
  $seconds         = $time_difference;
  

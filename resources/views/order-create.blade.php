@@ -565,7 +565,19 @@
             }) ;
     }   
 </script>
-
+<script type="text/javascript">
+    $(document).ready(function(){
+            $('#wid').change(function(){
+                $('#dataperfrom').val(['']); 
+                 getData(1);
+       
+            }).trigger('change');
+             $('#dataperfrom').change(function(){
+                $('#wid').val(['']); 
+                getData(1);
+            }).trigger('change');
+        });
+</script>
     
 </body>
 

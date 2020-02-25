@@ -173,9 +173,8 @@ class PickupController extends Controller
 		    $decode 	= json_decode($response,true);
 		    //echo "<pre>";print_r($decode);die;
 		    $html 		= '';
-		    if(count($decode['vehicleData'])>0){
+		    
 		    foreach ($decode['dustbinData'] as $key => $value) {
-		    	if($decode['vehicleData'][$key]['warehouse_Id']==$value['WareHouseId']){
 		    		$html.='<div class=" show-grid" style="margin-bottom:15px;">
 			    	<div class=" row mg-x-5">
 				      	<div class="col-md-6 active">
@@ -192,49 +191,19 @@ class PickupController extends Controller
 					          <div class="media">
 					            <div class="media-body">
 					                <h6 class="media-heading"><strong>Available Vehicle</strong></h6>
-					               <strong>'.$decode['vehicleData'][$key]['avabileVehicle'].'</strong>
+					               <strong>'.$value['avabileTotal'].'</strong>
 					            </div>
 					        </div>
 					      </div>
 				         <div class="col-md-3 active" onclick="unavailableVehicle('.$value['WareHouseId'].');" style="cursor: pointer;">
 				            <div class="media-body">
 				                <h6 class="media-heading"><strong>Unavailable Vehicle</strong></h6>
-				                <strong>'.$decode['vehicleData'][$key]['notavabileVehicle'].'</strong>
+				                <strong>'.$value['notavabileTotal'].'</strong>
 				            </div>
 				        </div>
 				    </div>
 				</div>';	
-		    	}
-		    	else{
-		    		$html.='<div class=" show-grid" style="margin-bottom:15px;">
-			    	<div class=" row mg-x-5">
-				      	<div class="col-md-6 active">
-				           <div class="media">
-				              <div class="pull-left" href="#">
-				              </div>
-					            <div class="media-body">
-					                <h6 class="media-heading"><strong>Warehouse</strong>: '.$value['warehousename'].'</h6>
-					                '.$value['warehouseaddress'].'
-					            </div>
-					        </div>
-					      </div>
-					      <div class="col-md-3 active" onclick="availableVehicle('.$value['WareHouseId'].');" style="cursor: pointer;">
-					          <div class="media">
-					            <div class="media-body">
-					                <h6 class="media-heading"><strong>Available Vehicle</strong></h6>
-					               <strong>0</strong>
-					            </div>
-					        </div>
-					      </div>
-				         <div class="col-md-3 active" onclick="unavailableVehicle('.$value['WareHouseId'].');" style="cursor: pointer;">
-				            <div class="media-body">
-				                <h6 class="media-heading"><strong>Unavailable Vehicle</strong></h6>
-				                <strong>0</strong>
-				            </div>
-				        </div>
-				    </div>
-				</div>';
-		    	}
+		    	
 		    	$html.='<div class="bd rounded table-responsive"><table class="table table-bordered mg-b-0">
                                 <thead class="thead-colored thead-light">
                                     <tr>
@@ -281,8 +250,7 @@ class PickupController extends Controller
                             
                         </div>';
 
-		  }   
- }	             // <ul class="pagination pagination-circle mg-b-0">
+		  }   	             // <ul class="pagination pagination-circle mg-b-0">
                //              <li class="page-item hidden-xs-down">
                //                  <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
                //              </li>

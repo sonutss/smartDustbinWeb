@@ -54,9 +54,9 @@ img{width:32.2%;}
                 <div class="col-md-12">
                     <div class="card shadow-base bd-0 pd-25 ">
                         <h3 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Bin Level Management</h3>
-                        <div class="chart-container">
+                       <!--  <div class="chart-container">
                                <canvas id="chart"></canvas>
-                        </div>
+                        </div> -->
                          <div class=" mg-t-25">
                             <div class="bd rounded table-responsive" style="overflow:hidden;">
                                 <table class="table table-bordered mg-b-0" id="pickup">

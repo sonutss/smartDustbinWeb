@@ -102,7 +102,7 @@ class MappingController extends Controller
 			$encode = json_encode($arr);
 			$curl = curl_init();
 		    curl_setopt_array($curl, array(
-			    CURLOPT_URL => env('API_URL').'drivernotassignlist',
+			    CURLOPT_URL => env('API_URL').'drivernotassignlistnew',
 			    CURLOPT_RETURNTRANSFER => 1,
 			    CURLOPT_ENCODING => "",
 			    CURLOPT_MAXREDIRS => 10,
@@ -130,11 +130,6 @@ class MappingController extends Controller
                                 <div class="pos-relative">
                                     <img src="./public/frontend/img/img2.jpg" alt="">
                                     <div class="contact-status-indicator bg-success"></div>
-                                </div>
-
-                                <div class="contact-person">
-                                    <p>'.$value['name'].'</p>
-                                    <span>'.$value['mobile_no'].'</span>
                                 </div>
                             </div>';
 		    }

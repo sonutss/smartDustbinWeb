@@ -296,7 +296,7 @@ class PickupController extends Controller
 		    $err 	  = curl_error($curl);
 		    curl_close($curl);
 		    $decode   = json_decode($response,true);
-		  	//dd($decode);
+		  	dd($decode);
 		    if($decode['success']=='1'){
 		    	return view('pickup-details',compact('decode')); 
 		    }

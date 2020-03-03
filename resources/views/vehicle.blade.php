@@ -102,73 +102,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
     <script>
         $(".select2").select2();
+       var vehicle_list = "{{ url('vehicle-list') }}";
     </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#status').change(function(){
-                $('#avablitystatus').val(['']); 
-                 getData(1);
-       
-            }).trigger('change');
-             $('#avablitystatus').change(function(){
-                $('#status').val(['']); 
-                getData(1);
-            }).trigger('change');
-        });
-
-    </script>
-    <script type="text/javascript">
-        $('.pagination').twbsPagination({
-            totalPages: 1,
-            startPage: 1,
-            visiblePages: 5,
-            href: false,
-            loop: false,
-            onPageClick: function (event, page) {
-                getData(page);
-            },
-        });  
-        function getData(page){
-            console.log($("#status").val());
-            console.log($("#avablitystatus").val())
-            var vehicledata={
-                page          : page,
-                perpage       : $("#record").val(),
-                vehiclestatus : $("#status").val(),
-                avablitystatus  : $("#avablitystatus").val(),
-                list          : 'true'
-            }
-            $.ajax({
-                url : "{{ url('vehicle-list') }}",
-                type : 'POST',
-                data : vehicledata,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success : function(data){
-                    var data = JSON.parse(data);
-                    //console.log(data);return false; 
-                    $("#vehicle-list tbody").html('');
-                    if(data.count == 0){
-                        $("#vehicle-list tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                    } else {
-                        $("#vehicle-list tbody").html(data.html);
-                        if(page == 1){
-                            $('.pagination').twbsPagination('destroy');
-                            $('.pagination').twbsPagination({
-                                totalPages: data.count,
-                                href: false,
-                            }).on('page', function (event, page) {
-                                console.log(page);
-                               getData(page);
-                            }); 
-                        }
-                    } 
-                },
-                cache : false ,
-            }) ;
-        }
-    </script> 
+    <script src="{{ url('public/frontend/frontendjs/vehicle.js') }}"></script>
 </body>
 
 </html>

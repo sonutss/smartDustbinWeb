@@ -37,7 +37,7 @@
                                 </select>
                             </div>
                             <div class="form-group float-right mg-r-20" style="width:250px;" >
-                                <select class="form-control select2" data-placeholder="Choose one " onchange="getData(1);" id="record">
+                                <select class="form-control select2"  data-placeholder="Choose one "  id="record">
                                      <option value="10">10 Records</option>
                                      <option value="25">25 Records</option>
                                      <option value="50">50 Records</option>
@@ -65,17 +65,6 @@
                         </div>
                         <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
                             <ul class="pagination pagination-circle mg-b-0" id="pagination">
-                                <!-- <li class="page-item hidden-xs-down">
-                                    <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                <li class="page-item"><a class="page-link" href="#">10</a></li>
-                             
-                                <li class="page-item hidden-xs-down">
-                                    <a class="page-link" href="#" aria-label="Last"><i class="fa fa-angle-double-right"></i></a>
-                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -136,236 +125,13 @@
      <script src="{{ asset('public/frontend/sweetalert/sweetalert.min.js') }}"></script>
          <script src="{{ asset('public/frontend/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
-    <script>
-         $(".select2").select2();
-         $(".select2").select2();
-          $(function(){
-            $('#modaldemo8').on('hidden.bs.modal', function (e) {
-                $(this).removeClass (function (index, className) {
-                    return (className.match (/(^|\s)effect-\S+/g) || []).join(' ');
-                });
-            });
-        });
-          var DriverID=0;
-          function openVehicleModel(page,driverId){
-                var effect = $(this).attr('data-effect');
-                 $('#modaldemo8').addClass(effect);
-                $('#modaldemo8').modal('show');
-                var vehicle={
-                page          : page,
-                perpage       : 5,
-                list          : 'true'
-                }
-                DriverID=driverId;
-                $.ajax({
-                url : "{{url('vehicle-assign')}}",
-                type : 'POST',
-                data : vehicle,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success : function(data){
-                    var data = JSON.parse(data); 
-                    $("#assign-vehicle tbody").html('');
-                    if(data.count == 0){
-                        $("#assign-vehicle tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                    } else {
-                        $("#assign-vehicle tbody").html(data.html);
-                        if(page == 1){
-                            $('#pagination1').twbsPagination('destroy');
-                            $('#pagination1').twbsPagination({
-                                totalPages: data.count,
-                                href: false,
-                            }).on('page', function (event, page) {
-                               openVehicleModel(page,driverId);
-                            }); 
-                        }
-                    } 
-                },
-                cache : false ,
-            }) ;
-          }
-      function assigning(){
-        var params = {
-            vehicleId:$("input[name='vehicle_id']:checked").val(),
-            DriverId:DriverID
-        }
-        console.log(params);
-        //return false;
-        $.ajax({
-                url : "{{ env('API_URL').'remappedVehicledriver' }}",
-                type: 'POST',
-                 headers:{ 
-                            'Access-Control-Allow-Origin': '*',       
-                            'Authorization' : $("#tocken").val()
-                 },
-                data : JSON.stringify(params),
-                async:false, 
-                success: function(response){
-                    $("#submit").attr("disabled", false);
-                    console.log("response",response) ;
-                    if(response.success == true){
-                         params={};
-                        swal("Success", response.message, "success");
-                        setTimeout(function(){ 
-
-                            window.location.href = "{{url('driver-list')}}";
-                        }, 5000);
-                    } else {
-                        swal({   
-                            title: "Warnings",   
-                            text: response.message,   
-                            type: "warning",   
-                            showCancelButton: true,   
-                            confirmButtonColor: "#DD6B55",   
-                        });
-                    }
-                }, error: function(data){
-                    $("#submit").attr("disabled", false);
-                    var rr = $.parseJSON(data.responseText) ;
-                    console.log('data',rr.success);
-                    if(rr.success == false){
-                         swal({   
-                            title: "Warnings",   
-                            text: rr.message,   
-                            type: "warning",   
-                            showCancelButton: true,   
-                            confirmButtonColor: "#DD6B55",   
-                        });  
-                    } 
-                },
-                cache : false ,
-                contentType : 'application/json',
-                processData: false 
-            });
-
-      }    
-    </script>
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('#status').change(function(){
-                $('#avablitystatus').val(['']); 
-                 getData(1);
-       
-            }).trigger('change');
-             $('#avablitystatus').change(function(){
-                $('#status').val(['']); 
-                getData(1);
-            }).trigger('change');
-        });
-
+        var vehicle_assign        = "{{url('vehicle-assign')}}";
+        var remappedVehicledriver = "{{ env('API_URL').'remappedVehicledriver' }}";
+        var driver_list           = "{{ url('driver-list') }}";
+        var postdata              = "{{ env('API_URL') }}";
     </script>
-    <script type="text/javascript">
-        //alert();
-        $('#pagination').twbsPagination({
-            totalPages: 1,
-            startPage: 1,
-            visiblePages: 5,
-            href: false,
-            loop: false,
-            onPageClick: function (event, page) {
-                getData(page);
-            },
-        });  
-        function getData(page){
-            //alert();
-            var driverdata={
-                page            : page,
-                perpage         : $("#record").val(),
-                driverstatus    : $("#status").val(),
-                avablitystatus  : $("#avablitystatus").val(),
-                list            : 'true'
-            }
-            console.log(driverdata);
-            $.ajax({
-                url : "{{ url('driver-list') }}",
-                type : 'POST',
-                data : driverdata,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success : function(data){
-                    var data = JSON.parse(data);
-                    console.log(data);//return false; 
-                    $("#vehicle-list tbody").html('');
-                    if(data.count == 0){
-                        $("#driver-list tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                    } else {
-                        $("#driver-list tbody").html(data.html);
-                        if(page == 1){
-                            $('#pagination').twbsPagination('destroy');
-                            $('#pagination').twbsPagination({
-                                totalPages: data.count,
-                                href: false,
-                            }).on('page', function (event, page) {
-                                console.log(page);
-                               getData(page);
-                            }); 
-                        }
-                    } 
-                },
-                cache : false ,
-            }) ;
-        }
-
-        function updateStatus(vid,status){
-             var postdata = "{{ env('API_URL') }}";
-            var driver_list = "{{ url('driver-list') }}";
-            //alert();
-            var parms={
-                driverID          : vid,
-                status1            : status
-            }
-            console.log(parms);//return false;
-            $.ajax({
-                url : postdata+'driverStatusChange',
-                type: 'POST',
-                data : JSON.stringify(parms),
-                async:false, 
-                headers:{ 
-                            'Access-Control-Allow-Origin': '*',       
-                            'Authorization' : $("#tocken").val()
-                        }, 
-                success: function(response){
-                    $("#submit").attr("disabled", false); 
-                    //console.log("response",response) ;return false ;
-                    //var res = $.parseJSON(response);
-                    if(response.success == true){
-                        swal("Success", response.result, "success");
-                        setTimeout(function(){ 
-                            window.location.href = driver_list;
-                        }, 5000);
-                    } else {
-                        swal({   
-                            title: "Warnings",   
-                            text: "Vehicle Not Assigned !!",   
-                            type: "warning",   
-                            showCancelButton: true,   
-                            confirmButtonColor: "#DD6B55",   
-                        });
-                    }
-                }, error: function(data){
-                    $("#submit").attr("disabled", false);
-                    var rr = $.parseJSON(data.responseText) ;
-                    console.log('data',rr.success);//return false ;
-                    if(rr.success == false){
-                         swal({   
-                            title: "Warnings",   
-                            text: rr.message,   
-                            type: "warning",   
-                            showCancelButton: true,   
-                            confirmButtonColor: "#DD6B55",   
-                        });  
-                    } 
-                },
-                cache : false ,
-                contentType : 'application/json',
-                processData: false 
-            });
-            
-        }
-    </script> 
-    
+     <script src="{{ url('public/frontend/frontendjs/driver_list.js') }}"></script>
 </body>
 
 </html>

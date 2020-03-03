@@ -42,6 +42,7 @@ Route::get('delete-warehouse/{wid}','WarehouseController@deleteWarehouse')->name
 Route::any('dustbin-list','DustbinController@dustbinList')->name('dustbin-list')->middleware('CheckUserSession');
 Route::get('add-dustbin','DustbinController@addDustbin')->name('add-dustbin')->middleware('CheckUserSession');
 Route::get('edit-dustbin/{did}','DustbinController@editDustbin')->name('edit-dustbin')->middleware('CheckUserSession');
+Route::get('delete-dustbin/{did}','DustbinController@deleteDustbin')->name('delete-dustbin')->middleware('CheckUserSession');
 
 Route::any('driver-vehicle-mapping','MappingController@mappingVehicledriver')->name('driver-vehicle-mapping')->middleware('CheckUserSession');
 Route::any('driver-not-assign','MappingController@driver_not_assign')->name('driver-not-assign')->middleware('CheckUserSession');

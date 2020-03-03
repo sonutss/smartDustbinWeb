@@ -38,52 +38,11 @@
                                 </div>
                             </div>
                             <div class="row row-sm mg-t-20" id="vehicle-list">
-                            <!--  <div></div> -->
-                                <!-- <div class="col-lg-6 mg-t-20 mg-lg-t-0" >
-                                    <div class="card  ht-100p pd-25 bd">
-                                        <div class="row">
-                                            <div class="col-lg-6 ">
-                                                <a href="#" class="media-list-link ">
-                                                    <div class="pd-y-0-force pd-x-0-force media ">
-                                                        <img src="{{ url('public/frontend/img/ic-truck.png') }}" alt="">
-                                                        <div class="media-body">
-                                                            <div>
-                                                                <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Garbage Trucks</p>
-                                                            </div>
-                                                            <p class="tx-12 tx-gray-600 mg-b-0">DB254 2565</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <a id="btnRightMenu" href="#" class="media-list-link float-right pos-relative">
-                                                    <div class="media pd-y-0-force pd-x-0-force">
-                                                        <img src="{{ url('public/frontend/img/ic-02.png') }}" alt="">
-                                                        <div class="media-body">
-                                                            <div>
-                                                                <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Driver Name</p>
-                                                            </div>
-                                                            <p class="tx-12 tx-gray-600 mg-b-0">No number</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
+                            
                             </div>
                             <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
                                 <ul class="pagination pagination-circle mg-b-0 mg-t-30">
-                                    <!-- <li class="page-item hidden-xs-down">
-                                        <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                    <li class="page-item"><a class="page-link" href="#">10</a></li>
-                                    <li class="page-item hidden-xs-down">
-                                        <a class="page-link" href="#" aria-label="Last"><i class="fa fa-angle-double-right"></i></a>
-                                    </li> -->
+                                   
                                 </ul>
                             </div>
                         </div>
@@ -220,184 +179,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
         <script>
             $(".select2").select2();
-        </script>
-        <script type="text/javascript">
-        $('.pagination').twbsPagination({
-            totalPages: 1,
-            startPage: 1,
-            visiblePages: 5,
-            href: false,
-            loop: false,
-            onPageClick: function (event, page) {
-                getData(page);
-                driverList(page);
-            },
-        });  
-        function getData(page){
-            var vehicledata={
-                page          : page,
-                perpage       : '10',
-                list          : 'true'
-            }
-            $.ajax({
-                url : "{{ url('driver-vehicle-mapping') }}",
-                type : 'POST',
-                data : vehicledata,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success : function(data){
-                    var data = JSON.parse(data);
-                    //console.log(data);return false; 
-                    $("#vehicle-list").html('');
-                    if(data.count == 0){
-                        $("#vehicle-list").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                    } else {
-                        $("#vehicle-list").html(data.html);
-                        if(page == 1){
-                            $('.pagination').twbsPagination('destroy');
-                            $('.pagination').twbsPagination({
-                                totalPages: data.count,
-                                href: false,
-                            }).on('page', function (event, page) {
-                                console.log(page);
-                               getData(page);
-                            }); 
-                        }
-                    } 
-                },
-                cache : false ,
-            }) ;
-        }
-        function driverList(page){
-            var vehicledata={
-                page          : page,
-                perpage       : '10',
-                list          : 'true'
-            }
-            $.ajax({
-                url : "{{ url('driver-not-assign') }}",
-                type : 'POST',
-                data : vehicledata,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success : function(data){
-                    var data = JSON.parse(data);
-                    //console.log(data);return false; 
-                    $("#driver-list").html('');
-                    if(data.count == 0){
-                        $('#assign').css("display", "none");
-                        $("#driver-list").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                    } else {
-                        $("#driver-list").html(data.html);
-                        if(page == 1){
-                            $('.pagination').twbsPagination('destroy');
-                            $('.pagination').twbsPagination({
-                                totalPages: data.count,
-                                href: false,
-                            }).on('page', function (event, page) {
-                                console.log(page);
-                               driverList(page);
-                            }); 
-                        }
-                    } 
-                },
-                cache : false ,
-            }) ;
-        }
-        var obj={};
-        function right_slide(thiss){
-            var this_id = $(thiss).data('val');
-            obj.vehicleId=this_id;
-           $('body').addClass('show-right');
-           $('body').removeClass('show-left');
-        }
-        function cancel(thiss){
-           var this_id = $(thiss).data('val');
-            obj.whareId=this_id;
-           $('body').removeClass('show-right');
-           $('body').addClass('show-left'); 
-        } 
-        function SubmitData(){
-           
-            if(obj.DriverId==undefined || obj.DriverId==""){
-                console.log("Please Select Driver");
-            }else{
-                $.ajax({
-                url : "{{ env('API_URL').'mappedVehicledriver' }}",
-                type: 'POST',
-                 headers:{ 
-                            'Access-Control-Allow-Origin': '*',       
-                            'Authorization' : $("#tocken").val()
-                 },
-                data : JSON.stringify(obj),
-                async:false, 
-                
-                success: function(response){
-                    $("#submit").attr("disabled", false);
-                    console.log("response",response) ;
-                    if(response.success == true){
-                         obj={};
+           var driver_vehicle_mapping =  "{{ url('driver-vehicle-mapping') }}";
+           var driver_not_assign      =  "{{ url('driver-not-assign') }}";
+           var mappedVehicledriver    =  "{{ env('API_URL').'mappedVehicledriver' }}";
+        </script> 
+        <script src="{{ url('public/frontend/frontendjs/mapping.js') }}"></script>
 
-                     $("#"+$("#selectedrow").val()).removeClass('selectdRow');
-                      $('body').removeClass('show-right');
-                      $('body').addClass('show-left');
-                        swal("Success", response.message, "success");
-                        setTimeout(function(){ 
-
-                            window.location.href = "{{url('driver-vehicle-mapping')}}";
-                        }, 5000);
-                    } else {
-                        swal({   
-                            title: "Warnings",   
-                            text: response.message,   
-                            type: "warning",   
-                            showCancelButton: true,   
-                            confirmButtonColor: "#DD6B55",   
-                        });
-                    }
-                }, error: function(data){
-                    $("#submit").attr("disabled", false);
-                    var rr = $.parseJSON(data.responseText) ;
-                    console.log('data',rr.success);
-                    if(rr.success == false){
-                         swal({   
-                            title: "Warnings",   
-                            text: rr.message,   
-                            type: "warning",   
-                            showCancelButton: true,   
-                            confirmButtonColor: "#DD6B55",   
-                        });  
-                    } 
-                    // $.each(rr.errors, function(key, value){
-                    //     $("#"+key).parent().addClass('form-has-error');
-                    //     $("#msg_"+key).parent().show();
-                    //     $("#msg_"+key).text(value);
-                    //     setTimeout(function(){ 
-                    //         $("#"+key).parent().removeClass('form-has-error');
-                    //         $("#msg_"+key).parent().hide();
-                    //         $("#msg_"+key).text('');
-                    //     }, 8000);
-                    // });
-                },
-                cache : false ,
-                //contentType : false,
-                contentType : 'application/json',
-                processData: false 
-            });
-
-            }
-            
-        }
-        function selectedrow(ids,data){
-           $("#"+$("#selectedrow").val()).removeClass('selectdRow');
-            $("#selectedrow").val(ids.id);
-            obj.DriverId=data;
-           $("#"+ids.id).addClass('selectdRow');
-        }
-
-    </script> 
 </body>
 
 </html>

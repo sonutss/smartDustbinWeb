@@ -8,8 +8,5 @@
     	.pagination .page-item .page-link{
     		width: 61px!important;
     	}
-        .br-sideleft ul li a.active{
-            color: #fff;
-        }
     </style>
     

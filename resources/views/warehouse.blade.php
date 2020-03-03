@@ -77,113 +77,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
     <script>
          $(".select2").select2();
+        var markerlist = "{{ env('API_URL').'dropdownlistwarehouse' }}";
+       var warehouse_list = "{{ url('warehouse-list') }}";
+       var img = "{{url('public/frontend/img/warehouse.png')}}";
     </script>
 </body>
- <script type="text/javascript">
-        //alert();
-        $('.pagination').twbsPagination({
-            totalPages: 1,
-            startPage: 1,
-            visiblePages: 5,
-            href: false,
-            loop: false,
-            onPageClick: function (event, page) {
-                getData(page);
-            },
-        });  
-        function getData(page){
-            //alert();
-            var warehousedata={
-                page          : page,
-                perpage       : $("#record").val(),
-                //driverstatus : $("#status").val(),
-                list          : 'true'
-            }
-            $.ajax({
-                url : "{{ url('warehouse-list') }}",
-                type : 'POST',
-                data : warehousedata,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success : function(data){
-                    var data = JSON.parse(data);
-                    console.log(data);//return false; 
-                    $("#warehouse-list tbody").html('');
-                    if(data.count == 0){
-                        $("#warehouse-list tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                    } else {
-                        $("#warehouse-list tbody").html(data.html);
-                        if(page == 1){
-                            $('.pagination').twbsPagination('destroy');
-                            $('.pagination').twbsPagination({
-                                totalPages: data.count,
-                                href: false,
-                            }).on('page', function (event, page) {
-                                console.log(page);
-                               getData(page);
-                            }); 
-                        }
-                    } 
-                },
-                cache : false ,
-            }) ;
-        }
-    </script> 
-    <script type="text/javascript">
-       var map;   
-    function initMap() {
-        var myLatlng = new google.maps.LatLng(28.7041, 77.1025);
-        var myOptions = {
-            zoom: 8,
-            center: myLatlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-         getmarkerList();
-    }
-    google.maps.event.addDomListener(window, "load", initMap());
-    </script>
+<script src="{{ url('public/frontend/frontendjs/warehouse.js') }}"></script>
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntPB-qN_-K60eVMgJkJEy8Dn2ZxvxC6Y&callback=initMap">
     </script> 
-    <script type="text/javascript">
-        function getmarkerList(){
-             var markerlist = "{{ env('API_URL').'dropdownlistwarehouse' }}";
-            $.ajax({
-                url : markerlist,
-                type : 'GET',
-                async:false, 
-                headers:{ 
-                            'Access-Control-Allow-Origin': '*',       
-                            'Authorization' : $("#tocken").val()
-                        },
-                success : function(data){
-                    //console.log(data);
-                    var data = data.result;
-                    var markers =[];
-                    for (var i=0; i<data.length; i++) {
-                      markers.push(
-                       marker = new google.maps.Marker({
-                          position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
-                          map: map,
-                          draggable: false,
-                          icon: {
-                              url: "{{url('public/frontend/img/warehouse.png')}}"
-                            },
-                           title: data[i].name
-                        })
-
-                      );
-                }
-                    
-                },
-                cache : false ,
-            }) ;
-        }
-    </script>
-    
-
-
 </html>

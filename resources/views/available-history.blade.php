@@ -28,12 +28,7 @@
                             <div class="input-group mg-r-20 col">
                                 <input type="text" class="form-control daterange" placeholder="Select Date" name="datefilter">
                             </div> 
-                           <!--  <div class="form-group mg-r-20 col">
-                                <div class="custom-file">
-                                    <input type="text" class="custom-file-input" id="customFile2">
-                                    <label class="custom-file-label custom-file-label-primary" for="customFile2">Search</label>
-                                </div>
-                            </div> -->
+                          
                             <div class="form-group mg-r-20 col">
                                 <select class="form-control select2" data-placeholder="Choose one " onchange="getData(1);" id="record">
                                      <option value="10">10 Records</option>
@@ -56,57 +51,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr>
-                                        <td><span class="text-success">or2</span></td>
-                                        <td>20 jan, 2020</td>
-                                        <td>Sec 5, Dubai mall.</td>
-                                        <th>
-                                            <a href="#" class="media-list-link ">
-                                                <div class="pd-y-0-force pd-x-0-force media ">
-                                                    <img src="img/ic-truck.png" alt="">
-                                                    <div class="media-body">
-                                                    <div>
-                                                        <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Garbage Trucks</p>
-                                                    </div>
-                                                    <p class="tx-12 tx-gray-600 mg-b-0">DB254 2565</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </th>     
-                                        <td>
-                                            <a href="#" class="media-list-link">
-                                                <div class="media pd-y-0-force pd-x-0-force">
-                                                    <img src="img/img4.jpg" alt="">
-                                                    <div class="media-body">
-                                                    <div>
-                                                        <p class="mg-b-0 tx-medium tx-gray-800 tx-13">Samantha Francis</p>
-                                                    </div>
-                                                    <p class="tx-12 tx-gray-600 mg-b-0">+971 589658965</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </td>                                   
-                                        <td><span class="text-success">20</span></td>
-                                        <td>
-                                            <button onclick="location.href='order-details.php'" class="btn btn-success btn-icon mg-b-10 btn-sm"><div><i class="fa fa-eye"></i></div></button>                                            
-                                        </td>
-                                    </tr> -->
+                                   
                                 </tbody>
                             </table>
                         </div>
                         <div class="ht-80  d-flex align-items-center justify-content-center mg-t-20">
                             <ul class="pagination pagination-circle mg-b-0">
-                                <!-- <li class="page-item hidden-xs-down">
-                                    <a class="page-link" href="#" aria-label="First"><i class="fa fa-angle-double-left"></i></a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                <li class="page-item"><a class="page-link" href="#">10</a></li>
-                             
-                                <li class="page-item hidden-xs-down">
-                                    <a class="page-link" href="#" aria-label="Last"><i class="fa fa-angle-double-right"></i></a>
-                                </li> -->
+                               
                             </ul>
                         </div>
                     </div>
@@ -133,81 +84,10 @@
     <script src="{{ url('public/frontend/js/bracket.js') }}"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
      <script type="text/javascript">
-         var list_ware = "{{ env('API_URL')}}";
-        $(".select2").select2();
-        $(function() {
-    $('input[name="datefilter"]').datepicker({
-            autoUpdateInput: false,
-             dateFormat: 'yy-mm-dd',
-            // locale: {
-            // dateFormat: 'yy-mm-dd'
-            // //cancelLabel: 'Clear'
-            // },
-             onSelect: function(dateText, inst) { 
-             getData(1,dateText);
-    }
-        });
-    });
-</script>
-     <script type="text/javascript">
-        
-        $('.pagination').twbsPagination({
-            totalPages: 1,
-            startPage: 1,
-            visiblePages: 5,
-            href: false,
-            loop: false,
-            onPageClick: function (event, page) {
-                getData(page);
-            },
-        });  
-        function getData(page,dateText=''){
-            console.log(dateText);
-            var avilablehistory={
-                page          : page,
-                perpage       : $("#record").val(),
-                selectdate    : dateText,
-                list          : 'true'
-            }
-            console.log(avilablehistory);
-            $.ajax({
-                url : "{{ url('avilable-history') }}",
-                type : 'POST',
-                data : avilablehistory,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success : function(data){
-                    var data = JSON.parse(data);
-                    console.log(data);//return false; 
-                    $("#avilablehistory-list tbody").html('');
-                    if(data.count == 0){
-                        $("#avilablehistory-list tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                    } else {
-                        $("#avilablehistory-list tbody").html(data.html);
-                        if(page == 1){
-                            $('.pagination').twbsPagination('destroy');
-                            $('.pagination').twbsPagination({
-                                totalPages: data.count,
-                                href: false,
-                            }).on('page', function (event, page) {
-                                console.log(page);
-                               getData(page);
-                            }); 
-                        }
-                    } 
-                },
-                cache : false ,
-            }) ;
-        }
-    </script> 
-    <script type="text/javascript">
-    function resetAll(){
-        $("#wid")[0].selectedIndex=0;
-        $('input[name="datefilter"]').val('');
-        getData(1);
-    }   
-</script>
+         var list_ware        = "{{ env('API_URL')}}";
+         var avilable_history = "{{ url('avilable-history') }}";
+     </script>
+    <script src="{{ url('public/frontend/frontendjs/available_history.js') }}"></script>
 </body>
 
 </html>

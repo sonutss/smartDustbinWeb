@@ -78,110 +78,12 @@
     <script src="{{ url('public/frontend/js/bracket.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
     <script>
-         $(".select2").select2();
+        var markerlist   = "{{ env('API_URL').'dustbinMarker' }}";
+        var dustbin_list = "{{ url('dustbin-list') }}";
+        var img          = "{{url('public/frontend/img/dustbin.png')}}";
     </script>
-    <script type="text/javascript">
-        //alert();
-        $('.pagination').twbsPagination({
-            totalPages: 1,
-            startPage: 1,
-            visiblePages: 5,
-            href: false,
-            loop: false,
-            onPageClick: function (event, page) {
-                getData(page);
-            },
-        });  
-        function getData(page){
-            //alert();
-            var dustbindata={
-                page          : page,
-                perpage       : $("#record").val(),
-                //driverstatus : $("#status").val(),
-                list          : 'true'
-            }
-            $.ajax({
-                url : "{{ url('dustbin-list') }}",
-                type : 'POST',
-                data : dustbindata,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success : function(data){
-                    var data = JSON.parse(data);
-                    console.log(data);//return false; 
-                    $("#dustbin-list tbody").html('');
-                    if(data.count == 0){
-                        $("#dustbin-list tbody").html('<tr><td colspan="6" style="color:red;font-weight:600">No data Found</td></tr>');
-                    } else {
-                        $("#dustbin-list tbody").html(data.html);
-                        if(page == 1){
-                            $('.pagination').twbsPagination('destroy');
-                            $('.pagination').twbsPagination({
-                                totalPages: data.count,
-                                href: false,
-                            }).on('page', function (event, page) {
-                                console.log(page);
-                               getData(page);
-                            }); 
-                        }
-                    } 
-                },
-                cache : false ,
-            }) ;
-        }
-    </script>
-       <script type="text/javascript">
-       var map;   
-    function initMap() {
-        var myLatlng = new google.maps.LatLng(28.7041, 77.1025);
-        var myOptions = {
-            zoom: 8,
-            center: myLatlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-         getmarkerList();
-    }
-    google.maps.event.addDomListener(window, "load", initMap());
-    </script>
-
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntPB-qN_-K60eVMgJkJEy8Dn2ZxvxC6Y&callback=initMap">
-    </script> 
-    <script type="text/javascript">
-        function getmarkerList(){
-             var markerlist = "{{ env('API_URL').'dustbinMarker' }}";
-            $.ajax({
-                url : markerlist,
-                type : 'GET',
-                async:false, 
-                headers:{ 
-                            'Access-Control-Allow-Origin': '*',       
-                            'Authorization' : $("#tocken").val()
-                        },
-                success : function(data){
-                    var data = data.dresult;
-                    var markers =[];
-                    for (var i=0; i<data.length; i++) {
-                      markers.push(
-                       marker = new google.maps.Marker({
-                          position: new google.maps.LatLng(data[i].latiude, data[i].longitude),
-                          map: map,
-                          draggable: false,
-                          icon: {
-                              url: "{{url('public/frontend/img/dustbin.png')}}"
-                            },
-                           title: data[i].name
-                        })
-
-                      );
-                }
-                    
-                },
-                cache : false ,
-            }) ;
-        }
+    <script src="{{ url('public/frontend/frontendjs/dustbin.js') }}"></script>
+     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntPB-qN_-K60eVMgJkJEy8Dn2ZxvxC6Y&callback=initMap">
     </script>
     
 </body>

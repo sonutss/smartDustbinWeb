@@ -92,12 +92,21 @@
                 </ul>
             </li>    
              
-            <li class="br-menu-item">
-                <a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
+             <li class="br-menu-item">
+                <a href="{{ url('getDataDustbin') }}" class="br-menu-link with-sub  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
+                    <i class="menu-item-icon icon ion-ios-analytics-outline  tx-20"></i>
+                    <span class="menu-item-label">Report</span>
+                </a>
+                <ul class="br-menu-sub">
+                    <li class="sub-item"><a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}" class="sub-link"> Bin Level Mangement</a></li>
+                </ul>
+            </li>
+            <!-- <li class="br-menu-item">
+                <a href="" class="br-menu-link  ">
                     <i class="menu-item-icon icon ion-ios-trash-outline tx-24"></i>
                     <span class="menu-item-label">Dustbin Analytics</span>
                 </a>
-            </li>
+            </li> -->
 
             <!-- <li class="br-menu-item">
                 <a href="#" class="br-menu-link with-sub">
@@ -138,19 +147,3 @@
     
         </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-    console.log(window.location.pathname);
-    // -----------------------------------------------------------------------
-    $.each($('.navbar').find('li'), function() {
-      console.log($(this));
-        if (window.location.pathname.indexOf($(this).find('a').attr('href')) > -1)
-        {
-            $(this).toggleClass('active');
-            $(this).parent().closest( "li" ).toggleClass('active');
-        }
-    });
-    // -----------------------------------------------------------------------
-});
-</script>

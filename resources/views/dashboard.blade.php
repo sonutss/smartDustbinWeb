@@ -186,111 +186,11 @@
         @include('layouts.script')
 </body>
 <script type="text/javascript">
-        //getdasboard();
-        function getdasboard(){
-             var markerlist = "{{ env('API_URL').'dashboard' }}";
-            $.ajax({
-                url : markerlist,
-                type : 'GET',
-                async:false, 
-                headers:{ 
-                            'Access-Control-Allow-Origin': '*',       
-                            'Authorization' : $("#tocken").val()
-                        },
-                success : function(data){
-                    if(data.success === true){
-                        var data1 = data.dresult;
-                        //console.log(data1.dustbinTotal);
-                        $('p#dustbin').text(data1.dustbinTotal);
-                        $('p#warehouse').text(data1.warehouseTotal);
-                        $('p#vehicle').text(data1.vehiclesTotal);
-                        $('p#driver').text(data1.driversTotal);
-                        $('p#pickup').text(data1.todaypicup);
-                        $('p#all_pickup').text(data1.allpicup);
-                        $('#no_warehouse').text(data1.warehouseTotal);
-                        $('#no_dustbin').text(data1.dustbinTotal);
-
-                        $("#pickup_list tbody").html('');
-                         //console.log(data.data);
-                        if(data.data==0){
-                            console.log("blank");
-                            $("#pickup_list tbody").append('<tr><td colspan="3" style="color:red;font-weight:600">No data Found</td></tr>');
-                        }
-                        else{
-                             //console.log("data");
-                          for(var i=0;i<data.data.length;i++){
-                            var status;
-                            if(data.data[i].groupStatus==1){
-                                    status ='<span class="text-success">Active</span>';
-                                 }
-                                 else{ 
-                                    status ='<span class="text-danger">Completed</span>';
-                                 }
-                                $("#pickup_list tbody").append('<tr>'+
-                                            +'<td>'+(i+1)+'</td>'
-                                            +'<td>'+data.data[i].groupName+'</td>'
-                                            +'<td>'+data.data[i].dustbincount+'</td>'
-                                            +'<td>'+status+'</td>'  
-                                            +'<td><a href="view-details/'+data.data[i].groupName+'"><div><i class="fa fa-eye"></i></div></a></td>'  
-                                +'</tr>');
-                           
-                            }  
-                        }
-                        
-                        var markers =[];
-                        var markers1 =[];
-                        for (var i=0; i<data1.googleDustbinMapMarker.length; i++) {
-                          markers.push(
-                           marker = new google.maps.Marker({
-                              position: new google.maps.LatLng(data1.googleDustbinMapMarker[i].latiude, data1.googleDustbinMapMarker[i].longitude),
-                              map: map,
-                              draggable: false,
-                              icon: {
-                                  url: "{{url('public/frontend/img/dus40.png')}}"
-                                },
-                               title:data1.googleDustbinMapMarker[i].name
-                            })
-
-                          );
-                        }
-
-                        for (var i=0; i<data1.googleDustbinMapMarker.length; i++) {
-                          markers1.push(
-                           marker = new google.maps.Marker({
-                              position: new google.maps.LatLng(data1.googleWarehouseMapMarker[i].latitude, data1.googleWarehouseMapMarker[i].longitude),
-                              map: map,
-                              draggable: false,
-                              icon: {
-                                  url: "{{url('public/frontend/img/ware40.png')}}"
-                                },
-                               title:data1.googleWarehouseMapMarker[i].name
-                            })
-
-                          );
-                        }
-                         
-                    }
-                }          
-            }) ;
-        }
-    </script>
-<script type="text/javascript">
-       var map;   
-    function initMap() {
-        var myLatlng = new google.maps.LatLng(28.7041, 77.1025);
-        var myOptions = {
-            zoom: 9,
-            center: myLatlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-         getdasboard();
-    }
-    google.maps.event.addDomListener(window, "load", initMap());
-    </script>
-
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntPB-qN_-K60eVMgJkJEy8Dn2ZxvxC6Y&callback=initMap">
+    var markerlist = "{{ env('API_URL').'dashboard' }}";
+    var img        = "{{url('public/frontend/img/dus40.png')}}";
+    var imgw       = "{{url('public/frontend/img/ware40.png')}}";
     </script> 
+<script src="{{ url('public/frontend/frontendjs/dashboard.js') }}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntPB-qN_-K60eVMgJkJEy8Dn2ZxvxC6Y&callback=initMap"></script>
 
 </html>

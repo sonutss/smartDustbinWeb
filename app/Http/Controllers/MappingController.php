@@ -17,7 +17,7 @@ class MappingController extends Controller
 			$encode = json_encode($arr);
 			$curl = curl_init();
 		    curl_setopt_array($curl, array(
-			    CURLOPT_URL => env('API_URL').'vehiclenotassign',
+			    CURLOPT_URL => env('API_URL').'vehiclelistforassignnew',
 			    CURLOPT_RETURNTRANSFER => 1,
 			    CURLOPT_ENCODING => "",
 			    CURLOPT_MAXREDIRS => 10,
@@ -40,17 +40,18 @@ class MappingController extends Controller
 		    curl_close($curl);
 		    $decode = json_decode($response,true);
 		    $html = '';
+		    //dd($decode);
 		    foreach ($decode['result']['data'] as $key => $value) {
-		    	if( $value['status'] == 1 ){
-                    $status = '<span class="text-success">Active</span>' ;
-                } else {
-                   	$status = '<span class="text-danger">Inactive</span>' ;
-                }
-                if( $value['available_status'] == 1 ){
-                    $avaiable = '<span class="text-success">Available</span>' ;
-                } else {
-                    $avaiable = '<span class="text-danger">Unavailable</span>' ;
-                }
+		    	// if( $value['status'] == 1 ){
+       //              $status = '<span class="text-success">Active</span>' ;
+       //          } else {
+       //             	$status = '<span class="text-danger">Inactive</span>' ;
+       //          }
+       //          if( $value['available_status'] == 1 ){
+       //              $avaiable = '<span class="text-success">Available</span>' ;
+       //          } else {
+       //              $avaiable = '<span class="text-danger">Unavailable</span>' ;
+       //          }
                     
 		    	$html .= '<div class="col-lg-6 mg-t-20 mg-lg-t-0">
                                     <div class="card  ht-100p pd-25 bd">
@@ -69,7 +70,7 @@ class MappingController extends Controller
                                                 </a>
                                             </div>
                                             <div class="col-lg-6">
-                                                <a onclick="right_slide(this);" style="cursor:pointer;" class="media-list-link float-right pos-relative" data-val="'.$value['id'].'">
+                                                <a onclick="right_slide(this);" style="cursor:pointer;" class="media-list-link float-right pos-relative" data-val="'.$value['VehicleID'].'">
                                                     <div class="media pd-y-0-force pd-x-0-force">
                                                         <img src="./public/frontend/img/ic-02.png" alt="">
                                                         <div class="media-body">
@@ -102,7 +103,7 @@ class MappingController extends Controller
 			$encode = json_encode($arr);
 			$curl = curl_init();
 		    curl_setopt_array($curl, array(
-			    CURLOPT_URL => env('API_URL').'drivernotassignlistnew',
+			    CURLOPT_URL => env('API_URL').'drivernotassignlist',
 			    CURLOPT_RETURNTRANSFER => 1,
 			    CURLOPT_ENCODING => "",
 			    CURLOPT_MAXREDIRS => 10,
@@ -130,6 +131,11 @@ class MappingController extends Controller
                                 <div class="pos-relative">
                                     <img src="./public/frontend/img/img2.jpg" alt="">
                                     <div class="contact-status-indicator bg-success"></div>
+                                </div>
+
+                                <div class="contact-person">
+                                    <p>'.$value['name'].'</p>
+                                    <span>'.$value['mobile_no'].'</span>
                                 </div>
                             </div>';
 		    }

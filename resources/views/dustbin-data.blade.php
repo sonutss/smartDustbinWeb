@@ -53,7 +53,7 @@ img{width:32.2%;}
                  <div class="clearfix w-100 mg-t-20"></div>
                 <div class="col-md-12">
                     <div class="card shadow-base bd-0 pd-25 ">
-                        <h3 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Bin Level Management</h3>
+                        <h3 class="tx-inverse tx-uppercase tx-bold tx-14 mg-t-10">Bin Level Monitoring</h3>
                        <!--  <div class="chart-container">
                                <canvas id="chart"></canvas>
                         </div> -->

@@ -92,7 +92,7 @@
                 </ul>
             </li>    
              
-             <li class="br-menu-item">
+            <!--  <li class="br-menu-item">
                 <a href="{{ url('getDataDustbin') }}" class="br-menu-link with-sub  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
                     <i class="menu-item-icon icon ion-ios-analytics-outline  tx-20"></i>
                     <span class="menu-item-label">Report</span>
@@ -100,6 +100,12 @@
                 <ul class="br-menu-sub">
                     <li class="sub-item"><a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}" class="sub-link"> Bin Level Mangement</a></li>
                 </ul>
+            </li> -->
+             <li class="br-menu-item">
+                <a href="{{ url('getDataDustbin') }}" class="br-menu-link  {{ (\Request::route()->getName() == 'getDataDustbin') ? 'active' : '' }}">
+                    <i class="menu-item-icon icon ion-ios-monitor-outline tx-24"></i>
+                    <span class="menu-item-label">Bin Level Monitoring</span>
+                </a>
             </li>
             <!-- <li class="br-menu-item">
                 <a href="" class="br-menu-link  ">

@@ -108,9 +108,9 @@ class ApiController extends Controller
 		    $html = '';
 		    foreach ($decode['result']['data'] as $key => $value) {
 		    	if( $value['status'] == 1 ){
-                    $status = '<span class="text-success">Active</span>' ;
+                    $status = '<button  class="btn btn-success btn-icon mg-b-10 btn-sm" onclick="updateStatus('.$value['id'].',0)" style="padding:5px"><div>Active</div></button>' ;
                 } else {
-                   	$status = '<span class="text-danger">Inactive</span>' ;
+                   	$status = '<button  class="btn btn-danger btn-icon mg-b-10 btn-sm"  onclick="updateStatus('.$value['id'].',1)" style="padding:5px"><div>Inactive</div></button>' ;
                 }
                 if( $value['available_status'] == 0 ){
                     $avaiable = '<span class="text-success">Available</span>' ;

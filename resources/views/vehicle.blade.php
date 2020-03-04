@@ -10,6 +10,7 @@
      @include('layouts.css')
     <link href="{{ url('public/frontend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('public/frontend/css/bracket.css') }}">
+    <link href="{{ asset('public/frontend/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
 
     
 </head>
@@ -85,6 +86,7 @@
                 </div>              
             </div>
         </div>
+        <input type="hidden" name="tocken" value="{{ Session::get('auth_key') }}" id="tocken">
         @include('layouts.footer')
     </div>
     
@@ -100,9 +102,12 @@
     <script src="{{ url('public/frontend/js/popover-colored.js') }}"></script>
     <script src="{{ url('public/frontend/js/bracket.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
+     <script src="{{ asset('public/frontend/sweetalert/sweetalert.min.js') }}"></script>
+         <script src="{{ asset('public/frontend/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
     <script>
         $(".select2").select2();
        var vehicle_list = "{{ url('vehicle-list') }}";
+       var postdata     = "{{ env('API_URL') }}";
     </script>
     <script src="{{ url('public/frontend/frontendjs/vehicle.js') }}"></script>
 </body>

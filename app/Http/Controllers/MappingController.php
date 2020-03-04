@@ -274,6 +274,6 @@ class MappingController extends Controller
 	     	$return = array('count'=> $count, 'html'=> $html);
         	echo json_encode($return); exit ;
 	 	}
-    	return view('mapping');
+    	return view('warehouse-vehicle-mapping');
     }
 }

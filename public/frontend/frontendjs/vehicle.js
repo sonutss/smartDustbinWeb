@@ -57,3 +57,52 @@ function getData(page) {
   cache: false,
  });
 }
+function updateStatus(vid, status) {
+ var parms = {
+  vid: vid,
+  status: status
+ }
+ $.ajax({
+  url: postdata + 'vehicleStatusChange',
+  type: 'POST',
+  data: JSON.stringify(parms),
+  async: false,
+  headers: {
+   'Access-Control-Allow-Origin': '*',
+   'Authorization': $("#tocken").val()
+  },
+  success: function(response) {
+   $("#submit").attr("disabled", false);
+   if (response.success == true) {
+    swal("Success", response.result, "success");
+    setTimeout(function() {
+     window.location.href = vehicle_list;
+    }, 5000);
+   } else {
+    swal({
+     title: "Warnings",
+     text: "driver Not Assigned !!",
+     type: "warning",
+     showCancelButton: true,
+     confirmButtonColor: "#DD6B55",
+    });
+   }
+  },
+  error: function(data) {
+   $("#submit").attr("disabled", false);
+   var rr = $.parseJSON(data.responseText);
+   if (rr.success == false) {
+    swal({
+     title: "Warnings",
+     text: rr.message,
+     type: "warning",
+     showCancelButton: true,
+     confirmButtonColor: "#DD6B55",
+    });
+   }
+  },
+  cache: false,
+  contentType: 'application/json',
+  processData: false
+ });
+}

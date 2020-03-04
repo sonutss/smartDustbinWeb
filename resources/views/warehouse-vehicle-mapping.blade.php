@@ -103,7 +103,7 @@
             <ul class="nav nav-tabs sidebar-tabs" role="tablist"></ul>
             <div class="tab-content">
                 <div class="tab-pane pos-absolute a-0 mg-t-60 contact-scrollbar active" id="contacts" role="tabpanel">
-                    <label class="sidebar-label pd-x-25 mg-t-25 mg-b-20">Driver List</label>
+                    <label class="sidebar-label pd-x-25 mg-t-25 mg-b-20">Vehicle List</label>
                     <div class="contact-list pd-x-10">
                         <!-- <div class="input-group mg-b-20 mg-l-15 mg-r-15">
                             <input type="text" class="form-control" placeholder="Search for...">
